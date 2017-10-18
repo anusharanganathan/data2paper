@@ -1,0 +1,10 @@
+zh:
+  hyrax:
+    icons:
+      data_paper:     'fa fa-file-text-o'
+    select_type:
+      data_paper:
+        # TODO: translate `human_name` into Chinese
+        name:               "Data Paper"
+        # TODO: translate `human_name` into Chinese
+        description:        "Data paper 作品"

@@ -1,0 +1,8 @@
+en:
+  hyrax:
+    icons:
+      data_paper:     'fa fa-file-text-o'
+    select_type:
+      data_paper:
+        name:               "Data Paper"
+        description:        "Data paper works"
