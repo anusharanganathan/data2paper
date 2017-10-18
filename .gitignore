@@ -22,3 +22,5 @@
 
 .byebug_history
 .rbenv-vars
+/shared/*
+!/shared/.keep
