@@ -12,19 +12,19 @@ class DataPaper < ActiveFedora::Base
 
   self.human_readable_type = 'Data paper'
 
-  property :status, predicate: ::RDF::BIBO.status, multiple: false do |index|
+  property :status, predicate: ::RDF::Vocab::BIBO.status, multiple: false do |index|
     index.as :stored_sortable, :facetable
   end
 
-  property :statement_agreed, predicate: ::RDF::DatapaperTerms.agreementAccepted, multiple: false do |index|
+  property :statement_agreed, predicate: ::RDF::Vocab::DatapaperTerms.agreementAccepted, multiple: false do |index|
     index.as :symbol
   end
 
-  property :version, predicate: ::RDF::RioxxTerms.version, multiple: false do |index|
+  property :version, predicate: ::RDF::Vocab::RioxxTerms.version, multiple: false do |index|
     index.as :symbol, :facetable
   end
 
-  property :note, predicate: ::RDF::BIBO.Note, multiple: false do |index|
+  property :note, predicate: ::RDF::Vocab::BIBO.Note, multiple: false do |index|
     index.as :stored_searchable
   end
 
