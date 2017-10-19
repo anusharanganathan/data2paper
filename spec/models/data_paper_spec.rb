@@ -23,7 +23,7 @@ RSpec.describe DataPaper do
 
   describe 'status' do
     it 'has a single valued status' do
-      @obj = build(:data_paper, doi: 'In progress')
+      @obj = build(:data_paper, status: 'In progress')
       expect(@obj.status).to be_kind_of String
       expect(@obj.status).to eq 'In progress'
     end

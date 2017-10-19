@@ -211,6 +211,11 @@ GEM
       nokogiri (>= 1.4.3)
     erubi (1.7.0)
     execjs (2.7.0)
+    factory_girl (4.8.1)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.8.0)
+      factory_girl (~> 4.8.0)
+      railties (>= 3.0.0)
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
     faraday-encoding (0.0.4)
@@ -737,6 +742,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   devise-guests (~> 0.6)
+  factory_girl_rails (~> 4.8.0)
   fcrepo_wrapper
   hyrax (= 2.0.0.rc1)
   jbuilder (~> 2.5)
