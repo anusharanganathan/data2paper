@@ -1,0 +1,21 @@
+terms:
+  - id: http://purl.org/spar/datacite/orcid
+    term: Orcid
+  - id: http://purl.org/spar/datacite/isni
+    term: International Standard Name Identifier scheme (isni)
+  - id: http://purl.org/spar/datacite/local-personal-identifier-scheme
+    term: Local
+  - id: http://purl.org/spar/datacite/openid
+    term: Open ID
+  - id: http://purl.org/spar/datacite/researcherid
+    term: Researcher ID
+  - id: http://purl.org/spar/datacite/viaf
+    term: The Virtual International Authority File (viaf)
+  - id: http://purl.org/spar/datacite/dia
+    term: The Digital Author Identification system (dia)
+  - id: http://purl.org/spar/datacite/jst
+    term: Japanese Science and Technology Agency identifier scheme (jst)
+  - id: http://purl.org/spar/datacite/nii
+    term: National Individual Identifier scheme (nii)
+  - id: social-security-number
+    term: Social security number

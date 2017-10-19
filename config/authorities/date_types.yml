@@ -1,0 +1,21 @@
+terms:
+  - id: http://purl.org/dc/terms/dateAccepted
+    term: Accepted
+  - id: Available
+    term: Available
+  - id: http://bibframe.org/vocab/copyrightDate
+    term: Copyrighted
+  - id: Collected
+    term: Collected
+  - id: http://purl.org/dc/terms/created
+    term: Created
+  - id: http://purl.org/dc/terms/issued
+    term: Issued
+  - id: http://purl.org/dc/terms/issued
+    term: Published
+  - id: http://bibframe.org/vocab/providerDate
+    term: Submitted
+  - id: http://bibframe.org/vocab/changeDate
+    term: Updated
+  - id: http://purl.org/dc/terms/valid
+    term: Valid
