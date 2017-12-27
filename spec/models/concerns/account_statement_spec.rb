@@ -18,7 +18,7 @@ RSpec.describe AccountStatement, :vcr do
         {
           label: 'Sword V2',
           account_type: 'Sword V2',
-          account_name: 'Journal_sword',
+          account_name: 'Journal sword',
           service_email: 'submission@journal.com',
           service_homepage: 'http://example.com/swordv2',
           service_key: 'asdfwefqwerqwreqwre',
@@ -47,7 +47,7 @@ RSpec.describe AccountStatement, :vcr do
           service_email: 'submission@journal.com',
           service_homepage: 'http://example.com/swordv2',
           service_key: 'asdfwefqwerqwreqwre',
-          metadata_format: ['DC', 'MODS']
+          service_format: ['DC', 'MODS']
         }
       ]
     }

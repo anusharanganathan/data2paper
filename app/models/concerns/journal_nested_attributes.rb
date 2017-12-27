@@ -12,7 +12,7 @@ module JournalNestedAttributes
 
     # account_blank
     resource_class.send(:define_method, :account_blank) do |attributes|
-      Array(attributes[:account_type]).all?(&:blank? ||
+      Array(attributes[:account_type]).all?(&:blank?) ||
       Array(attributes[:service_format]).all?(&:blank?) ||
       (Array(attributes[:service_key]).all?(&:blank?) &&
       Array(attributes[:service_homepage]).all?(&:blank?)) ||
