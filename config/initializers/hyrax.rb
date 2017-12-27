@@ -1,6 +1,8 @@
 Hyrax.config do |config|
   # Injected via `rails g hyrax:work DataPaper`
   config.register_curation_concern :data_paper
+  # Injected via `rails g hyrax:work Journal`
+  config.register_curation_concern :journal
   # Register roles that are expected by your implementation.
   # @see Hyrax::RoleRegistry for additional details.
   # @note there are magical roles as defined in Hyrax::RoleRegistry::MAGIC_ROLES
