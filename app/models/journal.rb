@@ -7,7 +7,7 @@ class Journal < ActiveFedora::Base
   self.indexer = JournalIndexer
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []
-  validates :title, presence: { message: 'Your work must have a title.' }
+  validates :title, presence: { message: 'Your journal must have a title.' }
 
   self.human_readable_type = 'Journal'
 
@@ -16,7 +16,7 @@ class Journal < ActiveFedora::Base
   end
 
   property :editor, predicate: ::RDF::Vocab::BIBO.editor do |index|
-    index.as :stored_sortable, :facetable
+    index.as :stored_searchable, :facetable
   end
 
   property :review_process, predicate: ::RDF::Vocab::DatapaperTerms.reviewProcess do |index|
@@ -25,13 +25,17 @@ class Journal < ActiveFedora::Base
 
   property :average_publish_lead_time, predicate: ::RDF::Vocab::DatapaperTerms.averagePublishLeadTime, multiple: false
 
-  property :article_guidelines, predicate: ::RDF::Vocab::DatapaperTerms.articleGuidelines
+  property :article_guidelines, predicate: ::RDF::Vocab::DatapaperTerms.articleGuidelines  do |index|
+    index.as :stored_searchable
+  end
 
-  property :needs_apc, predicate: ::RDF::Vocab::DatapaperTerms.needsArticleProcessingCharge do |index|
+  property :needs_apc, predicate: ::RDF::Vocab::DatapaperTerms.needsArticleProcessingCharge, multiple: false do |index|
     index.as :stored_sortable, :facetable
   end
 
-  property :apc_statement, predicate: ::RDF::Vocab::DatapaperTerms.articleProcessingChargeStatement
+  property :apc_statement, predicate: ::RDF::Vocab::DatapaperTerms.articleProcessingChargeStatement  do |index|
+    index.as :stored_searchable
+  end
 
   property :oa_statement, predicate: ::RDF::Vocab::DatapaperTerms.openAccessStatement do |index|
     index.as :stored_searchable
@@ -41,9 +45,13 @@ class Journal < ActiveFedora::Base
     index.as :stored_sortable, :facetable
   end
 
-  property :supported_license, predicate: ::RDF::Vocab::DatapaperTerms.supportedLicense
+  property :supported_license, predicate: ::RDF::Vocab::DatapaperTerms.supportedLicense do |index|
+    index.as :stored_searchable
+  end
 
-  property :declaration_required, predicate: ::RDF::Vocab::DatapaperTerms.declarationRequired
+  property :declaration_statement, predicate: ::RDF::Vocab::DatapaperTerms.declarationStatement  do |index|
+    index.as :stored_searchable
+  end
 
   property :owner, predicate: ::RDF::Vocab::ACL.owner
 

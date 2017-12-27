@@ -14,7 +14,7 @@ module RDF
       property :openAccessStatement
       property :openAccessLevel
       property :supportedLicense
-      property :declarationRequired
+      property :declarationStatement
       property :agreementAccepted
     end
   end

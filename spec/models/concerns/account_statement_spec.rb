@@ -17,19 +17,23 @@ RSpec.describe AccountStatement, :vcr do
       account_attributes: [
         {
           label: 'Sword V2',
+          account_type: 'Sword V2',
           account_name: 'Journal_sword',
+          service_email: 'submission@journal.com',
           service_homepage: 'http://example.com/swordv2',
           service_key: 'asdfwefqwerqwreqwre',
-          metadata_format: ['DC', 'MODS']
+          service_format: ['DC', 'MODS']
         }
       ]
     }
     expect(@obj.account.first).to be_kind_of ActiveTriples::Resource
     expect(@obj.account.first.label).to eq ['Sword V2']
+    expect(@obj.account.first.account_type).to eq ['Sword V2']
     expect(@obj.account.first.account_name).to eq ['Journal sword']
     expect(@obj.account.first.service_homepage).to eq ['http://example.com/swordv2']
+    expect(@obj.account.first.service_email).to eq ['submission@journal.com']
     expect(@obj.account.first.service_key).to eq ['asdfwefqwerqwreqwre']
-    expect(@obj.account.first.metadata_format).to eq ['DC', 'MODS']
+    expect(@obj.account.first.service_format).to eq ['DC', 'MODS']
   end
 
   it 'has the correct uri' do
@@ -38,7 +42,9 @@ RSpec.describe AccountStatement, :vcr do
       account_attributes: [
         {
           label: 'Sword V2',
+          account_type: 'Sword V2',
           account_name: 'Journal_sword',
+          service_email: 'submission@journal.com',
           service_homepage: 'http://example.com/swordv2',
           service_key: 'asdfwefqwerqwreqwre',
           metadata_format: ['DC', 'MODS']

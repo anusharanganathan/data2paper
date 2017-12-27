@@ -10,15 +10,13 @@ module JournalNestedAttributes
     accepts_nested_attributes_for :account, reject_if: :account_blank, allow_destroy: true
     accepts_nested_attributes_for :contact, reject_if: :contact_blank, allow_destroy: true
 
-    # account_blank - similar to all_blank for defined account attributes
+    # account_blank
     resource_class.send(:define_method, :account_blank) do |attributes|
-      account_attributes.all? do |key|
-        Array(attributes[key]).all?(&:blank?)
-      end
-    end
-
-    resource_class.send(:define_method, :account_attributes) do
-      [:account_name, :service_homepage, :service_key]
+      Array(attributes[:account_type]).all?(&:blank? ||
+      Array(attributes[:service_format]).all?(&:blank?) ||
+      (Array(attributes[:service_key]).all?(&:blank?) &&
+      Array(attributes[:service_homepage]).all?(&:blank?)) ||
+      Array(attributes[:service_email]).all?(&:blank?)
     end
 
     # contact_blank - similar to all_blank for defined contact attributes
