@@ -31,13 +31,10 @@ class DataPaper < ActiveFedora::Base
   property :date, predicate: ::RDF::Vocab::DC.date, class_name:"DateStatement"
   property :creator_nested, predicate: ::RDF::Vocab::SIOC.has_creator, class_name:"PersonStatement"
   property :relation, predicate: ::RDF::Vocab::DC.relation, class_name:"RelationStatement"
+  property :license_nested, predicate: ::RDF::Vocab::DC.license, class_name:"LicenseStatement"
 
-  property :date, predicate: ::RDF::Vocab::DC.date, class_name:"DateStatement"
-  property :creator_nested, predicate: ::RDF::Vocab::SIOC.has_creator, class_name:"PersonStatement"
-  property :relation, predicate: ::RDF::Vocab::DC.relation, class_name:"RelationStatement"
-
-  # TODO: Add Journal
-  # TODO: Add type to files
+  # NOTE: Journal model has_many data_papers
+  # TODO: Add type to files model
 
   # This must be included at the end, because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)
@@ -46,17 +43,18 @@ class DataPaper < ActiveFedora::Base
 end
 
 # title
-# creator - nested?
+# creator - nested
 # description
 # keyword
 # subject
-# related_url - nested?
+# related_url - nested
 # status - add
 # source
-# journal - add
-# files - type of file
 # license - nested?
 # rights_statement
 # rights_statement_agreed - add
 # notes - add
 # version - add
+
+# journal has_many data_papers in journal model
+# data papers has many files - add type of file in File model

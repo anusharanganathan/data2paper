@@ -31,6 +31,11 @@ class DataPaperIndexer < Hyrax::WorkIndexer
       solr_doc[Solrizer.solr_name('relation_url', :facetable)] = object.relation.map { |r| r.url.first }.reject(&:blank?)
       solr_doc[Solrizer.solr_name('relation_id', :facetable)] = object.relation.map { |r| r.identifier.first }.reject(&:blank?)
       solr_doc[Solrizer.solr_name('relation', :displayable)] = object.relation.to_json
+      # rights
+      solr_doc[Solrizer.solr_name('license_nested', :stored_searchable)] = object.license_nested.map { |r| r.webpage.first }.reject(&:blank?)
+      solr_doc[Solrizer.solr_name('license_nested', :facetable)] = object.license_nested.map { |r| r.webpage.first }.reject(&:blank?)
+      solr_doc[Solrizer.solr_name('license_nested', :displayable)] = object.license_nested.to_json
+
     end
   end
 end

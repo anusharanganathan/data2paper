@@ -10,6 +10,7 @@ module DataPaperNestedAttributes
     accepts_nested_attributes_for :date, reject_if: :date_blank, allow_destroy: true
     accepts_nested_attributes_for :creator_nested, reject_if: :creator_blank, allow_destroy: true
     accepts_nested_attributes_for :relation, reject_if: :relation_blank, allow_destroy: true
+    accepts_nested_attributes_for :license_nested, reject_if: :license_blank, allow_destroy: true
 
     # date_blank
     resource_class.send(:define_method, :date_blank) do |attributes|
@@ -34,9 +35,15 @@ module DataPaperNestedAttributes
       Array(attributes[:relationship_name]).all?(&:blank?))
     end
 
-    # admin_metadata_blank
-    resource_class.send(:define_method, :admin_metadata_blank) do |attributes|
-      Array(attributes[:question]).all?(&:blank?)
+    # license_blank - similar to all_blank for defined license attributes
+    resource_class.send(:define_method, :license_blank) do |attributes|
+      license_attributes.all? do |key|
+        Array(attributes[key]).all?(&:blank?)
+      end
+    end
+
+    resource_class.send(:define_method, :license_attributes) do
+      [:label, :definition, :webpage]
     end
   end
 end

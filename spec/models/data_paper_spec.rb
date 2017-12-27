@@ -429,4 +429,82 @@ RSpec.describe DataPaper do
     end
   end
 
+    describe 'nested attributes for rights' do
+    it 'accepts rights attributes' do
+      @obj = build(:data_paper, license_nested_attributes: [{
+            label: 'A rights label',
+            definition: 'A definition of the rights',
+            webpage: 'http://example.com/rights',
+            start_date: '2017-12-21'
+          }]
+      )
+      expect(@obj.license_nested.first).to be_kind_of ActiveTriples::Resource
+      expect(@obj.license_nested.first.label).to eq ['A rights label']
+      expect(@obj.license_nested.first.definition).to eq ['A definition of the rights']
+      expect(@obj.license_nested.first.webpage).to eq ['http://example.com/rights']
+      expect(@obj.license_nested.first.start_date).to eq ['2017-12-21']
+    end
+
+    it 'has the correct uri' do
+      @obj = build(:data_paper, license_nested_attributes: [{
+            label: 'A rights label',
+            definition: 'A definition of the rights',
+            webpage: 'http://example.com/rights',
+            start_date: '2017-12-21'
+          }]
+      )
+      expect(@obj.license_nested.first.id).to include('#rights')
+    end
+
+    it 'rejects rights attributes if label, definition and webpage attribute is blank' do
+      @obj = build(:data_paper, license_nested_attributes: [{
+            label: 'A rights label'
+          }, {
+            definition: 'A definition of the rights'
+          }, {
+            webpage: 'http://example.com/rights'
+          }, {
+            start_date: '2017-12-21'
+          }, {
+            label: '',
+            definition: nil,
+            webpage: ''
+          }]
+      )
+      expect(@obj.license_nested.size).to eq(3)
+    end
+
+    it 'destroys rights' do
+      @obj = build(:data_paper, license_nested_attributes: [{
+            label: 'test label'
+          }]
+      )
+      expect(@obj.license_nested.size).to eq(1)
+      @obj.attributes = {
+        license_nested_attributes: [{
+            id: @obj.license_nested.first.id,
+            label: 'test label',
+            _destroy: "1"
+          }]
+      }
+      expect(@obj.license_nested.size).to eq(0)
+    end
+
+    it 'indexes the rights' do
+      @obj = build(:data_paper, license_nested_attributes: [{
+            label: 'A rights label',
+            definition: 'A definition of the rights',
+            webpage: 'http://example.com/rights'
+          }, {
+            label: 'A 2nd rights label',
+            webpage: 'http://example.com/rights_2nd'
+          }]
+      )
+      @doc = @obj.to_solr
+      expect(@doc['license_nested_sim']).to match_array(
+        ['http://example.com/rights', 'http://example.com/rights_2nd'])
+      expect(@doc).to include('license_nested_tesim')
+    end
+  end
+
 end
