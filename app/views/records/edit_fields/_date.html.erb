@@ -1,0 +1,14 @@
+<div class="multi-nested">
+  <%= f.input :date,
+    as: :date_statement,
+    input_html: {
+      class: '',
+      data: {name: :date}
+    },
+    required: f.object.required?(:date)
+  %>
+  <button type="button" class="btn btn-link add">
+    <span class="glyphicon glyphicon-plus"></span>
+    <span class="controls-add-text">Add another Date</span>
+  </button>
+</div>

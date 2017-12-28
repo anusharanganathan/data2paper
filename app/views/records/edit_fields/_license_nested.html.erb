@@ -1,0 +1,14 @@
+<div class="multi-nested">
+  <%= f.input :license_nested,
+    as: :license_statement,
+    input_html: {
+      class: '',
+      data: {name: :license_nested}
+    },
+    required: f.object.required?(:license_nested)
+  %>
+  <button type="button" class="btn btn-link add">
+    <span class="glyphicon glyphicon-plus"></span>
+    <span class="controls-add-text">Add another License</span>
+  </button>
+</div>

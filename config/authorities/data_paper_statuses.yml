@@ -1,0 +1,9 @@
+terms:
+  - id: new
+    term: New
+  - id: draft
+    term: Draft
+  - id: submitted
+    term: Submitted
+  - id: published
+    term: Published

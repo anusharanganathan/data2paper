@@ -42,28 +42,33 @@ class DataPaper < ActiveFedora::Base
   include ::Hyrax::BasicMetadata
   include DataPaperNestedAttributes
 end
-
-# Not needed
-#   based_near
-#   creator
-#   contributor
-#   license
-#   related_url
-#   publisher
-#   resource_type
-#   language
-
-# Existing
+# -----------------------------------------
+# Not needed        # Existing
+#   based_near      #   title
+#   creator         #   description
+#   contributor     #   keyword
+#   date_created    #   subject
+#   identifier      #   rights_statement
+#   language        #   source
+#   license         #
+#   publisher       # Files
+#   related_url     #   Data paper
+#   resource_type   #   Supplementary file
+#                   #   metadata file
+# -----------------------------------------
+# Fields in order
 #   title
-#   identifier
-#   description
+#   creator_nested
+#   description (abstract)
 #   keyword
 #   subject
-#   rights_statement
-#   date_created
+#   date
+#   relation
+#   tagged_version
 #   source
-
-# Files
-#   Data paper
-#   Supplementary file
-#   metadata file
+#   license_nested
+#   rights_statement
+#   statement_agreed
+#   note
+#   status
+# -----------------------------------------
