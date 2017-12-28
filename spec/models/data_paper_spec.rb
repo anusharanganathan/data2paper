@@ -37,11 +37,11 @@ RSpec.describe DataPaper do
     end
   end
 
-  describe 'version' do
-    it 'has version' do
-      @obj = build(:data_paper, version: '1.0')
-      expect(@obj.version).to be_kind_of String
-      expect(@obj.version).to eq '1.0'
+  describe 'tagged_version' do
+    it 'has tagged_version' do
+      @obj = build(:data_paper, tagged_version: '1.0')
+      expect(@obj.tagged_version).to be_kind_of String
+      expect(@obj.tagged_version).to eq '1.0'
     end
   end
 

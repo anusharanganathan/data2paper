@@ -20,7 +20,7 @@ class DataPaper < ActiveFedora::Base
     index.as :symbol
   end
 
-  property :version, predicate: ::RDF::Vocab::RioxxTerms.version, multiple: false do |index|
+  property :tagged_version, predicate: ::RDF::Vocab::RioxxTerms.version, multiple: false do |index|
     index.as :symbol, :facetable
   end
 
@@ -43,19 +43,27 @@ class DataPaper < ActiveFedora::Base
   include DataPaperNestedAttributes
 end
 
-# title
-# creator - nested
-# description
-# keyword
-# subject
-# related_url - nested
-# status - add
-# source
-# license - nested?
-# rights_statement
-# rights_statement_agreed - add
-# notes - add
-# version - add
+# Not needed
+#   based_near
+#   creator
+#   contributor
+#   license
+#   related_url
+#   publisher
+#   resource_type
+#   language
 
-# journal has_many data_papers in journal model
-# data papers has many files - add type of file in File model
+# Existing
+#   title
+#   identifier
+#   description
+#   keyword
+#   subject
+#   rights_statement
+#   date_created
+#   source
+
+# Files
+#   Data paper
+#   Supplementary file
+#   metadata file
