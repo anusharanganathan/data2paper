@@ -33,7 +33,8 @@ class DataPaper < ActiveFedora::Base
   property :relation, predicate: ::RDF::Vocab::DC.relation, class_name:"RelationStatement"
   property :license_nested, predicate: ::RDF::Vocab::DC.license, class_name:"LicenseStatement"
 
-  # NOTE: Journal model has_many data_papers
+  # data paper belongs to journal
+  belongs_to :journal, predicate: ::RDF::Vocab::DC.references
   # TODO: Add type to files model
 
   # This must be included at the end, because it finalizes the metadata

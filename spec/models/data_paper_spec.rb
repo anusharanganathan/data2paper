@@ -507,4 +507,9 @@ RSpec.describe DataPaper do
     end
   end
 
+  it "should belong to journal" do
+    t = DataPaper.reflect_on_association(:journal)
+    expect(t.macro).to eq(:belongs_to)
+  end
+
 end
