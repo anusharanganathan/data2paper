@@ -477,4 +477,11 @@ RSpec.describe Journal do
     end
   end
 
+  describe 'associated with data paper' do
+    it "have many data papers" do
+      t = Journal.reflect_on_association(:data_papers)
+      expect(t.macro).to eq(:has_many)
+    end
+  end
+
 end

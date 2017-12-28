@@ -61,6 +61,8 @@ class Journal < ActiveFedora::Base
 
   property :contact, predicate: ::RDF::Vocab::DCAT.contactPoint, class_name: "ContactStatement"
 
+  has_many :data_papers
+
   # This must be included at the end, because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)
   include ::Hyrax::BasicMetadata
