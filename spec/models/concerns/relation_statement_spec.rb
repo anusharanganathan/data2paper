@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe RelationStatement, :vcr do
+RSpec.describe RelationStatement do
   before do
     class ExampleWork < ActiveFedora::Base
       property :relation, predicate: ::RDF::Vocab::DC.relation, class_name:"RelationStatement"

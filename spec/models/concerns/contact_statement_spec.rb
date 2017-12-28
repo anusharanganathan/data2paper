@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ContactStatement, :vcr do
+RSpec.describe ContactStatement do
   before do
     class ExampleWork < ActiveFedora::Base
       property :contact, predicate: ::RDF::Vocab::DCAT.contactPoint, class_name: "ContactStatement"

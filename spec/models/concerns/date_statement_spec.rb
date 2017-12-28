@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe DateStatement, :vcr do
+RSpec.describe DateStatement do
   before do
     class ExampleWork < ActiveFedora::Base
       property :date, predicate: ::RDF::Vocab::DC.date, class_name:"DateStatement"

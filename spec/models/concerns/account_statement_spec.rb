@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe AccountStatement, :vcr do
+RSpec.describe AccountStatement do
   before do
     class ExampleWork < ActiveFedora::Base
       property :account, predicate: ::RDF::Vocab::FOAF.account, class_name:"AccountStatement"

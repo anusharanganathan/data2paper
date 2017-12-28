@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe LicenseStatement, :vcr do
+RSpec.describe LicenseStatement do
   before do
     class ExampleWork < ActiveFedora::Base
       property :license_nested, predicate: ::RDF::Vocab::DC.rights, class_name:"LicenseStatement"

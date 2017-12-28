@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe PersonStatement, :vcr do
+RSpec.describe PersonStatement do
   before do
     class ExampleWork < ActiveFedora::Base
       property :creator_nested, predicate: ::RDF::Vocab::DC.creator, class_name:"PersonStatement"
