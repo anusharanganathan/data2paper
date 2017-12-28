@@ -1,29 +1,5 @@
 terms:
-  - id: Audiovisual
-    term: Audio visual
-  - id: Collection
-    term: Collection
-  - id: Dataset
-    term: Dataset
-  - id: Event
-    term: Event
-  - id: Image
-    term: Image
-  - id: InteractiveResource
-    term: Interactive resource
-  - id: Model
-    term: Model
-  - id: PhysicalObject
-    term: Physical object
-  - id: Service
-    term: Service
-  - id: Software
-    term: Software
-  - id: Sound
-    term: Sound
-  - id: Text
-    term: Text
-  - id: Workflow
-    term: Workflow
-  - id: Other
-    term: Other
+  - id: data journal
+    term: Data journal
+  - id: journal accepting data papers
+    term: Journal accepting data papers

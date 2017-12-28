@@ -19,6 +19,8 @@ class Journal < ActiveFedora::Base
     index.as :stored_searchable, :facetable
   end
 
+  property :date, predicate: ::RDF::Vocab::DC.date, class_name:"DateStatement"
+
   property :review_process, predicate: ::RDF::Vocab::DatapaperTerms.reviewProcess do |index|
     index.as :stored_searchable
   end
@@ -67,30 +69,51 @@ class Journal < ActiveFedora::Base
   # schema (by adding accepts_nested_attributes)
   include ::Hyrax::BasicMetadata
   include JournalNestedAttributes
-
-  # Not needed
-  #   based_near
-  #   creator
-  #   contributor
-  #   license
-  #   related_url
-  #   rights_statement
-
-  # Existing
-  #   title - Destination archive / journal
-  #   identifier
-  #   publisher
-  #   type of journal - resource_type
-  #   description
-  #   keyword
-  #   subject
-  #   language
-  #   date_created
-  #   source
-
-  # Files
-  #   Journal logo
-  #   Open access logo - Could be derived based on open access level
-  #   template files
-
 end
+
+# -----------------------------------------
+# Not needed         # Existing
+#   based_near       #   title
+#   creator          #   identifier
+#   contributor      #   publisher
+#   license          #   resource_type
+#   related_url      #   description
+#   rights_statement #   keyword
+#   date_created     #   subject
+#                    #   language
+#                    #   source
+# -----------------------------------------
+# Files
+#   template files
+#   Journal logo
+#   Open access logo - Could be derived based on open access level
+# -----------------------------------------
+# Fields in order
+#   title (Destination journal or archive)
+#   identifier (ISSN)
+#   homepage
+#   resource_type (Data journal / Journal accepting data papers)
+#   publisher
+#   description
+#   keyword
+#   subject
+#   language
+#   editor
+#   contact
+#     name / email / telephone
+#   review_process
+#   average_publish_lead_time
+#   article_guidelines
+#   needs_apc
+#   apc_statement
+#   oa_level
+#   oa_statement
+#   supported_license
+#   declaration_statement
+#   owner
+#   agent_group
+#   account
+#     sword / email
+#   date (created & modified)
+#   source
+# -----------------------------------------

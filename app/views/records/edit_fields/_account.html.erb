@@ -1,0 +1,14 @@
+<div class="multi-nested">
+  <%= f.input :account,
+    as: :account_statement,
+    input_html: {
+      class: '',
+      data: {name: :account}
+    },
+    required: f.object.required?(:account)
+  %>
+  <button type="button" class="btn btn-link add">
+    <span class="glyphicon glyphicon-plus"></span>
+    <span class="controls-add-text">Add another Account</span>
+  </button>
+</div>

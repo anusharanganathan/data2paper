@@ -1,0 +1,14 @@
+<div class="multi-nested">
+  <%= f.input :contact,
+    as: :contact_statement,
+    input_html: {
+      class: '',
+      data: {name: :contact}
+    },
+    required: f.object.required?(:contact)
+  %>
+  <button type="button" class="btn btn-link add">
+    <span class="glyphicon glyphicon-plus"></span>
+    <span class="controls-add-text">Add another Contact</span>
+  </button>
+</div>
