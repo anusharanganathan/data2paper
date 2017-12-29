@@ -43,15 +43,20 @@ class CatalogController < ApplicationController
     #   The ordering of the field names is the order of the display
     config.add_facet_field solr_name("human_readable_type", :facetable), label: "Type", limit: 5
     config.add_facet_field solr_name("resource_type", :facetable), label: "Resource Type", limit: 5
-    config.add_facet_field solr_name("creator", :facetable), limit: 5
-    config.add_facet_field solr_name("contributor", :facetable), label: "Contributor", limit: 5
+    config.add_facet_field solr_name("creator_nested", :facetable), label: "Creator", limit: 5
     config.add_facet_field solr_name("keyword", :facetable), limit: 5
     config.add_facet_field solr_name("subject", :facetable), limit: 5
     config.add_facet_field solr_name("language", :facetable), limit: 5
-    config.add_facet_field solr_name("based_near_label", :facetable), limit: 5
     config.add_facet_field solr_name("publisher", :facetable), limit: 5
     config.add_facet_field solr_name("file_format", :facetable), limit: 5
     config.add_facet_field solr_name('member_of_collections', :symbol), limit: 5, label: 'Collections'
+    config.add_facet_field solr_name("status", :facetable), limit: 5
+    config.add_facet_field solr_name("tagged_version", :facetable), label: "Version", limit: 5
+    config.add_facet_field solr_name("editor", :facetable), limit: 5
+    config.add_facet_field solr_name("needs_apc", :facetable), label: "Needs Article processing charge", limit: 5
+    config.add_facet_field solr_name("oa_level", :facetable), label: "Open access level", limit: 5
+    config.add_facet_field solr_name("account_type", :facetable), label: "Account type", limit: 5
+    config.add_facet_field solr_name("contact_label", :facetable), label: "Contact information", limit: 5
 
     # The generic_type isn't displayed on the facet list
     # It's used to give a label to the filter that comes from the user profile
@@ -69,6 +74,7 @@ class CatalogController < ApplicationController
     config.add_index_field solr_name("keyword", :stored_searchable), itemprop: 'keywords', link_to_search: solr_name("keyword", :facetable)
     config.add_index_field solr_name("subject", :stored_searchable), itemprop: 'about', link_to_search: solr_name("subject", :facetable)
     config.add_index_field solr_name("creator", :stored_searchable), itemprop: 'creator', link_to_search: solr_name("creator", :facetable)
+    config.add_index_field solr_name("creator_nested", :stored_searchable), label: "Creator", itemprop: 'creator', link_to_search: solr_name("creator_nested", :facetable)
     config.add_index_field solr_name("contributor", :stored_searchable), itemprop: 'contributor', link_to_search: solr_name("contributor", :facetable)
     config.add_index_field solr_name("proxy_depositor", :symbol), label: "Depositor", helper_method: :link_to_profile
     config.add_index_field solr_name("depositor"), label: "Owner", helper_method: :link_to_profile
@@ -85,6 +91,13 @@ class CatalogController < ApplicationController
     config.add_index_field solr_name("identifier", :stored_searchable), helper_method: :index_field_link, field_name: 'identifier'
     config.add_index_field solr_name("embargo_release_date", :stored_sortable, type: :date), label: "Embargo release date", helper_method: :human_readable_date
     config.add_index_field solr_name("lease_expiration_date", :stored_sortable, type: :date), label: "Lease expiration date", helper_method: :human_readable_date
+    config.add_index_field solr_name("status", :stored_sortable), link_to_search: solr_name("status", :facetable)
+    config.add_index_field solr_name("editor", :stored_searchable), link_to_search: solr_name("editor", :facetable)
+    config.add_index_field solr_name("needs_apc", :stored_sortable), link_to_search: solr_name("needs_apc", :facetable)
+    config.add_index_field solr_name("oa_level", :stored_sortable), link_to_search: solr_name("oa_level", :facetable)
+    config.add_index_field solr_name("account_type", :facetable), link_to_search: solr_name("account_type", :facetable)
+    config.add_index_field solr_name("contact_label", :facetable), link_to_search: solr_name("contact_label", :facetable)
+
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
@@ -105,6 +118,28 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("resource_type", :stored_searchable), label: "Resource Type"
     config.add_show_field solr_name("format", :stored_searchable)
     config.add_show_field solr_name("identifier", :stored_searchable)
+    config.add_show_field solr_name("creator_nested", :displayable), label: "Creator"
+    config.add_show_field solr_name("date", :displayable), label: "Dates"
+    config.add_show_field solr_name("relation", :displayable), label: "Related dataset"
+    config.add_show_field solr_name("tagged_version", :stored_sortable), label: "Version"
+    config.add_show_field solr_name("license_nested", :displayable), label: "License"
+    config.add_show_field solr_name("statement_agreed", :stored_sortable), label: "Statement agreed"
+    config.add_show_field solr_name("status", :stored_sortable)
+    config.add_show_field solr_name("homepage", :stored_searchable)
+    config.add_show_field solr_name("editor", :stored_searchable)
+    config.add_show_field solr_name("review_process", :stored_searchable)
+    config.add_show_field solr_name("average_publish_lead_time", :stored_searchable)
+    config.add_show_field solr_name("article_guidelines", :stored_searchable)
+    config.add_show_field solr_name("needs_apc", :stored_sortable)
+    config.add_show_field solr_name("apc_statement", :stored_searchable)
+    config.add_show_field solr_name("oa_statement", :stored_searchable)
+    config.add_show_field solr_name("oa_level", :stored_sortable)
+    config.add_show_field solr_name("supported_license", :stored_searchable)
+    config.add_show_field solr_name("declaration_statement", :stored_searchable)
+    config.add_show_field solr_name("owner", :stored_searchable)
+    config.add_show_field solr_name("agent_group", :stored_searchable)
+    config.add_show_field solr_name("account", :displayable)
+    config.add_show_field solr_name("contact", :displayable)
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields

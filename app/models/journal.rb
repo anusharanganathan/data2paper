@@ -12,20 +12,22 @@ class Journal < ActiveFedora::Base
   self.human_readable_type = 'Journal'
 
   property :homepage, predicate: ::RDF::Vocab::FOAF.homepage do |index|
-    index.as :symbol
+    index.as :symbol, :stored_searchable
   end
 
   property :editor, predicate: ::RDF::Vocab::BIBO.editor do |index|
     index.as :stored_searchable, :facetable
   end
 
-  property :date, predicate: ::RDF::Vocab::DC.date, class_name:"DateStatement"
+  property :contact, predicate: ::RDF::Vocab::DCAT.contactPoint, class_name: "ContactStatement"
 
   property :review_process, predicate: ::RDF::Vocab::DatapaperTerms.reviewProcess do |index|
     index.as :stored_searchable
   end
 
-  property :average_publish_lead_time, predicate: ::RDF::Vocab::DatapaperTerms.averagePublishLeadTime, multiple: false
+  property :average_publish_lead_time, predicate: ::RDF::Vocab::DatapaperTerms.averagePublishLeadTime, multiple: false do |index|
+    index.as :stored_searchable
+  end
 
   property :article_guidelines, predicate: ::RDF::Vocab::DatapaperTerms.articleGuidelines  do |index|
     index.as :stored_searchable
@@ -39,12 +41,12 @@ class Journal < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :oa_statement, predicate: ::RDF::Vocab::DatapaperTerms.openAccessStatement do |index|
-    index.as :stored_searchable
-  end
-
   property :oa_level, predicate: ::RDF::Vocab::DatapaperTerms.openAccessLevel, multiple: false do |index|
     index.as :stored_sortable, :facetable
+  end
+
+  property :oa_statement, predicate: ::RDF::Vocab::DatapaperTerms.openAccessStatement do |index|
+    index.as :stored_searchable
   end
 
   property :supported_license, predicate: ::RDF::Vocab::DatapaperTerms.supportedLicense do |index|
@@ -55,13 +57,17 @@ class Journal < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :owner, predicate: ::RDF::Vocab::ACL.owner
+  property :owner, predicate: ::RDF::Vocab::ACL.owner do |index|
+    index.as :stored_searchable
+  end
 
-  property :agent_group, predicate: ::RDF::Vocab::ACL.agentGroup
+  property :agent_group, predicate: ::RDF::Vocab::ACL.agentGroup do |index|
+    index.as :stored_searchable
+  end
 
   property :account, predicate: ::RDF::Vocab::FOAF.account, class_name: "AccountStatement"
 
-  property :contact, predicate: ::RDF::Vocab::DCAT.contactPoint, class_name: "ContactStatement"
+  property :date, predicate: ::RDF::Vocab::DC.date, class_name:"DateStatement"
 
   has_many :data_papers
 
@@ -91,29 +97,29 @@ end
 # Fields in order
 #   title (Destination journal or archive)
 #   identifier (ISSN)
-#   homepage
+# * homepage
 #   resource_type (Data journal / Journal accepting data papers)
 #   publisher
 #   description
 #   keyword
 #   subject
 #   language
-#   editor
-#   contact
+# * editor
+# * contact
 #     name / email / telephone
-#   review_process
-#   average_publish_lead_time
-#   article_guidelines
-#   needs_apc
-#   apc_statement
-#   oa_level
-#   oa_statement
-#   supported_license
-#   declaration_statement
-#   owner
-#   agent_group
-#   account
-#     sword / email
-#   date (created & modified)
+# * review_process
+# * average_publish_lead_time
+# * article_guidelines
+# * needs_apc - facet
+# * apc_statement
+# * oa_level - facet
+# * oa_statement
+# * supported_license
+# * declaration_statement
+# * owner
+# * agent_group
+# * account
+#     sword / email (account type facet)
+# * date (created & modified)
 #   source
 # -----------------------------------------

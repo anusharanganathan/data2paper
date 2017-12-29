@@ -12,26 +12,29 @@ class DataPaper < ActiveFedora::Base
 
   self.human_readable_type = 'Data paper'
 
-  property :status, predicate: ::RDF::Vocab::BIBO.status, multiple: false do |index|
+  property :creator_nested, predicate: ::RDF::Vocab::SIOC.has_creator, class_name:"PersonStatement"
+
+  property :date, predicate: ::RDF::Vocab::DC.date, class_name:"DateStatement"
+
+  property :relation, predicate: ::RDF::Vocab::DC.relation, class_name:"RelationStatement"
+
+  property :tagged_version, predicate: ::RDF::Vocab::RioxxTerms.version, multiple: false do |index|
     index.as :stored_sortable, :facetable
   end
 
-  property :statement_agreed, predicate: ::RDF::Vocab::DatapaperTerms.agreementAccepted, multiple: false do |index|
-    index.as :symbol
-  end
+  property :license_nested, predicate: ::RDF::Vocab::DC.license, class_name:"LicenseStatement"
 
-  property :tagged_version, predicate: ::RDF::Vocab::RioxxTerms.version, multiple: false do |index|
-    index.as :symbol, :facetable
+  property :statement_agreed, predicate: ::RDF::Vocab::DatapaperTerms.agreementAccepted, multiple: false do |index|
+    index.as :symbol, :stored_sortable
   end
 
   property :note, predicate: ::RDF::Vocab::BIBO.Note, multiple: false do |index|
     index.as :stored_searchable
   end
 
-  property :date, predicate: ::RDF::Vocab::DC.date, class_name:"DateStatement"
-  property :creator_nested, predicate: ::RDF::Vocab::SIOC.has_creator, class_name:"PersonStatement"
-  property :relation, predicate: ::RDF::Vocab::DC.relation, class_name:"RelationStatement"
-  property :license_nested, predicate: ::RDF::Vocab::DC.license, class_name:"LicenseStatement"
+  property :status, predicate: ::RDF::Vocab::BIBO.status, multiple: false do |index|
+    index.as :stored_sortable, :facetable
+  end
 
   # data paper belongs to journal
   belongs_to :journal, predicate: ::RDF::Vocab::DC.references
@@ -58,17 +61,17 @@ end
 # -----------------------------------------
 # Fields in order
 #   title
-#   creator_nested
+# * creator_nested - facet
 #   description (abstract)
-#   keyword
-#   subject
-#   date
-#   relation
-#   tagged_version
+#   keyword - facet
+#   subject - facet
+# * date
+# * relation
+# * tagged_version - facet
 #   source
-#   license_nested
+# * license_nested
 #   rights_statement
-#   statement_agreed
-#   note
-#   status
+# * statement_agreed
+# * note
+# * status - facet
 # -----------------------------------------
