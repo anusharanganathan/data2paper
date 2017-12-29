@@ -1,8 +1,8 @@
 <%= f.input key,
-  as: :select,
+  as: :radio_buttons,
   collection: OpenAccessLevelsService.select_all_options,
   input_html: {
     class: 'form-control',
-    prompt: 'Select version'
+    prompt: 'Select open access level'
   }
 %>

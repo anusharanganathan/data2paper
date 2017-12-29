@@ -44,7 +44,7 @@ protected
     out << "  <div class='col-md-9'>"
 
     out << @builder.text_field(field_name,
-        options.merge(value: field_value, name: field_name, id: field_id, required: required))
+        options.merge(value: field_value, name: field_name, id: field_id, required: required, type: 'email'))
     out << '  </div>'
     out << '</div>' # row
 
@@ -81,7 +81,7 @@ protected
 
     out << "  <div class='col-md-6'>"
     out << @builder.text_field(field_name,
-        options.merge(value: field_value, name: field_name, id: field_id, required: false))
+        options.merge(value: field_value, name: field_name, id: field_id, required: false, type: 'tel'))
     out << '  </div>'
 
     # --- delete checkbox
