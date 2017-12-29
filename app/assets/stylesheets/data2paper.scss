@@ -1,0 +1,28 @@
+/* Form */
+form .row {
+  padding-bottom: 5px;
+}
+
+form .field-wrapper:not(:last-child) {
+  padding-bottom: 1em;
+}
+
+form .field-wrapper label[required="required"]::after {
+  content: " *";
+  color: red;
+}
+
+/* Nested fields in form */
+.multi-nested .form-group,
+.multi-nested .listing, {
+  margin-bottom: 0px;
+}
+
+.multi-nested .btn {
+  padding-top: 0px;
+}
+
+.multi-nested {
+  margin-bottom: 1em;
+}
+
