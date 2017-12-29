@@ -15,6 +15,7 @@ form .field-wrapper label[required="required"]::after {
 /* Nested fields in form */
 .multi-nested .form-group,
 .multi-nested .listing, {
+  list-style: none;
   margin-bottom: 0px;
 }
 
