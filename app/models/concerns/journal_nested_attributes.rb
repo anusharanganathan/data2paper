@@ -8,6 +8,7 @@ module JournalNestedAttributes
     id_blank = proc { |attributes| attributes[:id].blank? }
 
     accepts_nested_attributes_for :account, reject_if: :account_blank, allow_destroy: true
+    accepts_nested_attributes_for :date, reject_if: :date_blank, allow_destroy: true
     accepts_nested_attributes_for :contact, reject_if: :contact_blank, allow_destroy: true
 
     # account_blank
@@ -18,6 +19,11 @@ module JournalNestedAttributes
       ((Array(attributes[:service_key]).all?(&:blank?) || 
       Array(attributes[:service_homepage]).all?(&:blank?)) &&
       Array(attributes[:service_email]).all?(&:blank?))
+    end
+
+    # date_blank
+    resource_class.send(:define_method, :date_blank) do |attributes|
+      Array(attributes[:date]).all?(&:blank?)
     end
 
     # contact_blank - similar to all_blank for defined contact attributes
