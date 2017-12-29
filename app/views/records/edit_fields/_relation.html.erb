@@ -1,23 +1,12 @@
 <div class="multi-nested">
-  <% if f.object.model_class == ::RdssDataset %>
-    <%= f.input :relation,
-      as: :rdss_relation_statement,
-      input_html: {
-        class: '',
-        data: {name: :relation}
-      },
-      required: f.object.required?(:relation)
-    %>
-  <% else %>
-    <%= f.input :relation,
-      as: :relation_statement,
-      input_html: {
-        class: '',
-        data: {name: :relation}
-      },
-      required: f.object.required?(:relation)
-    %>
-  <% end %>
+  <%= f.input :relation,
+    as: :relation_statement,
+    input_html: {
+      class: '',
+      data: {name: :relation}
+    },
+    required: f.object.required?(:relation)
+  %>
   <button type="button" class="btn btn-link add">
     <span class="glyphicon glyphicon-plus"></span>
     <span class="controls-add-text">Add another Related work</span>

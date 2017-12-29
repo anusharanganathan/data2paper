@@ -86,11 +86,7 @@ protected
     out << "<div class='row'>"
 
     # --- role
-    if object.model_class == ::Dataset
-        role_options = DatasetAgentRolesService.select_all_options
-    else
-        role_options = ArticleAgentRolesService.select_all_options
-    end
+    role_options = AgentRolesService.select_all_options
     field = :role
     field_name = name_for(attribute_name, index, field)
     field_id = id_for(attribute_name, index, field)

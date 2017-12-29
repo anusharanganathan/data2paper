@@ -1,23 +1,12 @@
 <div class="multi-nested">
-  <% if f.object.model_class == ::RdssDataset %>
-    <%= f.input :creator_nested,
-      as: :rdss_person_statement,
-      input_html: {
-        class: '',
-        data: {name: :creator_nested},
-      },
-      required: f.object.required?(:creator_nested)
-    %>
-  <% else %>
-    <%= f.input :creator_nested,
-      as: :person_statement,
-      input_html: {
-        class: '',
-        data: {name: :creator_nested},
-      },
-      required: f.object.required?(:creator_nested)
-    %>
-  <% end %>
+  <%= f.input :creator_nested,
+    as: :person_statement,
+    input_html: {
+      class: '',
+      data: {name: :creator_nested},
+    },
+    required: f.object.required?(:creator_nested)
+  %>
   <button type="button" class="btn btn-link add">
     <span class="glyphicon glyphicon-plus"></span>
     <span class="controls-add-text">Add another Creator</span>

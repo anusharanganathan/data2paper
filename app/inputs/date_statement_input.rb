@@ -21,11 +21,7 @@ protected
     field_name = name_for(attribute_name, index, field)
     field_id = id_for(attribute_name, index, field)
     field_value = date_statement.send(field).first
-    if object.model_class == ::RdssDataset
-        date_options = RdssDateTypesService.select_all_options
-    else
-        date_options = DateTypesService.select_all_options
-    end
+    date_options = DateTypesService.select_all_options
     out << "  <div class='col-md-3'>"
     out << template.select_tag(field_name, template.options_for_select(date_options, field_value),
         label: '', class: 'select form-control', prompt: 'choose type', id: field_id)
