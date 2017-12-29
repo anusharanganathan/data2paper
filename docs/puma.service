@@ -15,7 +15,10 @@ WorkingDirectory=/home/appuser/data2paper
 Environment=PUMA_DEBUG=1
 
 # The command to start Puma, use 'which puma' to get puma's bin path, specify your config/puma.rb file
-ExecStart=/home/appuser/.rbenv/shims/puma -C /home/appuser/data2paper/config/puma.rb
+# ExecStart=/home/appuser/.rbenv/shims/puma -C /home/appuser/data2paper/config/puma.rb
+# ExecStop=/home/appuser/.rbenv/bin/rbenv exec bundle exec pumactl -S /home/appuser/data2paper/tmp/pids/puma.state stop
+ExecStart=/home/appuser/.rbenv/bin/rbenv exec bundle exec puma -C /home/appuser/data2paper/config/puma.rb
+
 Restart=always
 
 [Install]
