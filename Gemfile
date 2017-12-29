@@ -69,3 +69,4 @@ group :development, :test do
 end
 
 gem 'sidekiq'
+gem 'bootstrap-datepicker-rails'
