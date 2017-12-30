@@ -1,0 +1,12 @@
+    <h2>Description</h2>
+    <dl class="dl-horizontal file-show-term file-show-details">
+      <% unless presenter.solr_document.description.blank? %>
+        <dt>Description</dt>
+        <dd><%= presenter.description.first %></dd>
+      <% end %>
+      <dt>Type</dt>
+      <% unless presenter.solr_document.resource_type.blank? %>
+        <dd><%= presenter.solr_document.resource_type.first %></dd>
+      <% end %>
+    </dl>
+
