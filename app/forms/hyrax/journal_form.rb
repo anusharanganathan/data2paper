@@ -18,7 +18,7 @@ module Hyrax
       :editor, :contact, :review_process, :average_publish_lead_time,
       :article_guidelines, :needs_apc, :apc_statement, :oa_level,
       :oa_statement, :supported_license, :declaration_statement,
-      :owner, :agent_group, :account, :date, :source
+      :agent_group, :account, :date, :source
       ]
 
     self.required_fields = [:title]

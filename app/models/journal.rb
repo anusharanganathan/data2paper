@@ -57,9 +57,9 @@ class Journal < ActiveFedora::Base
     index.as :stored_searchable
   end
 
-  property :owner, predicate: ::RDF::Vocab::ACL.owner do |index|
-    index.as :stored_searchable
-  end
+  # property :owner, predicate: ::RDF::Vocab::ACL.owner do |index|
+  #   index.as :stored_searchable
+  # end
 
   property :agent_group, predicate: ::RDF::Vocab::ACL.agentGroup do |index|
     index.as :stored_searchable
