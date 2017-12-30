@@ -70,3 +70,4 @@ end
 
 gem 'sidekiq'
 gem 'bootstrap-datepicker-rails'
+gem 'hydra-role-management'
