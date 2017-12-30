@@ -21,10 +21,10 @@ Hyrax.config do |config|
   # config.admin_set_predicate = ::RDF::DC.isPartOf
 
   # Email recipient of messages sent via the contact form
-  # config.contact_email = "repo-admin@example.org"
+  config.contact_email = "admin@data2paper.org"
 
   # Text prefacing the subject entered in the contact form
-  # config.subject_prefix = "Contact form:"
+  config.subject_prefix = "Data2paper contact form:"
 
   # How many notifications should be displayed on the dashboard
   # config.max_notifications_for_dashboard = 5
@@ -82,7 +82,7 @@ Hyrax.config do |config|
   # config.redis_namespace = "hyrax"
 
   # Path to the file characterization tool
-  # config.fits_path = "fits.sh"
+  config.fits_path = "/home/appuser/fits-1.0.5/fits.sh"
 
   # Path to the file derivatives creation tool
   # config.libreoffice_path = "soffice"
@@ -223,7 +223,10 @@ Hyrax.config do |config|
   # config.whitelisted_ingest_dirs = []
 end
 
-Date::DATE_FORMATS[:standard] = "%m/%d/%Y"
+DEFAULT_DATE_FORMAT = ENV['DEFAULT_DATE_FORMAT'] || '%d/%m/%Y'
+Date::DATE_FORMATS[:standard] = DEFAULT_DATE_FORMAT
+DateTime::DATE_FORMATS[:standard] = DEFAULT_DATE_FORMAT
+Date::DATE_FORMATS[:default] = DEFAULT_DATE_FORMAT
 
 Qa::Authorities::Local.register_subauthority('subjects', 'Qa::Authorities::Local::TableBasedAuthority')
 Qa::Authorities::Local.register_subauthority('languages', 'Qa::Authorities::Local::TableBasedAuthority')
