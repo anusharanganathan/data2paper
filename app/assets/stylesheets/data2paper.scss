@@ -27,3 +27,8 @@ form .field-wrapper label[required="required"]::after {
   margin-bottom: 1em;
 }
 
+/* Hide visibility options from form */
+.set-access-controls.list-group-item {
+  display: none;
+}
+
