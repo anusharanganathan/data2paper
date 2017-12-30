@@ -1,10 +1,11 @@
 <%= presenter.attribute_to_html(:creator_nested,
   render_as: :nested_creator, label: 'Creator') %>
-<%= presenter.attribute_to_html(:description %>
+<%= presenter.attribute_to_html(:description) %>
 <%= presenter.attribute_to_html(:keyword, render_as: :faceted) %>
 <%= presenter.attribute_to_html(:subject, render_as: :faceted) %>
 <%= presenter.attribute_to_html(:date, render_as: :nested_date) %>
-<%= presenter.attribute_to_html(:relation, render_as: :relation, label: 'Related dataset') %>
+<%= presenter.attribute_to_html(:relation,
+  render_as: :relation, label: 'Related dataset') %>
 <%= presenter.attribute_to_html(:tagged_version, render_as: :faceted) %>
 <%= presenter.attribute_to_html(:source) %>
 <%= presenter.attribute_to_html(:license_nested,
@@ -16,4 +17,3 @@
 <%= presenter.attribute_to_html(:note,
   label: 'Note to journal or editor') %>
 <%= presenter.attribute_to_html(:status) %>
-
