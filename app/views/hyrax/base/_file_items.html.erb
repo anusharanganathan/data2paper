@@ -1,0 +1,23 @@
+<h2>Set file type</h2>
+<div class="alert alert-success alert-dismissable" id="file_set_add_alert" role="alert" style="display: none;">
+  <button type="button" class="close" aria-label="Close" 
+    onclick="document.getElementById('file_set_add_alert').style.display='none';return false;">
+    <span aria-hidden="true">×</span>
+  </button>
+  <span class="message"></span>
+</div>
+<p>Recently uploaded files will only appear here after saving the record</p>
+<% if curation_concern.members.present? %>
+  <table class="table table-striped related-files">
+    <thead>
+      <tr>
+        <th><%= t('.title') %></th>
+        <th><%= t('.date_uploaded') %></th>
+        <th><%= t('.type') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: 'file_member', collection: curation_concern.members %>
+    </tbody>
+  </table>
+<% end %>
