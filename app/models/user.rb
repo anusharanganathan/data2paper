@@ -23,4 +23,9 @@ class User < ApplicationRecord
   def to_s
     email
   end
+
+  def journal_admin?
+    role = Role.find_by_name('journal_admin')
+    roles.include?(role)
+  end
 end
