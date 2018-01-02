@@ -18,6 +18,11 @@ class JournalIndexer < Hyrax::WorkIndexer
       # contact
       solr_doc[Solrizer.solr_name('contact_label', :facetable)] = object.contact.map { |c| c.label.first }.reject(&:blank?)
       solr_doc[Solrizer.solr_name('contact', :displayable)] = object.contact.to_json
+      # template files
+      solr_doc['template_path_ss'] = object.members.select {
+        |m| m.resource_type.include? ('Data paper template')}.
+        map{ |f| Hyrax::Engine.routes.url_helpers.download_path(f.id)
+      }
     end
   end
 end

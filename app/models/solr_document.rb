@@ -118,4 +118,8 @@ class SolrDocument
     self[Solrizer.solr_name('account', :displayable)]
   end
 
+  def template_path
+    self['template_path_ss']
+  end
+
 end
