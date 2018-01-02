@@ -26,6 +26,6 @@ class User < ApplicationRecord
 
   def journal_admin?
     role = Role.find_by_name('journal_admin')
-    roles.include?(role)
+    admin? || roles.include?(role)
   end
 end
