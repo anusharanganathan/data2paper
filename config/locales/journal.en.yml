@@ -10,3 +10,8 @@ en:
       listing:
         journal:
           name:               "Journals"
+    action:
+      data_paper:
+        new:       'Add new data paper'
+      journal:
+        new:       'Add new journal'

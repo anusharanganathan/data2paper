@@ -1,5 +1,5 @@
 module Hyrax
-  class ShowJournalsController < ApplicationController
+  class ListJournalsController < ApplicationController
     include Hydra::Catalog
 
     layout 'dashboard'
@@ -11,15 +11,9 @@ module Hyrax
     ShowJournalsController.append_view_path("views/hyrax/my")
   
     def index
-      # self.class.append_view_path('views/hyrax/my')
       add_breadcrumb t(:'hyrax.controls.home'), root_path  
-      # @journals = Journal.all
       @user = current_user
       (@response, @document_list) = query_solr
-
-      puts '----------------------------------------------------'
-      puts @document_list
-      puts '----------------------------------------------------'
 
       respond_to do |format|
         format.html {}

@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="list-filters" role="group">
+      <span class="list-filters-label">Filter Journals:</span>
+      <%
+        active_all = ''
+        active_data = ''
+        active_other = ''
+        if params.has_key?('f') && params['f'].has_key?('resource_type_sim') 
+          if params['f']['resource_type_sim'].include?('data journal')
+            active_data = 'active'
+          else
+            active_other = 'active'
+          end
+        else
+          active_all = 'active'
+        end
+        url_all = '/journals?locale=' + params['locale']
+        url_data = '/journals?f[resource_type_sim][]=data journal&locale=' + params['locale']
+        url_other = '/journals?f[resource_type_sim][]=journal accepting data papers&locale=' + params['locale']
+        # url_new_journal = '/concern/journals/new?locale=' + params['locale']
+      %> 
+      <%= link_to('All', url_all, class: 'btn btn-default' + active_all) %>
+      <%= link_to('Data journals', url_data, class: 'btn btn-default' + active_data) %>
+      <%= link_to('Journal accepting data papers', url_other, class: 'btn btn-default' + active_other) %>
+    </div>
+    <!--   
+    <div class="pull-right">    
+      <%#= link_to(t(:'hyrax.action.journal.new'), url_new_journal, class: 'btn btn-primary') %>
+    </div>
+    -->   
+  </div>
+</div> 

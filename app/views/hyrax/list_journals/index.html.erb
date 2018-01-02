@@ -13,10 +13,8 @@
   <h1><span class="fa fa-file"></span> <%= t("hyrax.works.listing.journal.name") %></h1>
 <% end %>
 
-<div class="row" id="list_journals">
-  <h2 class="sr-only">Journals listing</h2>
-  <%= render partial: 'journal', collection: @response.docs %>
-</div>
+<%= render 'filter' %>
+<%= render 'document_list' %>
 
 <!--
 <div class="row">
