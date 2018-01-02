@@ -6,3 +6,7 @@ en:
       journal:
         name:               "Journal"
         description:        "Journal works"
+    works:
+      listing:
+        journal:
+          name:               "Journals"

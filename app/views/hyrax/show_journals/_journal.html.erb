@@ -1,0 +1,33 @@
+<div class="gallery_journal col-lg-2 col-md-3 col-sm-4 col-xs-6">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <%= link_to [main_app, journal], class: 'journal-title' do %>
+        <%= image_tag journal.thumbnail_path,
+          class: "journal_image representative-media",
+          alt: "",
+          role: "presentation",
+          data: {placement: "right", trigger: "hover"} %>
+        <span><b><%= journal.title_or_label %></b></span><br/>
+        <% if journal.homepage.present? %>
+          <%= link_to journal.homepage.first do %>
+            <span>Homepage</span> <span class="glyphicon glyphicon-link"></span><br/>
+          <% end %>
+        <% end %>
+        <% if journal['template_path_ss'].present? %>
+          <%= link_to journal['template_path_ss'].first do %>
+            <span>Template file<span> <span class="glyphicon glyphicon-download-alt"></span>
+          <% end %>
+        <% end %>
+      <% end %>
+      <div class='journal_text hidden'>
+        <h3><%= journal.title_or_label %></h3>
+        <p><%= journal.resource_type.first %></p>
+        <% if journal.subject.present? %>
+          <p><%= journal.subject.join(', ') %></p>
+        <% elsif journal.keyword.present? %>
+          <p><%= journal.keyword.join(', ') %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="gallery_journal col-lg-4 col-md-4 col-sm-4 col-xs-6">
+  <div class='media'>
+    <div class='media-left'>
+      <%= link_to [main_app, journal], class: 'journal-title' do %>
+        <%= image_tag journal.thumbnail_path,
+          class: "journal_image representative-media",
+          alt: "",
+          role: "presentation",
+          data: {placement: "right", trigger: "hover"} %>
+        <br/>
+        <% if journal.homepage.present? %>
+          <%= link_to journal.homepage.first do %>
+            <span>Homepage</span> <span class="glyphicon glyphicon-link"></span>
+          <% end %>
+        <% end %>
+        <% if journal['template_path_ss'].present? %>
+          <%= link_to journal['template_path_ss'].first do %>
+            <span>Template file<span> <span class="glyphicon glyphicon-download-alt"></span>
+          <% end %>
+        <% end %>
+      <% end %>
+      <div class='journal_text hidden'>
+        <h3><%= journal.title_or_label %></h3>
+        <p><%= journal.resource_type.first %></p>
+        <% if journal.subject.present? %>
+          <p><%= journal.subject.join(', ') %></p>
+        <% elsif journal.keyword.present? %>
+          <p><%= journal.keyword.join(', ') %></p>
+        <% end %>
+      </div>
+    </div>
+    <div class='media-body'>
+      <div class='media-heading'>
+        <%= link_to [main_app, journal], class: 'journal-title' do %>
+          <span class="sr-only">
+            <%= t("hyrax.dashboard.my.sr.show_label") %>
+          </span>
+          <%= journal.title_or_label %>
+        <% end %>
+      </div>
+      <p><%= journal.resource_type.first %></p>
+      <% if journal['template_path_ss'].present? %>
+        <%= link_to journal['template_path_ss'].first do %>
+          <p>Template file <span class="glyphicon glyphicon-download-alt"></span></p>
+        <% end %>
+      <% end %>
+      <% if journal.homepage.present? %>
+        <p><%= link_to 'Homepage', journal.homepage.first %></p>
+      <% end %>
+      <% if journal.subject.present? %>
+        <p><%= journal.subject.join(', ') %></p>
+      <% elsif journal.keyword.present? %>
+        <p><%= journal.keyword.join(', ') %></p>
+      <% end %>
+    </div>
+  </div>
+</div>
+

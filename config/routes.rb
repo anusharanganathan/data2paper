@@ -30,6 +30,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :show_journals, only: :index, module: 'hyrax', path: '/journals'
+
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 

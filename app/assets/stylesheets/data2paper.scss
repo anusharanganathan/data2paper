@@ -32,3 +32,15 @@ form .field-wrapper label[required="required"]::after {
   display: none;
 }
 
+.hidden {
+  display: none;
+}
+
+/* Journal gallery */
+.gallery_journal .media-body {
+  padding-top: 10px;
+}
+
+.gallery_journal .media-heading {
+  font-size: 24px;
+}
