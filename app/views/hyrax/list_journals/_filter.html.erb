@@ -15,9 +15,16 @@
         else
           active_all = 'active'
         end
-        url_all = '/journals?locale=' + params['locale']
-        url_data = '/journals?f[resource_type_sim][]=data journal&locale=' + params['locale']
-        url_other = '/journals?f[resource_type_sim][]=journal accepting data papers&locale=' + params['locale']
+        url_all = '/journals'
+        locale_query_all = ''
+        locale_query = ''
+        if params['locale']
+          locale_query_all = '?locale=' + params['locale']
+          locale_query = '&locale=' + params['locale']
+        end
+        url_all = '/journals'+locale_query_all
+        url_data = '/journals?f[resource_type_sim][]=data journal' + locale_query
+        url_other = '/journals?f[resource_type_sim][]=journal accepting data papers' + locale_query
         # url_new_journal = '/concern/journals/new?locale=' + params['locale']
       %> 
       <%= link_to('All', url_all, class: 'btn btn-default' + active_all) %>
