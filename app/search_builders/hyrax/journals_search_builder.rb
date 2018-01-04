@@ -4,9 +4,10 @@ module Hyrax
   class JournalsSearchBuilder < My::SearchBuilder
     include Hyrax::FilterByType
 
-    # We remove the access controls filter because we would like alljournals to be visible
+    # We remove the access controls filter because we would like all journals to be visible
     # Filter works that are journals
     self.default_processor_chain -= [:add_access_controls_to_solr_params]
+    self.default_processor_chain -= [:show_only_resources_deposited_by_current_user]
     self.default_processor_chain +=[:filter_journals]
 
     def only_works?
