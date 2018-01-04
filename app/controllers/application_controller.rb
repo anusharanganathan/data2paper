@@ -11,4 +11,13 @@ class ApplicationController < ActionController::Base
 
 
   protect_from_forgery with: :exception
+
+  # Override Devise method to redirect to dashboard after signing in
+  def after_sign_in_path_for(_resource)
+    if request.env.has_key?('omniauth.origin') and request.env['omniauth.origin']
+      request.env['omniauth.origin']
+    else
+      '/'
+    end
+  end
 end

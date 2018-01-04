@@ -162,7 +162,7 @@ Devise.setup do |config|
   # Email regex used to validate email formats. It simply asserts that
   # one (and only one) @ exists in the given string. This is mainly
   # to give user feedback and not to assert the e-mail validity.
-  config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
+  # config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
 
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
@@ -274,4 +274,24 @@ Devise.setup do |config|
   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
+  # ORCID_CALLBACK_URL = 'https://dev.data2paper.org/users/auth/orcid/callback'
+  # require 'omniauth-orcid'
+  # config.omniauth :orcid, 'APP-WP9H736KG6ZGTEP1', 'b3e9a39c-a679-4948-9b2a-22f0bf6e4c66', member: true, sandbox: true
+  # config.omniauth :orcid,
+  #   "APP-WP9H736KG6ZGTEP1",
+  #   "b3e9a39c-a679-4948-9b2a-22f0bf6e4c66",
+  #   {
+  #   :authorize_params => {:scope => '/orcid-profile/read-limited'},
+  #   :provider_ignores_state => true,
+  #   :member => false,
+  #   :sandbox => true,
+  #   :redirect_uri => ORCID_CALLBACK_URL,
+  #   setup: (lambda do |env|
+  #     request = Rack::Request.new(env)
+  #     env['omniauth.strategy'].options['token_params'] = {:redirect_uri => ORCID_CALLBACK_URL}
+  #   end)
+  #   }
+
+  config.omniauth :digitalocean, "9dfec7624ee71b2c49c5b4f15c04263199bfc12d677a7428b22b8cd2c5f4e2f6", "7c658248fcfd3d3786c3cecce95042197320769e2a8d49752020732051157cca"
+
 end

@@ -73,3 +73,6 @@ end
 gem 'sidekiq'
 gem 'bootstrap-datepicker-rails'
 gem 'hydra-role-management'
+# gem 'omniauth-oauth2', '~>1.3.1'
+gem 'omniauth-orcid'#, github: 'datacite/omniauth-orcid', tag: 'v.1.0.31'
+gem 'omniauth-digitalocean'

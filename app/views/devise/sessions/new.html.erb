@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-md-offset-2 col-md-3">
+    <h2>Sign in with Orcid</h2>
+    <%- if devise_mapping.omniauthable? %>
+      <%- resource_class.omniauth_providers.each do |provider| %>
+        <% if provider.to_s == 'orcid' %>
+          <div class="well" style="overflow: hidden">
+            <p>Signing-in with your Orcid credentials allows us to
+              <ul>
+                <li>Identify you and take you to your user dashboard containing records for your datasets shared from your data repository</li>
+                <li>Allows the publisher to know who you are</li>
+              </ul>
+            </p>
+          </div>
+          <a href="/users/auth/orcid" class="btn btn-default" role="button">
+            <img id="orcid-id-logo" src="https://orcid.org/sites/default/files/images/orcid_24x24.png" width='24' height='24' alt="ORCID logo"/>
+            <%= "  Sign in with #{provider.to_s.titleize}" %>
+          </a>
+        <% end %>
+      <% end -%>
+    <% end -%>
+  </div>
+  <div class="col-md-offset-2 col-md-3">
+    <% if request.host.include? 'demo' or request.host.include? 'dev' %>
+      <h2>Demo site uses Orcid Sandbox</h2>
+      <p><a href="https://sandbox.orcid.org">Orcid Sandbox</a> is a test site for Orcid.</p>
+      <p>Your orcid credentials will not work with Orcid sandbox.</p>
+      <p>You can register for Orcid sandbox credentials at <a href="https://sandbox.orcid.org/register">https://sandbox.orcid.org/register</a> and should take just a few minutes.</p>
+    <% end %>
+  </div>
+</div>
+
