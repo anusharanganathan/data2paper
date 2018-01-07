@@ -1,5 +1,7 @@
 module Hyrax
   class DataPaperAPIController < ApplicationController
+    acts_as_token_authentication_handler_for User, fallback: :none
+
     include Hydra::Catalog
 
     def search_builder_class
