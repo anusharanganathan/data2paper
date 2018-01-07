@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   end
 
   resources :list_journals, only: :index, module: 'hyrax', path: '/journals'
+  resources :data_paper_api, module: 'hyrax', path: 'data_paper_api', :defaults => { :format => :json }
 
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
