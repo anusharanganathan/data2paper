@@ -16,9 +16,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, :omniauth_providers => [:orcid, :digitalocean]
-  # Can authenticate users by token
-  acts_as_token_authenticatable
+         :omniauthable, :omniauth_providers => [:orcid]
 
   # Method added by Blacklight; Blacklight uses #to_s on your
   # user class to get a user-displayable login/identifier for
