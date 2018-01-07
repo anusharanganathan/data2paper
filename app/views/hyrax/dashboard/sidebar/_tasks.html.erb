@@ -14,7 +14,7 @@
   <% if current_user.journal_admin? %>
     <%
       locale_query = ''
-      if params['locale']
+      if params['locale'].present?
         locale_query = '?locale=' + params['locale']
       end
       url_new_journal = '/concern/journals/new' + locale_query
