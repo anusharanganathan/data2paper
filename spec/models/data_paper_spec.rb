@@ -132,7 +132,7 @@ RSpec.describe DataPaper do
             role: 'Author'
           },
           {
-            last_name: 'Hello world',
+            name: 'Hello world',
             orcid: '0001-0001-0001-0001',
             role: 'Author'
           }]
@@ -154,69 +154,75 @@ RSpec.describe DataPaper do
       expect(@obj.creator_nested.first.id).to include('#person')
     end
 
-    it 'rejects person if first name and last name are blank' do
+    it 'rejects person if first name, last name or name is blank' do
       @obj = build(:data_paper, creator_nested_attributes: [
           {
+            name: 'Foo Bar',
             first_name: 'Foo',
-            orcid: '0000-0000-0000-0000',
-            role: 'Author'
+            last_name: 'Bar'
+          },
+          {
+            first_name: 'Foo'
           },
           {
             last_name: 'Bar',
+          },
+          {
+            name: 'Foo Bar',
+            role: 'Author',
             orcid: '0000-0000-0000-0000',
-            role: 'Author'
+          },
+          {
+            orcid: '0000-0000-0000-0000',
+            role: 'Creator'
           },
           {
             first_name: '',
             last_name: nil,
-            orcid: '0000-0000-0000-0000',
-            role: 'Author'
-          },
-          {
-            orcid: '0000-0000-0000-0000',
             role: 'Author'
           }
+
         ]
       )
-      expect(@obj.creator_nested.size).to eq(2)
+      expect(@obj.creator_nested.size).to eq(4)
     end
 
-    it 'rejects person if orcid is blank' do
-      @obj = build(:data_paper, creator_nested_attributes: [
-          {
-            first_name: 'Foo',
-            last_name: 'Bar',
-            role: 'Author'
-          },
-          {
-            first_name: 'Foo',
-            last_name: 'Bar',
-            orcid: '',
-            role: 'Author'
-          }
-        ]
-      )
-      expect(@obj.creator_nested.size).to eq(0)
-    end
+    #it 'rejects person if orcid is blank' do
+    #  @obj = build(:data_paper, creator_nested_attributes: [
+    #      {
+    #        first_name: 'Foo',
+    #        last_name: 'Bar',
+    #        role: 'Author'
+    #      },
+    #      {
+    #        first_name: 'Foo',
+    #        last_name: 'Bar',
+    #        orcid: '',
+    #        role: 'Author'
+    #      }
+    #    ]
+    #  )
+    #  expect(@obj.creator_nested.size).to eq(0)
+    #end
 
-    it 'rejects person if role is blank' do
-      @obj = build(:data_paper, creator_nested_attributes: [
-          {
-            first_name: 'Foo',
-            last_name: 'Bar',
-            orcid: '0000-0000-0000-0000'
-          },
-          {
-            first_name: 'Foo',
-            last_name: 'Bar',
-            orcid: '0000-0000-0000-0000',
-            affiliation: 'Author affiliation',
-            role: nil
-          }
-        ]
-      )
-      expect(@obj.creator_nested.size).to eq(0)
-    end
+    #it 'rejects person if role is blank' do
+    #  @obj = build(:data_paper, creator_nested_attributes: [
+    #      {
+    #        first_name: 'Foo',
+    #        last_name: 'Bar',
+    #        orcid: '0000-0000-0000-0000'
+    #      },
+    #      {
+    #        first_name: 'Foo',
+    #        last_name: 'Bar',
+    #        orcid: '0000-0000-0000-0000',
+    #        affiliation: 'Author affiliation',
+    #        role: nil
+    #      }
+    #    ]
+    #  )
+    #  expect(@obj.creator_nested.size).to eq(0)
+    #end
 
     it 'rejects person if all are blank' do
       @obj = build(:data_paper, creator_nested_attributes: [

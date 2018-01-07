@@ -20,9 +20,8 @@ module DataPaperNestedAttributes
     # creator_blank
     resource_class.send(:define_method, :creator_blank) do |attributes|
       (Array(attributes[:first_name]).all?(&:blank?) &&
-      Array(attributes[:last_name]).all?(&:blank?)) ||
-      Array(attributes[:role]).all?(&:blank?) ||
-      Array(attributes[:orcid]).all?(&:blank?)
+      Array(attributes[:last_name]).all?(&:blank?) &&
+      Array(attributes[:name]).all?(&:blank?))
     end
 
     # relation_blank
