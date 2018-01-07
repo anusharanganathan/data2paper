@@ -8,7 +8,7 @@ module Hyrax
       Hyrax::JournalsSearchBuilder
     end
 
-    ShowJournalsController.append_view_path("views/hyrax/my")
+    ListJournalsController.append_view_path("views/hyrax/my")
   
     def index
       add_breadcrumb t(:'hyrax.controls.home'), root_path  
