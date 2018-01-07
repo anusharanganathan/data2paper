@@ -1,7 +1,7 @@
 en:
   hyrax:
     icons:
-      journal:     'fa fa-file-text-o'
+      journal:     'fa fa-book'
     select_type:
       journal:
         name:               "Journal"
