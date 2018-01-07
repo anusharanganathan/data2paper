@@ -5,8 +5,16 @@
       <%= render_notifications(user: current_user) %>
     </li>
     <% if current_user.provider == 'orcid' %>
-      <li><a href='https://orcid.org#{current_user.uid}'>
-        <img alt='ORCID #{current_user.uid}' src='https://orcid.org/sites/default/files/images/orcid_16x16.png' width='16' height='16' hspace='1' />
+      <% 
+        orcid_img = "https://orcid.org/sites/default/files/images/orcid_16x16.png"
+        if request.host.include?('demo') or request.host.include?('dev')
+          orcid_url = "https://sandbox.orcid.org/#{current_user.uid}"
+        else
+          orcid_url = "https://orcid.org/#{current_user.uid}"
+        end 
+      %>
+      <li><a href="<%=orcid_url%>" target="_blank">
+        <img alt="ORCID <%=current_user.uid%>" src="<%=orcid_img%>" width='16' height='16' hspace='1' />
       </a></li>
     <% end %>
     <li class="dropdown">
