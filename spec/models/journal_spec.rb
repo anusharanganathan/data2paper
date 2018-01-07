@@ -253,10 +253,9 @@ RSpec.describe Journal do
   end
 
   describe 'owner' do
-    it 'has a multi valued owner' do
-      @obj = build(:journal, owner: ['Journal owner'])
-      # expect(@obj.owner).to be_kind_of Array
-      expect(@obj.owner).to eq ['Journal owner']
+    it 'has a single valued owner' do
+      @obj = build(:journal, owner: 'Journal owner')
+      expect(@obj.owner).to eq 'Journal owner'
     end
   end
 
