@@ -1,3 +1,12 @@
+/* header navigation */
+.image-masthead .navbar {
+    background-color: #322a4c;
+}
+
+.site-footer {
+  height: 71px;
+}
+
 /* Form */
 form .row {
   padding-bottom: 5px;
@@ -37,10 +46,63 @@ form .field-wrapper label[required="required"]::after {
 }
 
 /* Journal gallery */
-.gallery_journal .media-body {
+.gallery-journal .media-body {
   padding-top: 10px;
 }
 
-.gallery_journal .media-heading {
+.gallery-journal .media-heading {
   font-size: 24px;
 }
+
+/* panel */
+.card {
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+  box-shadow: 0 10px 6px -6px #777;
+  margin: 20px;
+  padding: 20px;
+  background-color: #f4eff4 !important;
+  border: 1px solid #ccc;
+  color: #606060;
+}
+
+.card-title {
+  text-align: center;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.card-title:before,
+.card-title:after {
+  background: #606060 none repeat scroll 0 0;
+  bottom: -5px;
+  content: "";
+  height: 1px;
+  left: 50%;
+  margin-left: -50px;
+  position: absolute;
+  width: 100px;
+}
+
+.card-title:after {
+  background: #f8485e none repeat scroll 0 0;
+  bottom: -6px;
+  height: 3px;
+  margin-left: -15px;
+  width: 30px;
+}
+
+.card-list {
+  list-style-type: none;
+  margin: 0 0 15px 20px;
+  padding: 0px;
+}
+
+.card-list li::before {
+  content: "▣ ";
+}
+
+.card-list li {
+  margin-bottom: 10px;
+}
+
+

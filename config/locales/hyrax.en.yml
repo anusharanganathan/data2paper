@@ -45,7 +45,7 @@ en:
           subject_tesim: Subject
           title_tesim: Title
   hyrax:
-    product_name:           "Hyrax"
+    product_name:           "Data2paper"
     product_twitter_handle: "@SamveraRepo"
     institution_name:       "Institution"
     institution_name_full:  "The Institution Name"
@@ -53,8 +53,8 @@ en:
     directory:
       suffix:               "@example.org"
     footer:
-      copyright_html: "<strong>Copyright &copy; 2017 Samvera</strong> Licensed under the Apache License, Version 2.0"
-      service_html: A service of <a href="http://samvera.org/" class="navbar-link" target="_blank">Samvera</a>.
+      copyright_html: "<strong>Copyright &copy; 2018 Data2paper</strong>"
+      service_html: A service of <a href="http://samvera.org/" class="navbar-link" target="_blank">Samvera</a>
     admin:
       sidebar:
         works:        'Data papers'
