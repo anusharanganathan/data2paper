@@ -1,37 +1,45 @@
+require 'rest-client'
+
 class DataciteImporter
   attr_accessor :filepath 
-  attr_reader :xml_metadata, :data_paper_attributes
+  attr_reader :doi, :metadata, :data_paper_attributes
+
+  ENDPOINT = "https://api.datacite.org/works/"
 
   def initialize(import_params)
+    import_params = import_params.with_indifferent_access
     unless import_params[:doi].present?
       raise 'Parameter missing DOI'
     end
     @doi = import_params[:doi]
     @filepath = nil
-    @xml_metadata = nil
+    @metadata = nil
     @data_paper_attributes = nil
   end
 
   def import
-    dc = Datacite.new(ENV['DATACITE_PREFIX'], ENV['DATACITE_PASSWORD'], Datacite::ENDPOINT)
-    @xml_metadata = dc.metadata(@doi)
+    response = RestClient.get URI::join(ENDPOINT, @doi).to_s
+    if response.code != 200
+      raise 'Error retrieving record'
+    end
+    @metadata = JSON.parse(response.body)
   end
 
-  def write_xml_metadata
-    unless @xml_metadata.present?
-      fail 'XML metadata missing'
+  def write_metadata
+    unless @metadata.present?
+      raise 'Metadata missing'
     end
-    unless @filepath.blank?
-      filename = "%s.xml" % @doi.gsub('/', '_').gsub(':', '_').gsub('.', '_')
+    if @filepath.blank?
+      filename = "%s.json" % @doi.gsub('/', '_').gsub(':', '_').gsub('.', '_')
       @filepath = "#{Rails.root}/tmp/#{filename}"
     end
     file = File.open(@filepath, 'w')
-    file.write(@xml_metadata)
+    file.write(@metadata)
     file.close()
   end
 
-  def read_xml_metadata
-    @xml_metadata = File.read(@filepath)
+  def read_metadata
+    @metadata = JSON.parse(File.read(@filepath))
     # file_name = "10.5072⁄bodleian:nZaoXzEm5.xml"
     # src_file = Rails.root.join("tmp", "test_data", file_name)
     # doc = File.open(src_file) { |f| Nokogiri::XML(f) } # from file
@@ -143,6 +151,76 @@ class DataciteImporter
     #   rightsList
     #   geoLocation
     #   fundingReferences
+  end
+
+
+  def map_json_metadata
+    @data_paper_attributes = {}
+
+    # DOI
+    doi = @metadata.dig('data', 'attributes', 'doi')
+
+    # identifier
+    source = @metadata.dig('data', 'attributes', 'identifier')
+    @data_paper_attributes[:source] = [source] unless source.blank?
+
+    # Creators (contributors not returned by rest api)
+    creators = []
+    @metadata.dig('data', 'attributes', 'author').each do |c|
+      creator = {}
+      name = c.fetch('name', nil) || c.fetch('literal', nil)
+      creator[:name] = name unless name.blank?
+      given = c.fetch('given', nil)
+      creator[:first_name] = given unless given.blank?
+      family = c.fetch('family', nil)
+      creator[:last_name] = family unless family.blank?
+      creator[:role] = 'creator' unless creator.blank?
+      creators << creator unless creator.blank?
+    end
+    @data_paper_attributes[:creator_nested_attributes] = creators unless creators.blank?
+
+    # Title
+    title = @metadata.dig('data', 'attributes', 'title')
+    @data_paper_attributes[:title] = [title] unless title.blank?
+
+    # description
+    description = @metadata.dig('data', 'attributes', 'description')
+    @data_paper_attributes[:description] = [description] unless description.blank?
+
+    # Related object
+    related_objects = []
+    if doi.present? and source.present? and title.present?
+      related_object = {
+        label: title,
+        url: source,
+        identifier: doi,
+        identifier_scheme: 'DOI',
+        relationship_name: 'Is referenced by',
+        relationship_role: 'IsReferencedBy'
+      }
+      related_objects << related_object
+    end
+    @data_paper_attributes[:relation_attributes] = related_objects unless related_objects.blank?
+
+    # Not Using
+    #   url
+    #   container_title (= publisher)
+    #   resourceType
+    #   license (= rightsURI)
+    #   publicationYear
+    #   related_identifiers
+    #     relation-type-id
+    #     related-identifier (= doi as url)
+    #   published (= publicationYear)
+    #   registered (= minted)
+    #   updated_at
+    #   data_center_id, data_center
+    #   member_id, member (= source organisation)
+    #   version
+    #   results
+    #   schema_version
+    #   xml
+    #   media
   end
 
 end

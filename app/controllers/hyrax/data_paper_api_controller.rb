@@ -46,12 +46,9 @@ module Hyrax
         # 1. Import metadata
         @importer = DataciteImporter.new(params)
         # TODO - import metadata from datacite stopped until account is active
-        # @importer.import 
-        # Reading from doi file, until datacite account is active
-        @importer.filepath = params[:filepath]
-        @importer.read_xml_metadata 
-        @importer.write_xml_metadata
-        @importer.map_xml_metadata
+        @importer.import
+        @importer.write_metadata
+        @importer.map_json_metadata
 
         #2. Create data paper
         @data_paper = DataPaper.new
@@ -65,7 +62,7 @@ module Hyrax
         label = File.basename(@importer.filepath)
         fileset = FileSet.create!(
           label: label,
-          title: ['Datacite XML metadata for dataset'],
+          title: ['Datacite JSON metadata for dataset'],
           resource_type: ['metadata file'],
           edit_users: [currrent_user],
           depositor: current_user.email,
