@@ -167,12 +167,17 @@ class DataciteImporter
     creators = []
     @metadata.dig('data', 'attributes', 'author').each do |c|
       creator = {}
-      name = c.fetch('name', nil) || c.fetch('literal', nil)
-      creator[:name] = name unless name.blank?
       given = c.fetch('given', nil)
       creator[:first_name] = given unless given.blank?
       family = c.fetch('family', nil)
       creator[:last_name] = family unless family.blank?
+      name = c.fetch('name', nil) || c.fetch('literal', nil)
+      if name.blank? and (given.present? or family.present?)
+        name << given if given.present?
+        name << family if family.present?
+        name = name.join(' ')
+      end
+      creator[:name] = name unless name.blank?
       creator[:role] = 'creator' unless creator.blank?
       creators << creator unless creator.blank?
     end
