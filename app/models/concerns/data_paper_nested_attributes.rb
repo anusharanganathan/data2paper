@@ -18,6 +18,7 @@ module DataPaperNestedAttributes
     end
 
     # creator_blank
+    # Need first name or last name or name
     resource_class.send(:define_method, :creator_blank) do |attributes|
       (Array(attributes[:first_name]).all?(&:blank?) &&
       Array(attributes[:last_name]).all?(&:blank?) &&
