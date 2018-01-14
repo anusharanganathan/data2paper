@@ -16,7 +16,7 @@ module Hyrax
       :date, :relation, :tagged_version, :source, :license_nested,
       :rights_statement, :statement_agreed, :note, :status]
 
-    self.required_fields = [:title, :creator_nested]
+    self.required_fields = []
 
     NESTED_ASSOCIATIONS = [:creator_nested, :date, :relation, :license_nested].freeze
 
