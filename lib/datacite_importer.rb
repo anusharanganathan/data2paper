@@ -7,11 +7,10 @@ class DataciteImporter
   ENDPOINT = "https://api.datacite.org/works/"
 
   def initialize(import_params)
-    import_params = import_params.with_indifferent_access
-    unless import_params[:doi].present?
+    unless import_params['doi'].present?
       raise 'Parameter missing DOI'
     end
-    @doi = import_params[:doi]
+    @doi = import_params['doi']
     @filepath = nil
     @metadata = nil
     @data_paper_attributes = nil

@@ -8,7 +8,8 @@ Rails.application.routes.draw do
     concerns :searchable
   end
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
+  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks"}
+  # devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", sessions: 'sessions', registrations: 'registrations' }
 
   mount Hydra::RoleManagement::Engine => '/'
 
@@ -32,7 +33,6 @@ Rails.application.routes.draw do
   end
 
   resources :list_journals, only: :index, module: 'hyrax', path: '/journals'
-  resources :data_paper_api, module: 'hyrax', path: 'data_paper_api', :defaults => { :format => :json }
 
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
@@ -41,5 +41,10 @@ Rails.application.routes.draw do
     get 'sign_in', to: 'sign_in#show'
   end
 
+
+  namespace :api do
+    resources :data_paper, :defaults => { :format => :json }
+    post 'authenticate', to: 'authentication#authenticate', :defaults => { :format => :json }
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

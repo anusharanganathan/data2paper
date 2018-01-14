@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  protect_from_forgery with: :exception, unless: :json_request
   before_action :store_user_location!, if: :storable_location?
 
   helper Openseadragon::OpenseadragonHelper
@@ -31,6 +32,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  protected
+
+    def json_request
+        request.format.json?
+    end
 
   private
     # Its important that the location is NOT stored if:

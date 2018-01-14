@@ -42,4 +42,14 @@ class User < ApplicationRecord
       user.password = Devise.friendly_token[0,20]
     end
   end
+
+  def create_token
+    require 'json_web_token'
+    authentication_token = ::JsonWebToken.encode(user_id: id)
+    authentication_token_created_at = Time.now
+  end
+
+  def self.find_by_orcid(orcid)
+    User.where( provider: 'orcid', uid: orcid).or(User.where(orcid: orcid)).first
+  end
 end
