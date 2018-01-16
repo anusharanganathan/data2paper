@@ -1,0 +1,14 @@
+<aside id="form-progress" class="form-progress panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= t("hyrax.data_paper.progress.header") %></h3>
+  </div>
+  <div class="panel-footer text-center">
+    <%= link_to t(:'helpers.action.cancel'),
+                hyrax.dashboard_path,
+                class: 'btn btn-default' %>
+    <%# TODO: If we start using ActionCable, we could listen for object updates and
+              alert the user that the object has changed by someone else %>
+    <%= f.input Hyrax::Actors::OptimisticLockValidator.version_field, as: :hidden if f.object.persisted? %>
+    <%= f.submit class: 'btn btn-primary', onclick: "confirmation_needed = false;", id: "with_files_submit", name: "save_with_files" %>
+  </div>
+</aside>

@@ -1,0 +1,49 @@
+<aside id="submit-form-progress" class="form-progress panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= t("hyrax.data_paper.progress.submit_header") %></h3>
+  </div>
+  <div class="list-group">
+    <div class="list-group-item">
+      <fieldset>
+        <legend class="legend-work"><%= t('hyrax.data_paper.progress.requirements') %></legend>
+        <ul class="requirements">
+          <% status = 'complete'
+          status = 'incomplete' unless curation_concern.has_required_metadata? %>
+          <li class="<%=status%>" id="submit-required-metadata"><%= t('hyrax.data_paper.progress.required_descriptions') %></li>
+          <% status = 'complete'
+          status = 'incomplete' unless curation_concern.has_required_journal? %>
+          <li class="<%=status%>" id="submit-required-journal"><%= t('hyrax.data_paper.progress.required_journal') %></li>
+          <% status = 'complete'
+          status = 'incomplete' unless curation_concern.has_required_files? %>
+          <li class="<%=status%>" id="submit-required-files"><%= t('hyrax.data_paper.progress.required_files') %></li>
+          <% status = 'complete'
+          status = 'incomplete' unless curation_concern.has_required_license? %>
+          <li class="<%=status%>" id="submit-required-license"><%= t('hyrax.data_paper.progress.required_license') %></li>
+          <% status = 'complete'
+          status = 'incomplete' unless curation_concern.has_required_agreement? %>
+          <li class="<%=status%>" id="submit-required-agreement"><%= t('hyrax.data_paper.progress.required_agreement') %></li>
+        </ul>
+      </fieldset>
+    </div>
+  </div>
+  <div class="panel-footer text-center">
+    <% if f.object.journal_id.present? 
+         cls = 'show'
+         msg = 'hide'
+       else
+         cls = 'hide'
+         msg = 'show'
+       end
+    %>
+    <label class="<%=cls%>">
+      <%= f.input_field :statement_agreed, as: :boolean %>
+      <%= t('hyrax.active_consent_to_agreement') %><br>
+      <%= link_to t('hyrax.data_paper.journal_agreement_statement'),
+                  "/concern/journals/id",
+                  target: '_blank' %>
+    </label>
+    <label class="<%=msg%>">Select journal for journal declaration</label>
+    <br>
+    <%= f.submit class: 'btn btn-primary', onclick: "confirmation_needed = false;", id: "submit_with_files", name: "submit_with_files", value: "Submit"%>
+  </div>
+</aside>

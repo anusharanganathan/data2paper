@@ -6,3 +6,15 @@ en:
       data_paper:
         name:               "Data Paper"
         description:        "Data paper works"
+    data_paper:
+      journal_agreement_statement: "Journal's deposit agreement"
+      progress:
+        header: Save data paper
+        submit_header: Submit data paper
+        required_descriptions: Describe your work
+        required_files:        Add files
+        required_journal:      Select journal
+        required_license:      Select license
+        required_agreement:    "Check journals' deposit agreement"
+        requirements:          Requirements
+

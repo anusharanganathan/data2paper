@@ -7,6 +7,8 @@ en:
         name:               "Journal"
         description:        "Journal works"
     works:
+      progress:
+        header:       "Save journal"
       listing:
         journal:
           name:               "Journals"
