@@ -54,6 +54,11 @@ form .field-wrapper label[required="required"]::after {
   font-size: 24px;
 }
 
+.journal_image {
+  max-height: 175px;
+  max-width: 175px;
+}
+
 /* panel */
 .card {
   /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
@@ -105,4 +110,4 @@ form .field-wrapper label[required="required"]::after {
   margin-bottom: 10px;
 }
 
-
+/* data paper form */
