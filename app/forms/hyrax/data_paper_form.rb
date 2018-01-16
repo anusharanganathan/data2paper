@@ -13,8 +13,21 @@ module Hyrax
     ]
 
     self.terms += [:title, :creator_nested, :description, :keyword, :subject,
-      :date, :relation, :tagged_version, :source, :license_nested,
-      :rights_statement, :statement_agreed, :note, :status]
+      :date, :relation, :tagged_version, :source, :note, :status, :journal_id,
+      :license_nested, :rights_statement, :statement_agreed]
+
+    # :status - auto set and hidden
+    # :statement_agreed in sidebar
+
+    def journal_terms
+      [:journal_id, :license_nested, :rights_statement, :statement_agreed]
+    end
+
+    # Fields that are automatically drawn on the page below the fold
+    def secondary_terms
+      super - journal_terms
+    end
+
 
     self.required_fields = []
 
@@ -77,6 +90,7 @@ module Hyrax
         permitted << { date_attributes: permitted_date_params }
         permitted << { relation_attributes: permitted_relation_params }
         permitted << { license_nested_attributes: permitted_license_params }
+        permitted << :journal_id
         permitted
       end
 

@@ -1,0 +1,23 @@
+<% 
+  @data_journals = Journal.all
+    .select{|journal| journal.resource_type == ['data journal']}
+    .map{|j| [j.title.first, j.id, {
+      'data-supported_license' => j.supported_license.to_a.to_json,
+      'data-declaration_statement' => j.declaration_statement.join('\n')}]}
+  @other_journals = Journal.all
+    .select{|journal| journal.resource_type == ['journal accepting data papers']}
+    .map{|j| [j.title.first, j.id, {
+      'data-supported_license' => j.supported_license.to_a.to_json, 
+      'data-declaration_statement' => j.declaration_statement.join('\n')}]} 
+  @journal_group = {'data journal' => @data_journals, 'journal accepting data papers' => @other_journals}
+%>
+<%= f.input :journal_id, as: :grouped_select,
+      include_blank: false,
+      collection: @journal_group,
+      group_method: :last,
+      input_html: { class: 'form-control' },
+      prompt: 'Select journal' %>
+
+<%= render_edit_field_partial(:license_nested, f: f) %>
+
+<%= render_edit_field_partial(:rights_statement, f: f) %>
