@@ -44,6 +44,57 @@ class DataPaper < ActiveFedora::Base
   # schema (by adding accepts_nested_attributes)
   include ::Hyrax::BasicMetadata
   include DataPaperNestedAttributes
+
+  def status_allows_edit?
+    if ['submitted', 'published'].include? status
+      false
+    else
+      true
+    end
+  end
+
+  def has_required_metadata?
+    creators = creator_nested.map{|c| c.name.first || [c.first_name.first, c.last_name.first].reject(&:blank?).join(' ')}.reject(&:blank?)
+    if title.reject(&:blank?).present? and creators.present?
+      true
+    else
+      false
+    end
+  end
+
+  def has_required_files?
+    if members.select{|f| f.resource_type == ['data paper']}.present?
+      true
+    else
+      false
+    end
+  end
+
+  def has_required_journal?
+    if journal.present?
+      true
+    else
+      false
+    end
+  end
+
+  def has_required_license?
+    licences = license_nested.map {|l| l.webpage}.reject(&:blank?)
+    if licences.present?
+      true
+    else
+      false
+    end
+  end
+
+  def has_required_agreement?
+    if statement_agreed == true or statement_agreed == "1"
+      true
+    else
+      false
+    end
+  end
+
 end
 # -----------------------------------------
 # Not needed        # Existing
