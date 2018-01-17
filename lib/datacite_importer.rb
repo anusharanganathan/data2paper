@@ -178,7 +178,7 @@ class DataciteImporter
         name = name.join(' ')
       end
       creator[:name] = name unless name.blank?
-      creator[:role] = 'creator' unless creator.blank?
+      creator[:role] = 'Author' unless creator.blank?
       creators << creator unless creator.blank?
     end
     @data_paper_attributes[:creator_nested_attributes] = creators unless creators.blank?
