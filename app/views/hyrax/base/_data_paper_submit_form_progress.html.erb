@@ -6,7 +6,7 @@
     <div class="list-group-item">
       <fieldset>
         <legend class="legend-work"><%= t('hyrax.data_paper.progress.requirements') %></legend>
-        <ul class="requirements">
+        <ul id="data-paper-submit-requirements" class="requirements">
           <% status = 'complete'
           status = 'incomplete' unless curation_concern.has_required_metadata? %>
           <li class="<%=status%>" id="submit-required-metadata"><%= t('hyrax.data_paper.progress.required_descriptions') %></li>
@@ -35,14 +35,14 @@
          msg = 'show'
        end
     %>
-    <label class="<%=cls%>">
+    <label id="journal-agreement-active" class="<%=cls%>">
       <%= f.input_field :statement_agreed, as: :boolean %>
       <%= t('hyrax.active_consent_to_agreement') %><br>
       <%= link_to t('hyrax.data_paper.journal_agreement_statement'),
-                  "/concern/journals/id",
+                  "/concern/journals/#{f.object.journal_id}",
                   target: '_blank' %>
     </label>
-    <label class="<%=msg%>">Select journal for journal declaration</label>
+    <label id="journal-agreement-missing" class="<%=msg%>">Select journal for journal declaration</label>
     <br>
     <%= f.submit class: 'btn btn-primary', onclick: "confirmation_needed = false;", id: "submit_with_files", name: "submit_with_files", value: "Submit"%>
   </div>
