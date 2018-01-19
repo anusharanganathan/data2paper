@@ -64,6 +64,8 @@ module API
         @data_paper.update_attributes(@importer.data_paper_attributes)
         @data_paper.depositor = user.email
         @data_paper.edit_users = [user]
+        @data_paper.date_created = [Time.now]
+        @data_paper.date_uploaded = Time.now
         @data_paper.status = 'new'
         @data_paper.save!
 
