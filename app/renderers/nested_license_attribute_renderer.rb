@@ -42,7 +42,7 @@ class NestedLicenseAttributeRenderer < Hyrax::Renderers::AttributeRenderer
       nil
     end
     if label.blank? and !value.blank?
-      label = Hyrax::LicenseService.new.label(value)
+      label = value # Hyrax::LicenseService.new.label(value)
     end
     if label.nil?
       nil
