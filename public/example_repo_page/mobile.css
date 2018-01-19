@@ -1,0 +1,19 @@
+
+html, body {
+	background: #fff;
+	padding: 3px;
+	color: #000;
+	margin: 0;
+	}
+* {
+	float: none;
+	}
+
+#header_navigation {
+	display: none;
+}
+
+#oxford_logo {
+	display: none;
+}
+

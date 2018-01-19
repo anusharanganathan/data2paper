@@ -1,0 +1,245 @@
+ body {
+    font-family: Helvetica, sans-serif;
+    font-size: 83%;
+    padding: 0em;
+    background: #e7e5d8;
+}
+
+h1 {
+    font-size: 1.3em;
+}
+
+a img {
+    border: 0;
+}
+
+.highlight {
+    color: red;
+}
+
+input, .checkbox {
+    border: 1px solid #5599dd;
+}
+
+input:focus {
+    background: #ffc;
+}
+
+ul {
+    margin: 0.1em;
+    padding: 0.1em;
+}
+
+ul li {
+    list-style: none;
+}
+
+div.clear {
+    clear: both;
+    border: 0px !important;
+    background: transparent !important;
+    margin: 0em !important;
+    padding: 0em !important;
+}
+
+span.small_link {
+    font-size: 0.8em;
+}
+
+a {
+    color: blue;
+    cursor: pointer;
+}
+a:hover {
+    background-color: #bbd;
+}
+
+#oxford_logo {
+    float: right;
+    display: inline;
+}
+
+#ora_logo {
+    float: left;
+    display: inline;
+}
+
+div#page_container {
+    width: 72em;
+    margin: 0 auto;
+    border: 1px solid #aaa8a1;
+    padding: 0.1em;
+    background: #fff;
+}
+
+div#link_to_this_search {
+    float: right;
+    display: inline;
+}
+
+#header {
+    border-bottom: 1px solid #aaa8a1;
+}
+
+#footer ul li {
+    font-size: 0.8em;
+    display: inline;
+    padding: 0em 0.5em;
+}
+
+#footer ul li.leftborder {
+    border-left:1px solid #CCCCCC;
+}
+
+p#inline_search {
+    margin-left: 10em;
+    float: left;
+    display: inline;
+    margin-top: 6em;
+}
+
+p#inline_search span input {
+    width: 10em;
+}
+
+#header form {
+    float: left;
+    display: inline;
+}
+
+ul#header_navigation {
+    float:right;
+    display: inline;
+    color: black;
+    line-height: 1.9em;
+    padding: 0.3em 1em;
+    background: #efefef;
+}
+
+ul#header_navigation li a {   
+    text-decoration: none;
+    cursor: pointer;
+}
+
+div#copyright_statement {
+    float: left;
+    display: inline;
+    color: #999;
+}
+
+div#copyright_statement p#browser_compliance {
+    font-size: 0.8em;
+}
+
+dl {
+    line-height: 1.7em;
+    width: 90%;
+    display: inline;
+}
+
+dt {
+    /* font-weight: bold;
+    font-size: 1.2em; */
+    color: #3399ee;
+    
+}
+
+dd {
+    font-weight: normal;
+    color: #565656;
+}
+
+div.response_doc {
+    border-bottom:0.5px solid #999999;
+    margin-bottom:0.5em;
+    padding-bottom:0.5em;
+}
+
+div.response_doc dt {
+    margin-left: 3em;
+}
+
+div#response_message {
+    width: 95%;
+    background-color: #888;
+    font-weight: bold;
+    color: #fff;
+    margin: 0 auto;
+}
+
+div#response_message span {
+    margin: 0.3em 1em;
+}
+div#termsofuse {
+    font-size: 0.8em;
+    padding: 1em;
+}
+div.subheading {
+    font-size: 1.2em;
+    font-weight: bold;
+    border: 0px !important;
+}
+div.right_subheading {
+    font-weight: bold;
+    font-size: 1.5em !important;
+    float: none !important;
+    border: 0px !important;
+    width: auto !important;
+    display: block !important;
+    margin: 0em !important;
+}    
+span.highlighted_page a {
+    color: red !important;
+    font-size: 2em !important;
+}
+div#tinyurl_block {
+    display: inline;
+    width: auto;
+    float: right;
+}
+span.text_label {
+    font-weight: bold;
+    display:block;
+    float:left;
+    /* margin:0.7em;
+    padding:0.3em; */
+    padding-right: 0.3em;
+}
+ul.subject_list li {
+    display: inline;
+    margin: 0.4em;
+    padding: 0.2em;
+}   
+ul.affiliation_list {
+    text-align: right;
+    margin-right: 4em;
+    font-size: 0.9em;
+    margin-top: 0em;
+    margin-bottom: 2em;
+    display: inline;
+}
+
+ul.affiliation_list li {
+    float: left;
+    wi h: 20em;
+}
+
+div#download_list {
+    background: transparent !important;
+    border: 0px !important;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+div#download_list a {
+    background: transparent url(/texticon.png) no-repeat scroll left top;
+    padding-left: 18px;
+}
+
+.lt {
+    float: left;
+}
+
+.rt {
+    float: right;
+}
+
