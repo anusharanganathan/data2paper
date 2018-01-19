@@ -16,8 +16,18 @@ module Hyrax
       super
     end
 
+    def show
+      super
+      status = presenter.solr_document.fetch('status_ssi','')
+      if ['new', 'draft'].include? status
+        # TODO: do not hard code path. The path below redirects to generic_works
+        # redirect_to edit_hyrax_data_paper_path(:id => params[:id])
+        redirect_to "/concern/data_papers/#{params[:id]}/edit?locale=#{params.fetch(:locale, 'en')}"
+      end
+    end
+
     def edit
-      raise CanCan::AccessDenied.new("Not authorized!", :edit, curation_concern) unless curation_concern.status_allows_edit?
+      raise CanCan::AccessDenied.new("Data paper has been submitted!", :edit, curation_concern) unless curation_concern.status_allows_edit?
       curation_concern.status = 'draft'
       super
     end
