@@ -57,7 +57,15 @@ en:
       service_html: A service of <a href="http://samvera.org/" class="navbar-link" target="_blank">Samvera</a>
     admin:
       sidebar:
-        works:        'Data papers'
+        works:        Data papers
+        journals:     Journals
+    base:
+      items:
+        header: Files
+    controls:
+      dashboard: dashboard
+    homepage:
+      dashboard: My dashboard
   helpers:
     action:
       journal:
