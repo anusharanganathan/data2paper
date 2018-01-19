@@ -21,6 +21,11 @@ en:
         required_license:      Select license
         required_agreement:    "Check journals' deposit agreement"
         requirements:          Requirements
+      status:
+        new: New
+        draft: Draft
+        submitted: Submitted
+        pyublished: Published
   simple_form:
     labels:
       data_paper:
