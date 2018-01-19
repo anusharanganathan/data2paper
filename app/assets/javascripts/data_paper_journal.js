@@ -1,10 +1,9 @@
 Blacklight.onLoad(function() {
   $('#data_paper_journal_id').add_license_and_rights();
-  $('#data_paper_journal_id').check_submit_requirements();
   $('#data_paper_journal_id').bind('change', function() {
     $(this).add_license_and_rights();
     $(this).check_journal_requirement();
-    $(this).check_submit_requirements();
+    $('#data-paper-submit-requirements').check_submit_requirements();
   });
 });
 

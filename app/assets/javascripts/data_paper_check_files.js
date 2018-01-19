@@ -1,6 +1,7 @@
 Blacklight.onLoad(function() {
   $('.file_set_add_type').bind('change', function() {
     $(this).check_file_requirement();
+    $('#data-paper-submit-requirements').check_submit_requirements();
   });
 });
 

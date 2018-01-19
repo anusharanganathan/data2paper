@@ -2,7 +2,7 @@ Blacklight.onLoad(function() {
   $('#data_paper_statement_agreed').check_agreement_requirement();
   $('#data_paper_statement_agreed').bind('change', function() {
     $(this).check_agreement_requirement();
-    $(this).check_submit_requirements();
+    $('#data-paper-submit-requirements').check_submit_requirements();
   });
 });
 

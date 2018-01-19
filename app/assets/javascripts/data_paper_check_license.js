@@ -1,7 +1,7 @@
 Blacklight.onLoad(function() {
   $('#data_paper_license_nested_attributes_0_webpage').bind('change', function() {
     $(this).check_license_requirement();
-    $(this).check_submit_requirements();
+    $('#data-paper-submit-requirements').check_submit_requirements();
   });
 });
 
