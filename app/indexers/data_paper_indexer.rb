@@ -35,7 +35,12 @@ class DataPaperIndexer < Hyrax::WorkIndexer
       solr_doc[Solrizer.solr_name('license_nested', :stored_searchable)] = object.license_nested.map { |r| r.webpage.first }.reject(&:blank?)
       solr_doc[Solrizer.solr_name('license_nested', :facetable)] = object.license_nested.map { |r| r.webpage.first }.reject(&:blank?)
       solr_doc[Solrizer.solr_name('license_nested', :displayable)] = object.license_nested.to_json
-
+      # journal
+      if object.journal.present?
+        solr_doc[Solrizer.solr_name('journal_id', :symbol)] = object.journal.id
+        solr_doc[Solrizer.solr_name('journal', :stored_searchable)] = object.journal.title
+        solr_doc[Solrizer.solr_name('journal', :displayable)] = object.journal.to_json
+      end
     end
   end
 end

@@ -47,7 +47,11 @@ class SolrDocument
   end
 
   def statement_agreed
-    self[Solrizer.solr_name('statement_agreed', :stored_sortable)]
+   if self[Solrizer.solr_name('statement_agreed', :stored_sortable)] == '1'
+     'Accepted'
+   else
+     'Not accepted'
+   end
   end
 
   def note
@@ -56,6 +60,10 @@ class SolrDocument
 
   def status
     self[Solrizer.solr_name('status', :stored_sortable)]
+  end
+
+  def journal
+    self[Solrizer.solr_name('journal', :displayable)]
   end
 
   def homepage
