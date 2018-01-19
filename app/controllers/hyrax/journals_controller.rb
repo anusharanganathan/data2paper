@@ -8,6 +8,9 @@ module Hyrax
     include Hyrax::BreadcrumbsForWorks
     self.curation_concern_type = ::Journal
 
+    # Use this line if you want to use a custom presenter
+    self.show_presenter = Hyrax::JournalPresenter
+
     def new
       raise CanCan::AccessDenied.new("Not authorized!", :new, Journal) unless current_user.journal_admin?
       super

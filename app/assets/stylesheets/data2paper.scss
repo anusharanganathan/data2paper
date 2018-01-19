@@ -65,9 +65,17 @@ form .field-wrapper label[required="required"]::after {
   box-shadow: 0 10px 6px -6px #777;
   margin: 20px;
   padding: 20px;
-  background-color: #f4eff4 !important;
+  background-color: #646c7c !important;
   border: 1px solid #ccc;
-  color: #606060;
+  color: #ffffff;
+}
+
+.card a {
+  color: #f9e394;
+}
+
+.card-action {
+  color: #fff !important;
 }
 
 .card-title {
@@ -109,5 +117,8 @@ form .field-wrapper label[required="required"]::after {
 .card-list li {
   margin-bottom: 10px;
 }
-
-/* data paper form */
+/* data paper show */
+.representative-media {
+  max-height: 175px;
+  max-width: 175px;
+}
