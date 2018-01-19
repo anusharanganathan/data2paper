@@ -21,4 +21,38 @@ en:
         required_license:      Select license
         required_agreement:    "Check journals' deposit agreement"
         requirements:          Requirements
+  simple_form:
+    labels:
+      data_paper:
+        title:            "Title"
+        creator_nested:   "Authors"
+        description:      "Abstract"
+        keyword:          "Keyword"
+        subject:          "Subject"
+        date:             "Date"
+        relation:         "Related work"
+        tagged_version:   "Version of work"
+        source:           "Repository"
+        note:             "Note to journal editor"
+        status:           "Status"
+        journal_id:       "Journal for paper publication"
+        license_nested:   "License of published paper"
+        rights_statement: "Journals' deposit agreement"
+        statement_agreed: "Acceptance of the journals' deposit agreement"
+    hints:
+      data_paper:
+        title: "A name that best captions the paper, to aid in identifying the data paper."
+        creator_nested: "The person or group authoring the data paper."
+        description: "An abstract of the data paper."
+        keyword: "Words or phrases you select to describe what the data paper is about. These are used to search for content."
+        date: "The different dates relevant to the data paper."
+        relation: "Details of specific works related to the data paper. An example is arelation to the research data for which the data paper is being written."
+        tagged_version: "The 'version' of the resource being described."
+        source: "The source repository from where the dataset information was transferred."
+        note: "Information you would like to pass on to the journal editor, relevant to this data paper."
+        status: "Status of data paper being composed"
+        journal_id:  "Selected journal for data paper publication"
+        license_nested: "Licensing and distribution information governing access to the data paper, once published by the journal."
+        rights_statement: "The deposit agreemtn laid by the journal, for agreement prior to publication."
+        statement_agreed: "Indicates your acceptance of the journals' deposit agreement"
 
