@@ -20,15 +20,18 @@ class ApplicationController < ActionController::Base
   # Override Devise method to redirect to dashboard after signing in
   def after_sign_in_path_for(resource_or_scope)
     if number_of_works(current_user) > 2
-      new_path = '/dashboard'
+      new_path = '/dashboard/my/works'
     else
       new_path = '/'
     end
+    stored_path = stored_location_for(resource_or_scope)
     if request.env.has_key?('omniauth.origin') and 
       request.env['omniauth.origin'].present? and request.env['omniauth.origin'] != '/'
       request.env['omniauth.origin']
+    elsif stored_path.present? && stored_path.split("?")[0] == '/'
+      new_path
     else
-      stored_location_for(resource_or_scope) || new_path
+      stored_path || new_path
     end
   end
 
@@ -45,7 +48,7 @@ class ApplicationController < ActionController::Base
     #    infinite redirect loop.
     # - The request is an Ajax request as this can lead to very unexpected behaviour.
     def storable_location?
-      request.get? && is_navigational_format? && !devise_controller? && !request.xhr? 
+      request.get? && is_navigational_format? && !devise_controller? && !request.xhr? && !request.fullpath.include?('admin/sign_in')
     end
 
     def store_user_location!
