@@ -16,14 +16,7 @@
     <span class="fa fa-file"></span> <span class="sidebar-action-text"><%= t('hyrax.admin.sidebar.works') %></span>
   <% end %>
 
-  <%
-    locale_query = ''
-    if params['locale'].present?
-      locale_query = '?locale=' + params['locale']
-    end
-    url_list_journals = '/journals' + locale_query
-  %>
-  <%= menu.nav_link(url_list_journals,
+  <%= menu.nav_link(main_app.list_journals_path,
                     also_active_for: hyrax.dashboard_works_path,
                     data: { turbolinks: false }) do %>
     <span class="<%=t('hyrax.icons.journal')%>"></span> <span class="sidebar-action-text"><%= t('hyrax.admin.sidebar.journals') %></span>

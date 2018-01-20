@@ -13,7 +13,7 @@
     <%= select_tag 'file_set[resource_type][]',
       options_for_select(options, file_member.resource_type.first),
       id: "file_set_add_type_#{file_member.id}", class: 'form-control file_set_add_type', 
-      include_blank: true, 'data-action': "/concern/file_sets/#{file_member.id}", 
+      include_blank: true, 'data-action': "#{main_app.hyrax_file_set_path(file_member.id)}",
       'data-name': file_member.first_title %>
   </td>
 </tr>

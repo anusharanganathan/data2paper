@@ -12,15 +12,7 @@
   <% end %>
   
   <% if current_user.journal_admin? %>
-    <%
-      locale_query = ''
-      if params['locale'].present?
-        locale_query = '?locale=' + params['locale']
-      end
-      url_new_journal = '/concern/journals/new' + locale_query
-    %>
-
-    <%= menu.nav_link(url_new_journal) do %>
+    <%= menu.nav_link(main_app.new_hyrax_journal_path) do %>
       <span class="<%=t('hyrax.icons.journal')%>"></span> <span class="sidebar-action-text"><%= t('helpers.action.journal.new') %></span>
     <% end %>
   <% end %>

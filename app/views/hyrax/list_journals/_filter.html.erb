@@ -6,30 +6,21 @@
         active_all = ''
         active_data = ''
         active_other = ''
-        if params.has_key?('f') && params['f'].has_key?('resource_type_sim') 
-          if params['f']['resource_type_sim'].include?('data journal')
-            active_data = 'active'
-          else
-            active_other = 'active'
-          end
+        if current_page?(main_app.list_journals_path(f: {resource_type_sim: ['data journal']}))
+          active_data = 'active'
+        elsif current_page?(main_app.list_journals_path(f: {resource_type_sim: ['journal accepting data papers']}))
+          active_other = 'active'
         else
           active_all = 'active'
         end
-        url_all = '/journals'
-        locale_query_all = ''
-        locale_query = ''
-        if params['locale']
-          locale_query_all = '?locale=' + params['locale']
-          locale_query = '&locale=' + params['locale']
-        end
-        url_all = '/journals'+locale_query_all
-        url_data = '/journals?f[resource_type_sim][]=data journal' + locale_query
-        url_other = '/journals?f[resource_type_sim][]=journal accepting data papers' + locale_query
-        # url_new_journal = '/concern/journals/new?locale=' + params['locale']
       %> 
-      <%= link_to('All', url_all, class: 'btn btn-default' + active_all) %>
-      <%= link_to('Data journals', url_data, class: 'btn btn-default' + active_data) %>
-      <%= link_to('Journal accepting data papers', url_other, class: 'btn btn-default' + active_other) %>
+      <%= link_to('All', main_app.list_journals_path, class: 'btn btn-default' + active_all) %>
+      <%= link_to('Data journals',
+          main_app.list_journals_path(f: {resource_type_sim: ['data journal']}),
+          class: 'btn btn-default' + active_data) %>
+      <%= link_to('Journal accepting data papers',
+          main_app.list_journals_path(f: {resource_type_sim: ['journal accepting data papers']}),
+          class: 'btn btn-default' + active_other) %>
     </div>
     <!--   
     <div class="pull-right">    

@@ -39,7 +39,7 @@
       <%= f.input_field :statement_agreed, as: :boolean %>
       <%= t('hyrax.active_consent_to_agreement') %><br>
       <%= link_to t('hyrax.data_paper.journal_agreement_statement'),
-                  "/concern/journals/#{f.object.journal_id}",
+                  main_app.hyrax_journal_path(f.object.journal_id),
                   target: '_blank' %>
     </label>
     <label id="journal-agreement-missing" class="<%=msg%>">Select journal for journal declaration</label>
