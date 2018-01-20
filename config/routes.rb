@@ -35,7 +35,9 @@ Rails.application.routes.draw do
   resources :list_journals, only: :index, module: 'hyrax', path: '/journals'
 
   require 'sidekiq/web'
-  mount Sidekiq::Web => '/sidekiq'
+  authenticate :user, lambda { |u| u.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 
   namespace :admin do
     get 'sign_in', to: 'sign_in#show'
