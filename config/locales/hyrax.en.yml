@@ -68,6 +68,7 @@ en:
         header: Files
     controls:
       dashboard: dashboard
+      journal:   journals
     homepage:
       dashboard: My dashboard
   helpers:

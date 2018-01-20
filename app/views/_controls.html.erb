@@ -12,6 +12,8 @@
           <%= link_to t(:'hyrax.controls.contact'), hyrax.contact_path %></li>
         <li <%= 'class=active' if current_page?(hyrax.dashboard_path) %>>
           <%= link_to t(:'hyrax.controls.dashboard'), hyrax.dashboard_path %></li>
+        <li <%= 'class=active' if current_page?(main_app.list_journals_path) %>>
+          <%= link_to t(:'hyrax.controls.journal'), main_app.list_journals_path %></li>
       </ul><!-- /.nav -->
       <div class="searchbar-right navbar-right col-sm-7 col-md-6">
         <%= render partial: 'catalog/search_form' %>
