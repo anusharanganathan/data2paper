@@ -172,6 +172,8 @@ GEM
     devise-guests (0.6.0)
       devise
     diff-lcs (1.3)
+    docx_replace (1.2.0)
+      rubyzip (~> 1.2, >= 1.2.1)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
     dropbox-sdk (1.6.5)
@@ -772,6 +774,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   devise-guests (~> 0.6)
+  docx_replace
   factory_girl_rails (~> 4.8.0)
   fcrepo_wrapper
   hydra-role-management
