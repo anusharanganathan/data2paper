@@ -53,9 +53,12 @@ class DataPaper < ActiveFedora::Base
     end
   end
 
+  def creator_names
+    creator_nested.map{|c| c.name.first || [c.first_name.first, c.last_name.first].reject(&:blank?).join(' ')}.reject(&:blank?)
+  end
+
   def has_required_metadata?
-    creators = creator_nested.map{|c| c.name.first || [c.first_name.first, c.last_name.first].reject(&:blank?).join(' ')}.reject(&:blank?)
-    if title.reject(&:blank?).present? and creators.present?
+    if title.reject(&:blank?).present? and creator_names.present?
       true
     else
       false
