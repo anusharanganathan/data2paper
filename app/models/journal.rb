@@ -75,6 +75,23 @@ class Journal < ActiveFedora::Base
   # schema (by adding accepts_nested_attributes)
   include ::Hyrax::BasicMetadata
   include JournalNestedAttributes
+
+  def template_files
+    members.select{|f| f.resource_type == ['data paper template']}
+  end
+
+  def has_template_file?
+    if template_files.present?
+      true
+    else
+      false
+    end
+  end
+
+  def template_file
+    template_files.first || nil
+  end
+
 end
 
 # -----------------------------------------
