@@ -66,6 +66,10 @@ class SolrDocument
     self[Solrizer.solr_name('journal', :displayable)]
   end
 
+  def journal_title
+    self[Solrizer.solr_name('journal', :stored_searchable)].first
+  end
+
   def homepage
     self[Solrizer.solr_name('homepage', :stored_searchable)]
   end

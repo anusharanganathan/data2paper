@@ -1,7 +1,4 @@
 en:
-
-
-
   blacklight:
     search:
       fields:
@@ -69,6 +66,11 @@ en:
     controls:
       dashboard: dashboard
       journal:   journals
+    dashboard:
+      my:
+        heading:
+          status: Status
+          journal: Journal
     homepage:
       dashboard: My dashboard
   helpers:
