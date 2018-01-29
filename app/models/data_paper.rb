@@ -38,7 +38,6 @@ class DataPaper < ActiveFedora::Base
 
   # data paper belongs to journal
   belongs_to :journal, predicate: ::RDF::Vocab::DC.references
-  # TODO: Add type to files model
 
   # This must be included at the end, because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)

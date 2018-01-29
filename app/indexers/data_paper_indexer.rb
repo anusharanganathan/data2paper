@@ -23,9 +23,16 @@ class DataPaperIndexer < Hyrax::WorkIndexer
         end
       end
       # creator
-      creators = object.creator_nested.map { |c| (c.first_name + c.last_name).reject(&:blank?).join(' ') }
-      solr_doc[Solrizer.solr_name('creator_nested', :facetable)] = creators
-      solr_doc[Solrizer.solr_name('creator_nested', :stored_searchable)] = creators
+      creators = []
+      object.creator_nested.each do |c|
+        if c.name.present? and c.name.first.present?
+          creators << c.name.first
+        else
+          creators << (c.first_name + c.last_name).reject(&:blank?).join(' ')
+        end
+      end
+      solr_doc[Solrizer.solr_name('creator_nested', :facetable)] = object.creator_names
+      solr_doc[Solrizer.solr_name('creator_nested', :stored_searchable)] = object.creator_names
       solr_doc[Solrizer.solr_name('creator_nested', :displayable)] = object.creator_nested.to_json
       # relation
       solr_doc[Solrizer.solr_name('relation_url', :facetable)] = object.relation.map { |r| r.url.first }.reject(&:blank?)
