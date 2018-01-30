@@ -483,4 +483,91 @@ RSpec.describe Journal do
     end
   end
 
+  describe 'should return template files' do
+    it 'should identify file of type data paper template' do
+      @f = build(:file_set, resource_type: ['data paper template'])
+      @f2 = build(:file_set, resource_type: ['logo'])
+      @f3 = build(:file_set, resource_type: ['other'])
+      @obj = build(:journal)
+      @obj.members << @f
+      @obj.members << @f2
+      @obj.members << @f3
+      expect(@obj.template_files).to match_array(@f)
+    end
+
+    it 'should identify all file of type data paper template' do
+      @f = build(:file_set, resource_type: ['data paper template'])
+      @f2 = build(:file_set, resource_type: ['logo'])
+      @f3 = build(:file_set, resource_type: ['other'])
+      @f4 = build(:file_set, resource_type: ['data paper template'])
+      @obj = build(:journal)
+      @obj.members << @f
+      @obj.members << @f2
+      @obj.members << @f3
+      @obj.members << @f4
+      expect(@obj.template_files).to match_array([@f, @f4])
+    end
+  end
+
+  describe 'should return check for has template files' do
+    it 'should return true if any one file of type data paper template' do
+      @f = build(:file_set, resource_type: ['supplementary file'])
+      @f2 = build(:file_set, resource_type: ['metadata'])
+      @f3 = build(:file_set, resource_type: ['data paper template'])
+      @obj = build(:journal)
+      @obj.members << @f
+      @obj.members << @f2
+      @obj.members << @f3
+      expect(@obj.has_template_file?).to be true
+    end
+
+    it 'should return false if none od the files are of type data paper template' do
+      @f = build(:file_set, resource_type: ['metadata'])
+      @f2 = build(:file_set, resource_type: ['supplementary file'])
+      @obj = build(:journal)
+      @obj.members << @f
+      @obj.members << @f2
+      expect(@obj.has_template_file?).to be false
+    end
+
+    it 'should return true ifone or more files of type data paper template' do
+      @f = build(:file_set, resource_type: ['data paper template'])
+      @f2 = build(:file_set, resource_type: ['logo'])
+      @f3 = build(:file_set, resource_type: ['other'])
+      @f4 = build(:file_set, resource_type: ['data paper template'])
+      @obj = build(:journal)
+      @obj.members << @f
+      @obj.members << @f2
+      @obj.members << @f3
+      @obj.members << @f4
+      expect(@obj.has_template_file?).to be true
+    end
+  end
+
+  describe 'should return template file' do
+    it 'should return file of type data paper template' do
+      @f = build(:file_set, resource_type: ['data paper template'])
+      @f2 = build(:file_set, resource_type: ['logo'])
+      @f3 = build(:file_set, resource_type: ['other'])
+      @obj = build(:journal)
+      @obj.members << @f
+      @obj.members << @f2
+      @obj.members << @f3
+      expect(@obj.template_file).to eq @f
+    end
+
+    it 'should return first file of type data paper template' do
+      @f = build(:file_set, resource_type: ['data paper template'])
+      @f2 = build(:file_set, resource_type: ['logo'])
+      @f3 = build(:file_set, resource_type: ['other'])
+      @f4 = build(:file_set, resource_type: ['data paper template'])
+      @obj = build(:journal)
+      @obj.members << @f
+      @obj.members << @f2
+      @obj.members << @f3
+      @obj.members << @f4
+      expect(@obj.template_file).to eq @f
+    end
+  end
+
 end
