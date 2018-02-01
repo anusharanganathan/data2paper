@@ -67,7 +67,11 @@ class SolrDocument
   end
 
   def journal_title
-    self[Solrizer.solr_name('journal', :stored_searchable)].first
+    if self[Solrizer.solr_name('journal', :stored_searchable)].present?
+      self[Solrizer.solr_name('journal', :stored_searchable)].first
+    else
+      nil
+    end
   end
 
   def homepage
