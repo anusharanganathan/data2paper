@@ -8,9 +8,9 @@
    * Node.js for javascript runtime
 
 2. Install [Hyrax pre-requisites](https://github.com/samvera/hyrax/#prerequisites)
-   a. Install Redis ```sudo apt-get install redis-server && sudo systemctl enable redis-server.service```
-   b. Install Sqlite ```sudo apt-get install sqlite3 libsqlite3-dev```
-   c. Install Fits
+   1. Install Redis ```sudo apt-get install redis-server && sudo systemctl enable redis-server.service```
+   2. Install Sqlite ```sudo apt-get install sqlite3 libsqlite3-dev```
+   3. Install Fits
       - Download Fits
         ```
         cd /home/appuser 
@@ -43,7 +43,7 @@
         ```
         config.fits_path = "/home/appuser/fits-1.0.5/fits.sh"
         ```
-   d. Install Libre office for derivtaives    
+   4. Install Libre office for derivtaives    
         If ```which soffice``` returns a path, you're done. if not,install libre office    
         ```
         sudo apt install libreoffice-common
@@ -61,7 +61,7 @@ bundle install
 ```
 bundle exec rake db:create
 ```
-* Currently need to change the password in config/database.yml
+    * Currently need to change the password in config/database.yml
 
 
 6. Run the migrations 
@@ -85,12 +85,12 @@ bundle exec rails hyrax:default_admin_set:create
 ```
 
 10. Create an admin user    
-Register a user for data2paper at http://localhost:3000/users/sign_up    
-```
-$ rails c
-admin = Role.create(name: "admin")
-admin.users << User.find_by_user_key( "your_admin_users_email@fake.email.org" )
-admin.save
-```
-Then login using the URL http://localhost:3000/admin/sign_in?locale=en
+    Register a user for data2paper at http://localhost:3000/users/sign_up    
+    ```
+    $ rails c
+    admin = Role.create(name: "admin")
+    admin.users << User.find_by_user_key( "your_admin_users_email@fake.email.org" )
+    admin.save
+    ```
+    Then login using the URL http://localhost:3000/admin/sign_in?locale=en
 
