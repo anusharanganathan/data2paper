@@ -24,4 +24,5 @@
 .rbenv-vars
 /shared/*
 !/shared/.keep
+!/shared/*/.keep
 fits.log
