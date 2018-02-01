@@ -53,36 +53,36 @@
 3. Clone the Data2paper repository
 
 4. Install the gems 
-```
-bundle install
-```
+    ```
+    bundle install
+    ```
 
 5. Create the database 
-```
-bundle exec rake db:create
-```
+   ```
+   bundle exec rake db:create
+   ```
     * Currently need to change the password in config/database.yml
 
 
 6. Run the migrations 
-```
-bundle exec rake db:migrate
-```
+   ```
+   bundle exec rake db:migrate
+   ```
 
 7. Fetch Solr and Fedora and run the application 
-```
-bundle exec rails hydra:server
-```
+    ```
+    bundle exec rails hydra:server
+    ```
 
 8. Start background workers
-```
-sidekiq
-```
+    ```
+    sidekiq
+    ```
 
 9. Create the default admin set
-```
-bundle exec rails hyrax:default_admin_set:create
-```
+    ```
+    bundle exec rails hyrax:default_admin_set:create
+    ```
 
 10. Create an admin user    
     Register a user for data2paper at http://localhost:3000/users/sign_up    
