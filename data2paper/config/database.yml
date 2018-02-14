@@ -1,0 +1,24 @@
+default: &default
+  adapter: postgresql
+  pool: 5
+  timeout: 5000
+  encoding: unicode
+  host: <%= ENV['POSTGRES_HOST'] %>
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+
+
+development:
+  <<: *default
+  database: data2paper_development
+
+
+test:
+  <<: *default
+  database: data2paper_test
+
+
+production:
+  <<: *default
+  database: data2paper_production
+  pool: 48

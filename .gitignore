@@ -26,3 +26,8 @@
 !/shared/.keep
 !/shared/*/.keep
 fits.log
+.idea/
+.env
+data2paper/log/*
+postgres/.env.postgres
+postgres/.env.postgres

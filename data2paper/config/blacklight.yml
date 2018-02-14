@@ -1,0 +1,9 @@
+development:
+  adapter: solr
+  url: <%= ENV['SOLR_DEVELOPMENT_URL'] || 'http://localhost:8983/solr/data2paper-development' %>
+test: &test
+  adapter: solr
+  url: <%= ENV['SOLR_TEST_URL'] || 'http://localhost:8983/solr/data2paper-test' %>
+production:
+  adapter: solr
+  url: <%= ENV['SOLR_PRODUCTION_URL'] || 'http://localhost:8983/solr/data2paper-production' %>

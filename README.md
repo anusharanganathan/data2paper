@@ -2,95 +2,82 @@
 
 ## Steps to install Data2paper
 
-1. [Install Ruby on Rails with rbenv](https://www.digitalocean.com/community/tutorials/how-to-install-ruby-on-rails-with-rbenv-on-ubuntu-16-04)
-   * Installed Ruby 2.4.2 ```rbenv install 2.4.2```
-   * Rails 5.1.4 (Did not run ```echo "gem: --no-document" > ~/.gemrc``` as I didn't want to skip the docs)
-   * Node.js for javascript runtime
+1. Install Docker and Docker Compose following the [installation guide](https://docs.docker.com/compose/install/)
 
-2. Install [Hyrax pre-requisites](https://github.com/samvera/hyrax/#prerequisites)
-   1. Install Redis ```sudo apt-get install redis-server && sudo systemctl enable redis-server.service```
-   2. Install Sqlite ```sudo apt-get install sqlite3 libsqlite3-dev```
-   3. Install Fits
-      - Download Fits
-        ```
-        cd /home/appuser 
-        wget http://projects.iq.harvard.edu/files/fits/files/fits-1.0.5.zip
-        unzip fits-1.0.5.zip
-        ```
-      - Make fits.sh an executable 
-        ```
-        cd fits-1.0.5/
-        chmod a+x fits.sh
-        ```
-      - Test fits.sh -h return a value 
-        ```
-        ./fits.sh -h
-        ```
-      - Add full path for fits.sh to $PATH
-        Add the full path for fits.sh to $PATH
-        ```
-        PATH=/home/appuser/fits-1.0.5/fits.sh:$PATH
-        ```
-        Add this to the file ~/.profile
-        ```
-        vim ~/.profile
-        ```
-        After modifications, my path in the looks like
-        ```
-        PATH="$HOME/bin:$HOME/.local/bin:$PATH:$HOME/fits-1.0.5/fits.sh"
-        ```
-      - Also modify config/initializers/hyrax.rb and set the full path for fits in it
-        ```
-        config.fits_path = "/home/appuser/fits-1.0.5/fits.sh"
-        ```
-   4. Install Libre office for derivtaives    
-        If ```which soffice``` returns a path, you're done. if not,install libre office    
-        ```
-        sudo apt install libreoffice-common
-        ```
-        Test ```which soffice``` returns a path
+2. For Linux-based installs, ensure that Docker Compose does [not require root permissions](https://docs.docker.com/install/linux/linux-postinstall/)
 
-3. Clone the Data2paper repository
-
-4. Install the gems 
-    ```
-    bundle install
+3. Verify that Docker and Docker Compose are running and are recent versions
+    ```bash
+    $ docker -v
+    Docker version 17.12.0-ce, build c97c6d6
     ```
 
-5. Create the database 
-   ```
-   bundle exec rake db:create
-   ```
-    * Currently need to change the password in config/database.yml
-
-
-6. Run the migrations 
-   ```
-   bundle exec rake db:migrate
-   ```
-
-7. Fetch Solr and Fedora and run the application 
-    ```
-    bundle exec rails hydra:server
+    ```bash
+    $ docker-compose -v
+    docker-compose version 1.18.0, build 8dd22a9
     ```
 
-8. Start background workers
+4. Clone the Data2paper repository 
+    ```bash
+    $ git clone https://github.com/anusharanganathan/data2paper.git
+    Cloning into 'data2paper'...
+    remote: Counting objects: 1585, done.
+    remote: Compressing objects: 100% (185/185), done.
+    remote: Total 1585 (delta 283), reused 371 (delta 257), pack-reused 1132
+    Receiving objects: 100% (1585/1585), 579.40 KiB | 1.06 MiB/s, done.
+    Resolving deltas: 100% (850/850), done.
     ```
-    sidekiq
+    Switch to the `refactor` branch
+    ```bash
+    $ cd data2paper
+    $ git checkout refactor
     ```
 
-9. Create the default admin set
-    ```
-    bundle exec rails hyrax:default_admin_set:create
+5. Generate three .env files to set database passwords
+    
+    Create a file `postgres/.env` and specify the master database password, as well as separate database passwords for Data2paper 
+    and Fedora Commons:
+    ```bash
+    # Note: this is the master postgres user's password
+    POSTGRES_USER=postgres
+    POSTGRES_PASSWORD=password
+    
+    # This is the data2paper database user's password
+    DATA2PAPER_PASSWORD=password_d2p
+    
+    # This is the fedora_commons database user's password
+    FEDORA_COMMONS_PASSWORD=password_fc
     ```
 
-10. Create an admin user    
-    Register a user for data2paper at http://localhost:3000/users/sign_up    
+    Create a file `fedora_commons/.env` and specify the same database password for Fedora Commons:
+    ```bash
+    POSTGRES_HOST=postgres
+    POSTGRES_USER=fedora_commons
+    POSTGRES_PASSWORD=password_fc
     ```
-    $ rails c
-    admin = Role.create(name: "admin")
-    admin.users << User.find_by_user_key( "your_admin_users_email@fake.email.org" )
-    admin.save
+    
+    Finally, create a file `data2paper/.env` (i.e. in `data2paper/data2paper/.env`) and specify the data2paper database
+    password and secret key. (A new random secret key can be easily generated using the Rails utility `rake secret` if 
+    you have a working Rails project to hand.)
+    ```bash
+    POSTGRES_HOST=postgres
+    POSTGRES_USER=data2paper
+    POSTGRES_PASSWORD=password_d2p
+    
+    SECRET_KEY_BASE=ac3847e644d0ba45d01d84eeadb411659290340003771d939c523c9a2bf7775b9265f9801c12b11bbeb8e672cc258a50ca39c5b634b0b4bb2b1ededfd542fcd1
     ```
-    Then login using the URL http://localhost:3000/admin/sign_in?locale=en
+
+6. Build the containers (can take 10~30 mins if never built before)
+    ```bash
+    $ docker-compose build
+    ```
+    
+    Run the system:
+    ```bash
+    $ docker-compose run
+    ```
+
+7. Login using the URL http://localhost:3000/admin/sign_in?locale=en
+    
+    The default admin account is: admin@example.com / password
 

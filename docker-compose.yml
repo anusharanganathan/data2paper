@@ -1,0 +1,107 @@
+version: '3'
+
+# These are the PRODUCTION defaults for docker-compose.yml
+# It is intended to be run in production mode via Docker stack, not docker-compose.
+# There are development overrides specified in docker-compose.override.yml, which are intended to be run in docker-compose.
+# In addition, your system should have an environmental variable file, .env, which should be committed to git.
+
+
+services:
+
+  data2paper:
+    image: data2paper/data2paper
+    build:
+      context: data2paper/
+      args:
+        - RAILS_ENV=development
+        - APP_MODE=container
+    env_file:
+      - data2paper/.env
+      - data2paper/.env.default
+    ports:
+      - "3000:3000"
+    depends_on:
+      - fedora
+      - postgres
+      - solr
+      - redis
+    volumes:
+      - ./data2paper:/data2paper/local_mounted
+      - data2paper_setup:/setup
+      - data2paper_derivatives:/data2paper/derivatives
+      - data2paper_uploads:/data2paper/uploads
+    # restart: on-failure
+    deploy:
+      resources:
+        reservations:
+          memory: 500M
+
+
+  data2paper-sidekiq:
+    image: data2paper/data2paper
+    env_file:
+      - data2paper/.env
+      - data2paper/.env.default
+    depends_on:
+      - data2paper
+    volumes:
+      - data2paper_derivatives:/data2paper/derivatives
+      - data2paper_uploads:/data2paper/uploads
+    command: "/data2paper/container/bin/sidekiq.sh"
+    restart: on-failure
+
+
+  postgres:
+    image: postgres:10.2-alpine
+    env_file:
+      - postgres/.env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    restart: on-failure
+    ports:
+      # temporarily allow access to database for development
+      - "5432:5432"
+
+  redis:
+    image: redis:4.0-alpine
+    volumes:
+      - redis_data:/data
+    restart: on-failure
+
+  solr:
+    build:
+      context: solr/
+    volumes:
+      - solr_data:/solr_data
+    restart: on-failure
+    ports:
+      # temporarily allow access to solr for development
+      - "8983:8983"
+
+
+  fedora:
+    image: data2paper/fedora_commons
+    build: fedora_commons/
+    env_file: fedora_commons/.env
+    volumes:
+       - fcrepo4_home:/fcrepo4_home/
+       - fcrepo4_data:/fcrepo4_data/
+    depends_on:
+      - postgres
+    restart: on-failure
+    deploy:
+      resources:
+        reservations:
+          memory: 500M
+
+
+volumes:
+  postgres_data: {}
+  redis_data: {}
+  solr_data: {}
+  fcrepo4_home: {}
+  fcrepo4_data: {}
+  data2paper_uploads: {}
+  data2paper_derivatives: {}
+  data2paper_setup: {}
