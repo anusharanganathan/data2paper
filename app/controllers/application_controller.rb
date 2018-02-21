@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception, unless: :json_request
   before_action :store_user_location!, if: :storable_location?
 
   helper Openseadragon::OpenseadragonHelper
@@ -15,7 +14,7 @@ class ApplicationController < ActionController::Base
 
   with_themed_layout '1_column'
 
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :exception, unless: :json_request
   
   # Override Devise method to redirect to dashboard after signing in
   def after_sign_in_path_for(resource_or_scope)
