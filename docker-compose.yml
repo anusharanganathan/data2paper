@@ -14,7 +14,8 @@ services:
       context: data2paper/
       args:
         - RAILS_ENV=development
-        - APP_MODE=container
+        - APP_MODE=local_mounted
+        #- APP_MODE=container
     env_file:
       - data2paper/.env
       - data2paper/.env.default
@@ -45,6 +46,7 @@ services:
     depends_on:
       - data2paper
     volumes:
+      - ./data2paper:/data2paper/local_mounted
       - data2paper_derivatives:/data2paper/derivatives
       - data2paper_uploads:/data2paper/uploads
     command: "/data2paper/container/bin/sidekiq.sh"

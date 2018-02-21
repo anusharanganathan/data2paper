@@ -30,4 +30,4 @@ fits.log
 .env
 data2paper/log/*
 postgres/.env.postgres
-postgres/.env.postgres
+data2paper/tmp/
