@@ -65,7 +65,8 @@ en:
         header: Files
     controls:
       dashboard: dashboard
-      journal:   journals
+      works: data papers
+      journals:   journals
     dashboard:
       my:
         heading:
@@ -73,6 +74,7 @@ en:
           journal: Journal
     homepage:
       dashboard: My dashboard
+      works: My data papers
   helpers:
     action:
       journal:
