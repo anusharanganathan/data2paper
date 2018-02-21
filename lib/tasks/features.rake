@@ -1,12 +1,19 @@
 namespace :features do
-  desc 'Set a hyrax feature, usage: features:set["key","enabled"]'
-  task :set, [:key, :enabled] => :environment do |task, args|
-    if (args.key.present? && args.enabled.present?)
-      feature = Hyrax::Feature.first_or_initialize(key: args.key)
-      feature.update_attributes!(enabled: args.enabled == 'true')
-      puts "#{feature.key} => #{feature.enabled}"
+  desc 'Set a hyrax feature, usage: features:set["key1:enabled","key2:enabled","key3:enabled"]  (NB: no spaces!)'
+  task :set, [] => :environment do |task, args|
+    if (args.extras.present?)
+      args.extras.each do |feature|
+        key, enabled = feature.split(':')
+        if key.present? and enabled.present?
+          feature = Hyrax::Feature.where(key: key).first_or_initialize
+          feature.update_attributes!(enabled: enabled == 'true')
+          puts "#{feature.key} => #{feature.enabled}"
+        else
+          puts "Warning: ignoring \"#{feature}\""
+        end
+      end
     else
-      abort("ERROR: missing key and enabled")
+      abort("ERROR: missing settings, usage: features:set[\"key1:enabled\",\"key2:enabled\",\"key3:enabled\"]")
     end
   end
 
