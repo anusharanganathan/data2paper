@@ -32,7 +32,7 @@ FROM tomcat:9-alpine
 # The static directories should be baked into the image. The writeable directories should be mounted as volumes.
 # In this case this would result in 3 extra volumes, none of which are particularly useful.
 
-# For this setup, it is easier to make the entire CATALINA_BASE a volume. That means that when the volume is mounted at container
+# For this setup, it is easier to make the entire CATALINA_BASE (APP_HOME) a volume. That means that when the volume is mounted at container
 # start-up, everything done inside CATALINA_BASE in this Dockerfile is going to disappear (unless it's being run on a
 # local developer workstation). All actions that need to be taken inside CATALINA_BASE should be performed in the
 # docker-entrypoint.sh file, not in this Dockerfile.
@@ -44,7 +44,6 @@ FROM tomcat:9-alpine
 # ls -l $CATALINA_BASE
 #   bin -> $FEDORA_CONTAINER_DIR/bin
 #   conf -> $FEDORA_CONTAINER_DIR/conf
-#   lib -> $FEDORA_CONTAINER_DIR/lib
 #   logs
 #   webapps
 #     ROOT.war -> $FEDORA_CONTAINER_DIR/webapps/ROOT.war
@@ -55,45 +54,44 @@ ARG APP_NAME=fedora_commons
 ARG FEDORA_COMMONS_URL=https://github.com/fcrepo4/fcrepo4/releases/download/fcrepo-4.7.2/fcrepo-webapp-4.7.2.war
 
 
-ENV APP_NAME="$APP_NAME" \
-    APP_CONTAINER=/$APP_NAME/container/ \
-    APP_LOCAL_VOLUME=/$APP_NAME/local_volume/
+# $APP_HOME is a volume, to be mounted in the docker-compose file at /fedora_commons/home
+# $APP_DATA is a volume, to be mounted in the docker-compose file at /fedora_commons/data
+# $APP_STATIC is not a volume and is built here. It should not contain changing files.
 
-ENV CATALINA_BASE=$APP_LOCAL_VOLUME
+# Note that: $APP_HOME == $FCREPO4_HOME == $CATALINA_BASE
+
+
+ENV APP_NAME="$APP_NAME" \
+    APP_STATIC="/$APP_NAME/static" \
+    APP_HOME="/$APP_NAME/home" \
+    APP_DATA="/$APP_NAME/data"
+
+
+ENV CATALINA_BASE=$APP_HOME \
+    FCREPO4_HOME=$APP_HOME \
+    FCREPO4_DATA=$APP_DATA
 
 RUN mkdir -p \
-    $APP_CONTAINER \
-    $APP_CONTAINER/bin \
-    $APP_CONTAINER/webapps \
-    $APP_LOCAL_VOLUME \
-    /tmp
-
-
-#
-#ENV FEDORA_CONTAINER_DIR=/fedora_container \
-#
-#
-#    FCREPO4_HOME=/fcrepo4_home \
-#    FCREPO4_DATA=/fcrepo4_data \
-#    CATALINA_BASE=/fcrepo4_home
-#
-#RUN mkdir -p \
-#    $FEDORA_CONTAINER_DIR \
-#    $FEDORA_CONTAINER_DIR/bin \
-#    $FEDORA_CONTAINER_DIR/webapps \
-#    /tmp
+        $APP_STATIC \
+        $APP_STATIC/bin \
+        $APP_STATIC/webapps \
+        $APP_HOME \
+        $APP_DATA \
+        /tmp
 
 
 
 # Tip: downloading large files with "curl -L <URL> -o <file>" (rather than with DOCKER ADD) allows for the files to be fully cached
-RUN apk add --no-cache curl \
-    && curl -L $FEDORA_COMMONS_URL -o $APP_CONTAINER/webapps/ROOT.war
+RUN apk add --no-cache \
+    curl \
+    postgresql-client \
+    && curl -L $FEDORA_COMMONS_URL -o $APP_STATIC/webapps/ROOT.war
 
-COPY conf $APP_CONTAINER/conf
-COPY bin/setenv.sh $APP_CONTAINER/bin/setenv.sh
-COPY bin/docker-entrypoint.sh bin/docker-healthcheck.sh /usr/local/bin/
+COPY conf $APP_STATIC/conf
+COPY bin/setenv.sh $APP_STATIC/bin/setenv.sh
+COPY bin/docker-entrypoint.sh bin/docker-healthcheck.sh bin/wait_for_postgres.sh /bin/
 
 
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+ENTRYPOINT ["/bin/docker-entrypoint.sh"]
 
-HEALTHCHECK --interval=5m CMD ["/usr/local/bin/docker-healthcheck.sh"]
+HEALTHCHECK --interval=5m CMD ["/bin/docker-healthcheck.sh"]

@@ -87,8 +87,8 @@ services:
     build: fedora_commons/
     env_file: fedora_commons/.env
     volumes:
-       - fcrepo4_home:/fcrepo4_home/
-       - fcrepo4_data:/fcrepo4_data/
+       - fedora_home:/fedora_commons/home
+       - fedora_data:/fedora_commons/data
     depends_on:
       - postgres
     restart: on-failure
@@ -102,8 +102,8 @@ volumes:
   postgres_data: {}
   redis_data: {}
   solr_data: {}
-  fcrepo4_home: {}
-  fcrepo4_data: {}
+  fedora_home: {}
+  fedora_data: {}
   data2paper_uploads: {}
   data2paper_derivatives: {}
   data2paper_setup: {}
