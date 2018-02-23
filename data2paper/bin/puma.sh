@@ -39,6 +39,10 @@ else
 
     # Create admin user
     bundle exec rake users:create_admin_user["${ADMIN_EMAIL:-admin@example.com}","${ADMIN_PASSWORD:-password}"]
+
+    # Set hyrax features
+    bundle exec rake features:set["show_deposit_agreement:false","active_deposit_agreement_acceptance:false","assign_admin_set:false","batch_upload:false"]
+
     touch $setup_initialised
 fi
 
