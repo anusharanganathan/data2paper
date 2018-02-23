@@ -41,6 +41,7 @@ en:
         note:             "Note to journal editor"
         status:           "Status"
         journal_id:       "Journal for paper publication"
+        download_template: "Download template"
         license_nested:   "License of published paper"
         rights_statement: "Journals' deposit agreement"
         statement_agreed: "Acceptance of the journals' deposit agreement"
@@ -57,7 +58,8 @@ en:
         note: "Information you would like to pass on to the journal editor, relevant to this data paper."
         status: "Status of data paper being composed"
         journal_id:  "Selected journal for data paper publication"
+        download_template: "The template associated with the journal"
         license_nested: "Licensing and distribution information governing access to the data paper, once published by the journal."
-        rights_statement: "The deposit agreemtn laid by the journal, for agreement prior to publication."
+        rights_statement: "The deposit agreement laid by the journal, for agreement prior to publication."
         statement_agreed: "Indicates your acceptance of the journals' deposit agreement"
 

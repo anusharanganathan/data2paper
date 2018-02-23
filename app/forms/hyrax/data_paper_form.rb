@@ -14,13 +14,13 @@ module Hyrax
 
     self.terms += [:title, :creator_nested, :description, :keyword, :subject,
       :date, :relation, :tagged_version, :source, :note, :status, :journal_id,
-      :license_nested, :rights_statement, :statement_agreed]
+      :download_template, :license_nested, :rights_statement, :statement_agreed]
 
     # :status - auto set and hidden
     # :statement_agreed in sidebar
 
     def journal_terms
-      [:journal_id, :license_nested, :rights_statement, :statement_agreed]
+      [:journal_id, :download_template, :license_nested, :rights_statement, :statement_agreed]
     end
 
     # Fields that are automatically drawn on the page below the fold

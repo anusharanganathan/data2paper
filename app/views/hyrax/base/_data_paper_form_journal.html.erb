@@ -18,6 +18,8 @@
       input_html: { class: 'form-control' },
       prompt: 'Select journal' %>
 
+<%= render_edit_field_partial(:download_template, f: f) %>
+
 <%= render_edit_field_partial(:license_nested, f: f) %>
 
 <%= render_edit_field_partial(:rights_statement, f: f) %>

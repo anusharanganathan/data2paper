@@ -10,6 +10,7 @@
 <%= presenter.attribute_to_html(:note, label: t('simple_form.labels.data_paper.note') )%>
 <%= presenter.attribute_to_html(:status, label: t('simple_form.labels.data_paper.status')) %>
 <%= presenter.attribute_to_html(:journal, render_as: :journal, label: t('simple_form.labels.data_paper.journal')) %>
+<%= presenter.attribute_to_html(:download_template, render_as: :download_template, label: t('simple_form.labels.data_paper.download_template')) %>
 <%= presenter.attribute_to_html(:license_nested, render_as: :nested_license, label: t('simple_form.labels.data_paper.license_nested')) %>
 <%= presenter.attribute_to_html(:rights_statement, label: t('simple_form.labels.data_paper.rights_statement')) %>
 <%= presenter.attribute_to_html(:statement_agreed, label: t('simple_form.labels.data_paper.statement_agreed')) %>
