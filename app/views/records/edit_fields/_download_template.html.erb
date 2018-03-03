@@ -1,5 +1,4 @@
 <p>
-  <a data-turbolinks="false" title="Download template" target="_blank" id="download_template" class="btn btn-info" href="template">
-    Download template
-  </a>
+  <% url = "/concern/data_papers/#{curation_concern.id}/template" %>
+  <button id="download_template" class="btn btn-info" data-action="<%=url%>">Download template</button>
 </p>

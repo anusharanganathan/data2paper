@@ -2,6 +2,17 @@ module Hyrax
   class DataPaperTemplateController < Hyrax::DownloadsController
 
     def show
+      send_template
+    end
+
+    def generate
+      data_paper.update_attributes(params.require(:data_paper).permit(*permitted_params))
+      send_template
+    end
+
+    private
+
+    def send_template
       if buildable?
         # the template exists and is in a supported format - go ahead and build it
         send_attachment_with_headers(build_populated_template, template_file_built_name)
@@ -14,9 +25,6 @@ module Hyrax
         render_404
       end
     end
-
-
-    private
 
     def data_paper
       @data_paper ||= DataPaper.find(params[:id])
@@ -123,6 +131,28 @@ module Hyrax
       response.headers['Accept-Ranges'] = 'bytes'
       response.headers['Content-Length'] = data.length
       send_data data, filename: filename, disposition: 'attachment', type: mime_type_for(filename)
+    end
+
+    def permitted_params
+      return [
+        { title: [] },
+        { description: [] },
+        { subject: [] },
+        { keyword: [] },
+        :journal_id,
+        { creator_nested_attributes: [
+          :id,
+          :_destroy,
+          {
+            first_name: [],
+            last_name: [],
+            name: [],
+            orcid: [],
+            role: [],
+            affiliation: []
+          },
+        ]}
+      ]
     end
 
   end
