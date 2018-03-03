@@ -6,7 +6,7 @@ module Hyrax
     end
 
     def generate
-      data_paper.update_attributes(params.require(:data_paper).permit(*permitted_params))
+      update_data_paper
       send_template
     end
 
@@ -32,6 +32,45 @@ module Hyrax
 
     def data_paper?
       data_paper.present?
+    end
+
+    def update_data_paper
+      new_data_paper = DataPaper.new
+      new_data_paper.id = 'new2new3new'
+      if data_paper?
+        new_data_paper.title = @data_paper.title
+        new_data_paper.description = @data_paper.description
+        new_data_paper.journal = @data_paper.journal
+        new_data_paper.subject = @data_paper.subject
+        new_data_paper.keyword = @data_paper.keyword
+        new_data_paper.creator_nested = @data_paper.creator_nested
+        new_data_paper.creator_nested.each do |c|
+          c.id.sub! @data_paper.uri.to_s, new_data_paper.uri.to_s
+        end
+      end
+      puts '1. ----------------------------'
+      new_data_paper.creator_nested.each do |c|
+        puts c.id
+      end
+      params_permitted = params.require(:data_paper).permit(*permitted_params)
+      puts '2. ----------------------------'
+      puts params_permitted
+      puts '3. ----------------------------'
+      params_permitted.fetch("creator_nested_attributes", {}).each do |k,c|
+      # params_permitted.fetch(:nested_creator_attributes, {}).each do |c|
+        # c.id.sub! @data_paper.uri.to_s, new_data_paper.uri.to_s
+        c[:id].sub! @data_paper.uri.to_s, new_data_paper.uri.to_s
+      end
+      params_permitted.fetch("creator_nested_attributes", {}).each do |k,c|
+      # params_permitted.fetch(:nested_creator_attributes, {}).each do |c|
+        puts c
+        # puts c[:id]
+      end
+      puts '4. ----------------------------'
+      puts params_permitted
+      puts '----------------------------'
+      new_data_paper.update_attributes(params_permitted)
+      @data_paper = new_data_paper
     end
 
     def journal
