@@ -124,19 +124,14 @@ RSpec.describe DataPaper do
       @obj = build(:data_paper,  creator_nested_attributes: [{
           first_name: 'Foo',
           last_name: 'Bar',
+          name: 'Hello world',
           orcid: '0000-0000-0000-0000',
           affiliation: 'Author affiliation',
           role: 'Author'
-        },
-        {
-          name: 'Hello world',
-          orcid: '0001-0001-0001-0001',
-          role: 'Author'
         }]
       )
-      expect(@obj.creator_nested.size).to eq(2)
+      expect(@obj.creator_nested.size).to eq(1)
       expect(@obj.creator_nested[0]).to be_kind_of ActiveTriples::Resource
-      expect(@obj.creator_nested[1]).to be_kind_of ActiveTriples::Resource
     end
 
     it 'has the correct uri' do
@@ -154,32 +149,28 @@ RSpec.describe DataPaper do
     it 'rejects person if first name, last name or name is blank' do
       @obj = build(:data_paper, creator_nested_attributes: [
         {
-          name: 'Foo Bar',
           first_name: 'Foo',
           last_name: 'Bar'
-        },
-        {
-          first_name: 'Foo'
-        },
-        {
-          last_name: 'Bar',
-        },
-        {
+        }, {
+          name: 'Foo Bar',
+        }, {
           name: 'Foo Bar',
           role: 'Author',
           orcid: '0000-0000-0000-0000',
-        },
-        {
+        }, {
+          first_name: 'Foo'
+        }, {
+          last_name: 'Bar',
+        }, {
           orcid: '0000-0000-0000-0000',
           role: 'Creator'
-        },
-        {
+        }, {
           first_name: '',
           last_name: nil,
           role: 'Author'
         }
       ])
-      expect(@obj.creator_nested.size).to eq(4)
+      expect(@obj.creator_nested.size).to eq(5)
     end
 
     #it 'rejects person if orcid is blank' do

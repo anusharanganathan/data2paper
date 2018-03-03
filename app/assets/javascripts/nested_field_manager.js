@@ -163,6 +163,8 @@ var NestedFieldManager = function () {
             var $activeField = $(event.target).parents(this.fieldWrapperClass);
             $activeField.find(this.removeInputClass).val('1');
             $activeField.hide();
+            $(event.target).check_field_requirement();
+            $('#data-paper-submit-requirements').check_submit_requirements();
             this._manageFocus();
         }
     }]);
