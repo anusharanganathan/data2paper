@@ -41,6 +41,7 @@ module Hyrax
          {
            first_name: [],
            last_name: [],
+           name: [],
            orcid: [],
            role: [],
            affiliation: []
