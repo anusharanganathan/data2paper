@@ -20,14 +20,16 @@
     </tbody>
   </table>
 <% end %>
-<div id="file_resource_type" class="hidden">
-  <%
-    if curation_concern.class == ::Journal
-      options = JournalFileTypesService.select_all_options
-    else
-      options = DataPaperFileTypesService.select_all_options
-    end
-  %>
+<%
+  if curation_concern.class == ::Journal
+    key = 'journal'
+    options = JournalFileTypesService.select_all_options
+  else
+    key = 'data_paper'
+    options = DataPaperFileTypesService.select_all_options
+  end
+%>
+<div id="file_resource_type" class="hidden" data-key="<%=key%>">
   <%= select_tag '#',
     options_for_select(options),
     prompt: 'Select type',
