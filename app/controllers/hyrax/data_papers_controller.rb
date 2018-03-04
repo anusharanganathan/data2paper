@@ -7,7 +7,11 @@ module Hyrax
     include Hyrax::WorksControllerBehavior
     include Hyrax::BreadcrumbsForWorks
 
-    Hyrax::CurationConcern.actor_factory.swap Hyrax::Actors::CreateWithFilesActor, Hyrax::Actors::CreateWithFilesAndTypesActor
+    begin
+      Hyrax::CurationConcern.actor_factory.swap Hyrax::Actors::CreateWithFilesActor, Hyrax::Actors::CreateWithFilesAndTypesActor
+    rescue RuntimeError => e
+      Rails.logger.warn "Could not swap CreateWithFilesActor"
+    end
 
     self.curation_concern_type = ::DataPaper
 

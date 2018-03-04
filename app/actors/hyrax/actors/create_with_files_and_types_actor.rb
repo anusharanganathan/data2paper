@@ -26,6 +26,7 @@ module Hyrax
 
         def filter_file_types(input)
           file_types = {}
+          return file_types unless input.present?
           input.values.each do |val|
             if val.fetch('file_id', []).first
               file_types[val.fetch('file_id', []).first] = val.fetch('file_type', []).first

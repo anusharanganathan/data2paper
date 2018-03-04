@@ -101,7 +101,7 @@ module Hyrax
         permitted << { relation_attributes: permitted_relation_params }
         permitted << { license_nested_attributes: permitted_license_params }
         permitted << :journal_id
-        permitted << {uploaded_file_types: permitted_file_types}
+        permitted << { uploaded_file_types: permitted_file_types }
         permitted
       end
 
