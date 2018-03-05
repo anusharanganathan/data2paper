@@ -122,3 +122,13 @@ form .field-wrapper label[required="required"]::after {
   max-height: 175px;
   max-width: 175px;
 }
+
+.download_template {
+  padding: 20px 0px 20px 20px;
+  background-color: #eee;
+  margin-bottom: 20px;
+}
+
+.download_template a {
+  margin-right: 30px;
+}

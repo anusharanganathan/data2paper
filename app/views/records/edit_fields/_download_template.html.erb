@@ -1,4 +1,18 @@
-<p>
-  <% url = "/concern/data_papers/#{curation_concern.id}/template" %>
-  <a href="#" id="download_template" class="btn btn-info" data-action="<%=url%>">Download template</a>
-</p>
+<%
+  template_url = '#'
+  if curation_concern.journal.has_template_file?
+    template_url = "/downloads/#{curation_concern.journal.template_file.id}"
+  end
+  url = "/concern/data_papers/#{curation_concern.id}/template"
+%>
+<div class="download_template">
+  <div>
+    <a href="<%=template_url%>" id="download_original" class="btn btn-primary" data-action="<%=url%>">Download original template</a>
+    <a href="<%=url%>" id="download_template" class="btn btn-primary" data-action="<%=url%>">Download pre-filled template</a>
+  </div>
+  <div class="template_status"></div>
+  <div class="waiting">
+    <%= image_tag("ellipsis-1.5s-75px-1.gif") %> <br/>
+    <span class="small">Image by <a href="https://loading.io/spinner/ellipsis">https://loading.io/spinner/ellipsis</a></span>
+  </div>
+</div>

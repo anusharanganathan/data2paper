@@ -2,10 +2,16 @@ module Hyrax
   class DataPaperTemplateController < Hyrax::DownloadsController
 
     def show
+      if params.fetch('journal', nil).present? && @journal.id != params['journal']
+        reset_variables
+        @journal = Journal.find(params['journal']) if params.fetch('journal', nil).present?
+      end
       send_template
     end
 
     def generate
+      # Update the data paper with the posted parameters
+      # (in a new data paper object) and generate the template
       new_data_paper
       send_template
     end
@@ -134,7 +140,7 @@ module Hyrax
 
     def send_attachment_with_headers(data, filename)
       response.headers['Accept-Ranges'] = 'bytes'
-      response.headers['Content-Length'] = data.length
+      response.headers['Content-Length'] = data.length.to_s
       send_data data, filename: filename, disposition: 'attachment', type: mime_type_for(filename)
     end
 
