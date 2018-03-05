@@ -1,1 +1,6 @@
-<%= f.input :rights_statement, as: :multi_value, input_html: { rows: '4', type: 'textarea', readonly: 'readonly'}, required: f.object.required?(key) %>
+<% if f.object.multiple? key %>
+  <%= f.input :rights_statement, as: :multi_value, input_html: { rows: '4', type: 'textarea', readonly: 'readonly'}, required: f.object.required?(key) %>
+<% else %>
+  <%= f.input :rights_statement, as: :text, input_html: { rows: '4', readonly: 'readonly' }, required: f.object.required?(key) %>
+<% end %>
+
