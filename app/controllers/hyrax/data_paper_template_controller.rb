@@ -6,7 +6,7 @@ module Hyrax
     end
 
     def generate
-      update_data_paper
+      new_data_paper
       send_template
     end
 
@@ -32,30 +32,6 @@ module Hyrax
 
     def data_paper?
       data_paper.present?
-    end
-
-    def update_data_paper
-      new_data_paper = DataPaper.new
-      new_data_paper.id = 'new2new3new'
-      if data_paper?
-        new_data_paper.title = @data_paper.title
-        new_data_paper.description = @data_paper.description
-        new_data_paper.journal = @data_paper.journal
-        new_data_paper.subject = @data_paper.subject
-        new_data_paper.keyword = @data_paper.keyword
-        new_data_paper.creator_nested = @data_paper.creator_nested
-        new_data_paper.creator_nested.each do |c|
-          c.id.sub! @data_paper.uri.to_s, new_data_paper.uri.to_s
-        end
-      end
-      params_permitted = params.require(:data_paper).permit(*permitted_params)
-      params_permitted.fetch("creator_nested_attributes", {}).each do |k,c|
-        if c.fetch('id', nil).present?
-          c['id'].sub!(@data_paper.uri.to_s, new_data_paper.uri.to_s)
-        end
-      end
-      new_data_paper.update_attributes(params_permitted)
-      @data_paper = new_data_paper
     end
 
     def journal
@@ -160,6 +136,48 @@ module Hyrax
       response.headers['Accept-Ranges'] = 'bytes'
       response.headers['Content-Length'] = data.length
       send_data data, filename: filename, disposition: 'attachment', type: mime_type_for(filename)
+    end
+
+    def new_data_paper
+      @new_data_paper = DataPaper.new
+      @new_data_paper.id = 'new2new3new'
+      copy_data_paper
+      update_new_data_paper_attributes
+    end
+
+    def copy_data_paper
+      if data_paper?
+        @new_data_paper.title = @data_paper.title
+        @new_data_paper.description = @data_paper.description
+        @new_data_paper.journal = @data_paper.journal
+        @new_data_paper.subject = @data_paper.subject
+        @new_data_paper.keyword = @data_paper.keyword
+        @new_data_paper.creator_nested = @data_paper.creator_nested
+        @new_data_paper.creator_nested.each do |c|
+          c.id.sub! @data_paper.uri.to_s, @new_data_paper.uri.to_s
+        end
+      end
+    end
+
+    def update_new_data_paper_attributes
+      params_permitted = params.require(:data_paper).permit(*permitted_params)
+      params_permitted.fetch("creator_nested_attributes", {}).each do |k,c|
+        if c.fetch('id', nil).present?
+          c['id'].sub!(@data_paper.uri.to_s, @new_data_paper.uri.to_s)
+        end
+      end
+      @new_data_paper.update_attributes(params_permitted)
+      @data_paper = @new_data_paper
+      reset_variables
+    end
+
+    def reset_variables
+      @journal = nil
+      @template_file = nil
+      @template_file_reader = nil
+      @template_file_original_name = nil
+      @template_file_built_name = nil
+      @build_populated_template = nil
     end
 
     def permitted_params
