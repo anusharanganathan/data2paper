@@ -2,10 +2,6 @@ module Hyrax
   class DataPaperTemplateController < Hyrax::DownloadsController
 
     def show
-      if params.fetch('journal', nil).present? && @journal.id != params['journal']
-        reset_variables
-        @journal = Journal.find(params['journal']) if params.fetch('journal', nil).present?
-      end
       send_template
     end
 
@@ -22,7 +18,6 @@ module Hyrax
       if buildable?
         # the template exists and is in a supported format - go ahead and build it
         send_attachment_with_headers(build_populated_template, template_file_built_name)
-
       elsif template_file_reader? && template_file_original_name?
         # there is a template file but its not a supported file type, so just pass it through
         send_attachment_with_headers(template_file_reader.content, template_file_original_name)
@@ -41,7 +36,12 @@ module Hyrax
     end
 
     def journal
-      @journal ||= data_paper.journal if data_paper?
+      if params.fetch('journal', nil).present?
+        @journal ||= Journal.find(params['journal'])
+      else
+        @journal ||= data_paper.journal if data_paper?
+      end
+      @journal
     end
 
     def journal?
@@ -53,7 +53,7 @@ module Hyrax
     end
 
     def template_file?
-      journal.has_template_file?
+      journal? && journal.has_template_file?
     end
 
     def template_file_reader
@@ -94,12 +94,7 @@ module Hyrax
     end
 
     def authorize_download!
-      
-      if template_file?
-        authorize! :download, template_file.id
-      else
-        render_404
-      end
+      authorize! :download, template_file.id if template_file?
       rescue CanCan::AccessDenied
         redirect_to [main_app, hyrax_data_paper_path(params[:id])]
     end

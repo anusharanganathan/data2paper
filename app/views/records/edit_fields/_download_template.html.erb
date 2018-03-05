@@ -7,8 +7,10 @@
 %>
 <div class="download_template">
   <div>
-    <a href="<%=template_url%>" id="download_original" class="btn btn-primary" data-action="<%=url%>">Download original template</a>
-    <a href="<%=url%>" id="download_template" class="btn btn-primary" data-action="<%=url%>">Download pre-filled template</a>
+    <a href="<%=template_url%>" id="download_original" class="btn btn-primary" data-action="<%=url%>" 
+      data-turbolinks="false" title="Download original template" target="_blank">Download original template</a>
+    <a href="<%=url%>" id="download_template" class="btn btn-primary" data-action="<%=url%>" data-turbolinks="false" 
+      title="Download pre-filled template" target="_blank">Download pre-filled template</a>
   </div>
   <div class="template_status"></div>
   <div class="waiting">
