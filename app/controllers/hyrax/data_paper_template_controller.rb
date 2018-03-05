@@ -48,27 +48,12 @@ module Hyrax
           c.id.sub! @data_paper.uri.to_s, new_data_paper.uri.to_s
         end
       end
-      puts '1. ----------------------------'
-      new_data_paper.creator_nested.each do |c|
-        puts c.id
-      end
       params_permitted = params.require(:data_paper).permit(*permitted_params)
-      puts '2. ----------------------------'
-      puts params_permitted
-      puts '3. ----------------------------'
       params_permitted.fetch("creator_nested_attributes", {}).each do |k,c|
-      # params_permitted.fetch(:nested_creator_attributes, {}).each do |c|
-        # c.id.sub! @data_paper.uri.to_s, new_data_paper.uri.to_s
-        c[:id].sub! @data_paper.uri.to_s, new_data_paper.uri.to_s
+        if c.fetch('id', nil).present?
+          c['id'].sub!(@data_paper.uri.to_s, new_data_paper.uri.to_s)
+        end
       end
-      params_permitted.fetch("creator_nested_attributes", {}).each do |k,c|
-      # params_permitted.fetch(:nested_creator_attributes, {}).each do |c|
-        puts c
-        # puts c[:id]
-      end
-      puts '4. ----------------------------'
-      puts params_permitted
-      puts '----------------------------'
       new_data_paper.update_attributes(params_permitted)
       @data_paper = new_data_paper
     end
@@ -86,7 +71,7 @@ module Hyrax
     end
 
     def template_file?
-      template_file.present?
+      journal.has_template_file?
     end
 
     def template_file_reader
@@ -127,9 +112,14 @@ module Hyrax
     end
 
     def authorize_download!
-      authorize! :download, template_file.id
-    rescue CanCan::AccessDenied
-      redirect_to [main_app, hyrax_data_paper_path(params[:id])]
+      
+      if template_file?
+        authorize! :download, template_file.id
+      else
+        render_404
+      end
+      rescue CanCan::AccessDenied
+        redirect_to [main_app, hyrax_data_paper_path(params[:id])]
     end
 
     def build_populated_template
