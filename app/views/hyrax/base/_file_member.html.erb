@@ -2,6 +2,7 @@
   <td class="attribute filename"><%= link_to(file_member.first_title,
   ::Hyrax::ContextualPath.new(file_member, file_member.parent).show) %></td>
   <td class="attribute date_uploaded"><%= file_member.date_uploaded.to_time.strftime('%d/%m/%Y') %></td>
+  <td class="attribute file_actions"><%= render 'file_member_actions', file_set: file_member %></td>
   <td>
     <%
       if file_member.parent.class == ::Journal
