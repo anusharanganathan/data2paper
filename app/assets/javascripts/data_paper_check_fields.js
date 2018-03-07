@@ -7,10 +7,6 @@ Blacklight.onLoad(function() {
     $(this).check_field_requirement();
     $('#data-paper-submit-requirements').check_submit_requirements();
   });
-  $('.remove').bind('click', function() {
-    $(this).check_field_requirement();
-    $('#data-paper-submit-requirements').check_submit_requirements();
-  });
 });
 
 (function($){
@@ -25,8 +21,6 @@ Blacklight.onLoad(function() {
     var has_creator = false;
     $('.data_paper_creator_name').each(function() {
       if ($(this).val() && $(this).closest( 'li' ).is(':visible')) {
-        // alert($(this).closest( 'li' ).css('display'));
-        // alert('value is ' + $(this).val());
         has_creator = true;
       }
     });

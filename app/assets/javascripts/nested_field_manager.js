@@ -163,8 +163,11 @@ var NestedFieldManager = function () {
             var $activeField = $(event.target).parents(this.fieldWrapperClass);
             $activeField.find(this.removeInputClass).val('1');
             $activeField.hide();
-            $(event.target).check_field_requirement();
-            $('#data-paper-submit-requirements').check_submit_requirements();
+            // For creator fields check metadata requirements
+            $(event.target).closest('ul').has('.data_paper_creator_name').each(function() {
+              $(event.target).check_field_requirement();
+              $('#data-paper-submit-requirements').check_submit_requirements();
+            });
             this._manageFocus();
         }
     }]);
