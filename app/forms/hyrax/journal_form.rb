@@ -64,11 +64,21 @@ module Hyrax
         ]
       end
 
+      def self.permitted_file_types
+        [
+          {
+            file_id: [],
+            file_type: []
+          }
+        ]
+      end
+
       def self.build_permitted_params
         permitted = super
         permitted << { contact_attributes: permitted_contact_params }
         permitted << { date_attributes: permitted_date_params }
         permitted << { account_attributes: permitted_account_params }
+        permitted << { uploaded_file_types: permitted_file_types }
         permitted
       end
 
