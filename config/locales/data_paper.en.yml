@@ -10,6 +10,7 @@ en:
       form:
         tab:
           journal: Journal & license
+      processing_files: "Any recently uplaoded files are being processed in the background. You may need to refresh this page to see these files."
     data_paper:
       journal_agreement_statement: "Journal's deposit agreement"
       progress:
