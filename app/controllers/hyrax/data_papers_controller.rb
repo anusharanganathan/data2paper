@@ -6,6 +6,13 @@ module Hyrax
     # Adds Hyrax behaviors to the controller.
     include Hyrax::WorksControllerBehavior
     include Hyrax::BreadcrumbsForWorks
+
+    begin
+      Hyrax::CurationConcern.actor_factory.swap Hyrax::Actors::CreateWithFilesActor, Hyrax::Actors::CreateWithFilesAndTypesActor
+    rescue RuntimeError => e
+      Rails.logger.warn "Could not swap CreateWithFilesActor"
+    end
+
     self.curation_concern_type = ::DataPaper
 
     # Use this line if you want to use a custom presenter

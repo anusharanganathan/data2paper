@@ -1,0 +1,20 @@
+<div class="file_member_actions">
+  <% if can?(:download, file_set.id) %>
+      <a href="<%=url_for( hyrax.download_path(file_set))%>" title="Download <%=file_set%>" 
+        target="_blank"><span class="sr-only">Download</span><span class="fa fa-download"></span></a>
+  <% end %>
+
+  <% if can?(:edit, file_set.id) %>
+      <a href="<%=url_for(edit_polymorphic_path([main_app, file_set]))%>" 
+        title="Edit <%=file_set%>"><span class="sr-only">Edit</span><span class="fa fa-edit"></span></a>
+      <a href="<%=url_for(edit_polymorphic_path([main_app, file_set]))%>#versioning_display" 
+        title="Display previous versions"><span class="sr-only">Previous versions</span><span class="fa fa-copy"></span></a>
+  <% end %>
+
+  <% if can?(:destroy, file_set.id) %>
+    <% confirm = "Deleting #{file_set} from #{application_name} is permanent. Click OK to delete this from #{application_name}, or Cancel to cancel this operation" %>
+      <a href="<%=url_for(polymorphic_path([main_app, file_set]))%>" data-method="delete" title="Delete <%=file_set%>" 
+        data-confirm="<%confirm=%>"><span class="sr-only">Delete</span><span class="fa fa-trash"></span></a>
+  <% end %>
+</div>
+

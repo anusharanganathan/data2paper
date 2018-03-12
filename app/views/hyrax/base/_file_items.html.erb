@@ -1,4 +1,5 @@
-<h2>Set file type</h2>
+<h2>Manage files</h2>
+<div class="alert alert-info"><%= t('hyrax.works.processing_files') %></div>
 <div class="alert alert-success alert-dismissable" id="file_set_add_alert" role="alert" style="display: none;">
   <button type="button" class="close" aria-label="Close" 
     onclick="document.getElementById('file_set_add_alert').style.display='none';return false;">
@@ -6,13 +7,13 @@
   </button>
   <span class="message"></span>
 </div>
-<p>Recently uploaded files will only appear here after saving the record</p>
 <% if curation_concern.members.present? %>
   <table class="table table-striped related-files">
     <thead>
       <tr>
         <th><%= t('.title') %></th>
         <th><%= t('.date_uploaded') %></th>
+        <th><%= t('.file_actions') %></th>
         <th><%= t('.type') %></th>
       </tr>
     </thead>
@@ -21,3 +22,20 @@
     </tbody>
   </table>
 <% end %>
+<%
+  if curation_concern.class == ::Journal
+    key = 'journal'
+    options = JournalFileTypesService.select_all_options
+  else
+    key = 'data_paper'
+    options = DataPaperFileTypesService.select_all_options
+  end
+%>
+<div id="file_resource_type" class="hidden" data-key="<%=key%>">
+  <%= select_tag '#',
+    options_for_select(options),
+    prompt: 'Select type',
+    class: 'file_resource_type_select',
+    id: ''
+  %>
+</div>

@@ -85,6 +85,15 @@ module Hyrax
         ]
       end
 
+      def self.permitted_file_types
+        [
+          {
+            file_id: [],
+            file_type: []
+          }
+        ]
+      end
+
       def self.build_permitted_params
         permitted = super
         permitted << { creator_nested_attributes: permitted_creator_params }
@@ -92,6 +101,7 @@ module Hyrax
         permitted << { relation_attributes: permitted_relation_params }
         permitted << { license_nested_attributes: permitted_license_params }
         permitted << :journal_id
+        permitted << { uploaded_file_types: permitted_file_types }
         permitted
       end
 
