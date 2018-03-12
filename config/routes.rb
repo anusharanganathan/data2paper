@@ -35,7 +35,6 @@ Rails.application.routes.draw do
   resources :list_journals, only: :index, module: 'hyrax', path: '/journals'
 
   get '/concern/data_papers/:id/template', to: 'hyrax/data_paper_template#show'
-  patch '/concern/data_papers/:id/template', to: 'hyrax/data_paper_template#generate'
 
   require 'sidekiq/web'
   authenticate :user, lambda { |u| u.admin? } do
