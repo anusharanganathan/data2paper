@@ -88,8 +88,8 @@ module Hyrax
 
     def authorize_download!
       authorize! :download, template_file.id if template_file?
-      rescue CanCan::AccessDenied
-        redirect_to [main_app, hyrax_data_paper_path(params[:id])]
+    rescue CanCan::AccessDenied
+      redirect_to [main_app, hyrax_data_paper_path(params[:id])]
     end
 
     def build_populated_template
