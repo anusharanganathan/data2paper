@@ -1,4 +1,5 @@
 <h2>Manage files</h2>
+<div class="alert alert-info"><%= t('hyrax.works.processing_files') %></div>
 <div class="alert alert-success alert-dismissable" id="file_set_add_alert" role="alert" style="display: none;">
   <button type="button" class="close" aria-label="Close" 
     onclick="document.getElementById('file_set_add_alert').style.display='none';return false;">
@@ -12,6 +13,7 @@
       <tr>
         <th><%= t('.title') %></th>
         <th><%= t('.date_uploaded') %></th>
+        <th><%= t('.file_actions') %></th>
         <th><%= t('.type') %></th>
       </tr>
     </thead>

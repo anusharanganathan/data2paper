@@ -1,13 +1,15 @@
-  <li class="h5"><%= t('hyrax.admin.sidebar.repository_objects') %></li>
+  <!-- <li class="h5"><%#= t('hyrax.admin.sidebar.repository_objects') %></li> -->
   <% if can? :manage_any, AdminSet %>
     <%= menu.nav_link(hyrax.admin_admin_sets_path) do %>
       <span class="fa fa-sitemap"></span> <span class="sidebar-action-text"><%= t('hyrax.admin.sidebar.admin_sets') %></span>
     <% end %>
   <% end %>
 
-  <%= menu.nav_link(hyrax.my_collections_path,
+  <% if current_user.admin? %>
+    <%= menu.nav_link(hyrax.my_collections_path,
                     also_active_for: hyrax.dashboard_collections_path) do %>
     <span class="fa fa-folder-open"></span> <span class="sidebar-action-text"><%= t('hyrax.admin.sidebar.collections') %></span>
+    <% end %>
   <% end %>
 
   <%= menu.nav_link(hyrax.my_works_path,
