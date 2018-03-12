@@ -10,6 +10,8 @@ en:
       form:
         tab:
           journal: Journal & license
+        save_metadata: "If you have made any changes to the <a href=\"#metadata\">descriptions</a>, save the form to see the new values in the pre-filled template."
+      processing_files: "Any recently uplaoded files are being processed in the background. You may need to refresh this page to see these files."
     data_paper:
       journal_agreement_statement: "Journal's deposit agreement"
       progress:

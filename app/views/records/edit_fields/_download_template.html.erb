@@ -1,12 +1,13 @@
 <%
   template_url = '#'
-  if curation_concern.journal.has_template_file?
+  if curation_concern.has_required_journal? && curation_concern.journal.has_template_file?
     template_url = "/downloads/#{curation_concern.journal.template_file.id}"
   end
   url = "/concern/data_papers/#{curation_concern.id}/template"
 %>
 <div class="download_template">
-  <div>
+  <div class="alert alert-info"><%=raw t('hyrax.works.form.save_metadata')%></div>
+  <div class="download_buttons">
     <a href="<%=template_url%>" id="download_original" class="btn btn-primary" data-action="<%=url%>" 
       data-turbolinks="false" title="Download original template" target="_blank">Download original template</a>
     <a href="<%=url%>" id="download_template" class="btn btn-primary" data-action="<%=url%>" data-turbolinks="false" 

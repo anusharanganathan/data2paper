@@ -19,7 +19,7 @@
     end
   end
 
-  @journal_group = {'data journal' => @data_journals, 'journal accepting data papers' => @combined_journals, 'other journal' => @other_journals}
+  @journal_group = {'Data journals' => @data_journals, 'Journals accepting data papers' => @combined_journals, 'Other destinations' => @other_journals}
 %>
 <%= f.input :journal_id, as: :grouped_select,
       include_blank: false,

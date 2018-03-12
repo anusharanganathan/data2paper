@@ -45,6 +45,21 @@ form .field-wrapper label[required="required"]::after {
   display: none;
 }
 
+// template download
+.download_template {
+  padding: 20px 0px 20px 20px;
+  background-color: #eee;
+  margin-bottom: 20px;
+}
+
+.download_template .alert {
+  margin: 0px 20px 20px 0px;
+}
+
+.download_buttons a {
+  margin-right: 30px;
+}
+
 /* Journal gallery */
 .gallery-journal .media-body {
   padding-top: 10px;
