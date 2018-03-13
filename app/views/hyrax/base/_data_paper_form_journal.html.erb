@@ -1,15 +1,25 @@
 <% 
-  @data_journals = Journal.all
-    .select{|journal| journal.resource_type == ['data journal']}
-    .map{|j| [j.title.first, j.id, {
-      'data-supported_license' => j.supported_license.to_a.to_json,
-      'data-declaration_statement' => j.declaration_statement.join('\n')}]}
-  @other_journals = Journal.all
-    .select{|journal| journal.resource_type == ['journal accepting data papers']}
-    .map{|j| [j.title.first, j.id, {
-      'data-supported_license' => j.supported_license.to_a.to_json, 
-      'data-declaration_statement' => j.declaration_statement.join('\n')}]} 
-  @journal_group = {'data journal' => @data_journals, 'journal accepting data papers' => @other_journals}
+  @data_journals = []
+  @combined_journals = []
+  @other_journals = []
+  Journal.all.each do |journal|
+    template_file_id = '#'
+    template_file_id = journal.template_file.id if journal.has_template_file?
+    row = [ journal.title.first, journal.id, {
+      'data-supported_license' => journal.supported_license.to_a.to_json,
+      'data-declaration_statement' => journal.declaration_statement.join('\n'),
+      'data-has_template' => journal.has_template_file?.to_json,
+      'data-template_file' => template_file_id }]
+    if journal.resource_type.include? 'data journal'
+      @data_journals << row
+    elsif journal.resource_type.include? 'journal accepting data papers'
+      @combined_journals << row
+    else
+      @other_journals << row
+    end
+  end
+
+  @journal_group = {'Data journals' => @data_journals, 'Journals accepting data papers' => @combined_journals, 'Other destinations' => @other_journals}
 %>
 <%= f.input :journal_id, as: :grouped_select,
       include_blank: false,

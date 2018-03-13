@@ -2,10 +2,15 @@ module Hyrax
   class DataPaperTemplateController < Hyrax::DownloadsController
 
     def show
+      send_template
+    end
+
+    private
+
+    def send_template
       if buildable?
         # the template exists and is in a supported format - go ahead and build it
         send_attachment_with_headers(build_populated_template, template_file_built_name)
-
       elsif template_file_reader? && template_file_original_name?
         # there is a template file but its not a supported file type, so just pass it through
         send_attachment_with_headers(template_file_reader.content, template_file_original_name)
@@ -14,9 +19,6 @@ module Hyrax
         render_404
       end
     end
-
-
-    private
 
     def data_paper
       @data_paper ||= DataPaper.find(params[:id])
@@ -27,7 +29,12 @@ module Hyrax
     end
 
     def journal
-      @journal ||= data_paper.journal if data_paper?
+      if params.fetch('journal', nil).present?
+        @journal ||= Journal.find(params['journal'])
+      else
+        @journal ||= data_paper.journal if data_paper?
+      end
+      @journal
     end
 
     def journal?
@@ -39,7 +46,7 @@ module Hyrax
     end
 
     def template_file?
-      template_file.present?
+      journal? && journal.has_template_file?
     end
 
     def template_file_reader
@@ -80,7 +87,7 @@ module Hyrax
     end
 
     def authorize_download!
-      authorize! :download, template_file.id
+      authorize! :download, template_file.id if template_file?
     rescue CanCan::AccessDenied
       redirect_to [main_app, hyrax_data_paper_path(params[:id])]
     end
@@ -121,7 +128,7 @@ module Hyrax
 
     def send_attachment_with_headers(data, filename)
       response.headers['Accept-Ranges'] = 'bytes'
-      response.headers['Content-Length'] = data.length
+      response.headers['Content-Length'] = data.length.to_s
       send_data data, filename: filename, disposition: 'attachment', type: mime_type_for(filename)
     end
 

@@ -52,13 +52,17 @@ form .field-wrapper label[required="required"]::after {
   margin-bottom: 20px;
 }
 
-.download_template a {
+.download_template .alert {
+  margin: 0px 20px 20px 0px;
+}
+
+.download_buttons a {
   margin-right: 30px;
 }
 
 // file members
-.file_member_actions .fa {
-  margin-right: 15px;
+.file_member_actions a {
+  margin-right: 10px;
 }
 
 /* Journal gallery */

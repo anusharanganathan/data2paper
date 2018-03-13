@@ -1,7 +1,7 @@
 Blacklight.onLoad(function() {
-  $('#data_paper_journal_id').add_license_and_rights();
+  $('#data_paper_journal_id').add_download_license_and_rights();
   $('#data_paper_journal_id').bind('change', function() {
-    $(this).add_license_and_rights();
+    $(this).add_download_license_and_rights();
     $(this).check_journal_requirement();
     $('#data-paper-submit-requirements').check_submit_requirements();
   });
@@ -9,10 +9,19 @@ Blacklight.onLoad(function() {
 
 (function($){
 
-  $.fn.add_license_and_rights = function(option) {
+  $.fn.add_download_license_and_rights = function(option) {
     return this.each(function() {
       var $this = $(this);
       var selected = $this.find(":selected");
+      // Add download option or hide if no template
+      var has_template = selected.data('has_template');
+      var template = selected.data('template_file');
+      if (has_template === true) {
+        $('.download_template').show();
+        $('#download_original').attr("href", "/downloads/" + template);
+      } else {
+        $('.download_template').hide();
+      }
       // Add supported_licenses to license drop down
       var supported_licenses = selected.data('supported_license');
       var licenseElement = $('#data_paper_license_nested_attributes_0_webpage');
