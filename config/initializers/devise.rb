@@ -274,10 +274,12 @@ Devise.setup do |config|
   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
-  ORCID_CALLBACK_URL = 'https://dev.data2paper.org/users/auth/orcid/callback'
+  ORCID_CALLBACK_URL = 'https://' + ENV['HOST'] + '/users/auth/orcid/callback'
+  CLIENT_ID = ENV['ORCID_CLIENT_ID']
+  CLIENT_SECRET = ENV['ORCID_CLIENT_SECRET']
   config.omniauth :orcid,
-    "APP-WP9H736KG6ZGTEP1",
-    "b3e9a39c-a679-4948-9b2a-22f0bf6e4c66",
+    CLIENT_ID,
+    CLIENT_SECRET,
     {
     :authorize_params => {:scope => '/orcid-profile/read-limited'},
     :provider_ignores_state => true,
