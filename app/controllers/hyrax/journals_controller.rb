@@ -1,5 +1,6 @@
 # Generated via
 #  `rails generate hyrax:work Journal`
+require 'scholix_importer'
 
 module Hyrax
   class JournalsController < ApplicationController
@@ -22,6 +23,16 @@ module Hyrax
       raise CanCan::AccessDenied.new("Not authorized!", :new, Journal) unless current_user.journal_admin?
       super
       curation_concern.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
+    end
+
+    def show
+      super
+      if presenter.title.present?
+        publisher = presenter.title.first.downcase
+        publisher[0] = publisher[0].capitalize
+        s = ScholixImporter.new()
+        @publications = s.linksFromPublishers(publisher)
+      end
     end
 
     def create
