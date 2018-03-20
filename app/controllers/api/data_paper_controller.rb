@@ -56,6 +56,7 @@ module API
           user.uid = params['orcid']
           user.orcid = params['orcid']
           user.email = "#{params['orcid']}@example.com"
+          user.password = Devise.friendly_token[0,20]
           user.save!
         end
 
