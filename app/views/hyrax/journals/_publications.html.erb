@@ -1,0 +1,22 @@
+<% if publications %>
+  <div class="publications">
+    <h3>Latest Publications</h3>
+    <ul>
+    <% publications.each do |pub| %>
+      <% path = :target %>
+      <% if pub.dig(:source, :type) == 'publication' %>
+        <% path = :source %>
+      <% end %>
+      <li>
+        <p><%=pub.dig(path, :title)%></p>
+        <% pub.dig(path, :identifiers).each do |id| %>
+          <% if id.fetch(:display, nil) and id.fetch(:uri, nil) %>
+            <p><a href="<%=id.fetch(:uri)%>" target="_blank"><%=id.fetch(:display)%></a></p>
+          <% elsif id.fetch(:display, nil) %>
+            <p><%=id.fetch(:display)%></p>
+          <% end %>
+        <% end %>
+      </li>
+    <% end %>
+  </div>
+<% end %>

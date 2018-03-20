@@ -1,0 +1,39 @@
+<% if @publications.present? %>
+  <h3>Publication relating to dataset</h3>
+  <div class="publications"> 
+  <ul>
+  <% @publications.each do |pub| %>
+    <li>
+      <% pub_path = :target %>
+      <% if pub.dig(:source, :type) == 'publication' %>
+        <% pub_path = :source %>
+      <% end %>
+      <h4>Publication</h4>
+      <p><%=pub.dig(pub_path, :title)%></p>
+      <% pub.dig(pub_path, :identifiers).each do |id| %>
+        <% if id.fetch(:display, nil) and id.fetch(:uri, nil) %>
+          <p><a href="<%=id.fetch(:uri)%>" target="_blank"><%=id.fetch(:display)%></a></p>
+        <% elsif id.fetch(:display, nil) %>
+          <p><%=id.fetch(:display)%></p>
+        <% end %>
+      <% end %>
+      <% dataset_path = :source %>
+      <% if pub.dig(:target, :type) == 'dataset' %>
+        <% dataset_path = :target %>
+      <% end %>
+      <h4>Dataset</h4>
+      <p><%=pub.dig(dataset_path, :title)%></p>
+      <% pub.dig(dataset_path, :identifiers).each do |id| %>
+        <% if id.fetch(:display, nil) and id.fetch(:uri, nil) %>
+          <p><a href="<%=id.fetch(:uri)%>" target="_blank"><%=id.fetch(:display)%></a></p>
+        <% elsif id.fetch(:display, nil) %>
+          <p><%=id.fetch(:display)%></p>
+        <% end %>
+      <% end %>
+    </li>
+  <% end %>
+  </ul>
+  </div>
+<% else %>
+  <p>Submit a dataset pid to see the related publications</p>
+<% end %>

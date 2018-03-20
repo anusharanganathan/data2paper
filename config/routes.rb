@@ -43,6 +43,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get 'sign_in', to: 'sign_in#show'
+    get 'fetch_publication', to: 'fetch_publication#show'
   end
 
 
