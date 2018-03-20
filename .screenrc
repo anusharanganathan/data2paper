@@ -1,5 +1,0 @@
-autodetach on 
-hardstatus on
-hardstatus alwayslastline 
-# hardstatus string '%{wk}%?%-Lw%?%{=b kR}(%{W}%n*%f %t%?(%u)%?%{=b kR})%{= w}%?%+Lw%?%? %{g}]'
-hardstatus string "%w"
