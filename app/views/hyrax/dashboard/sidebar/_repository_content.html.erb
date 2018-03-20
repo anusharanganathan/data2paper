@@ -5,7 +5,7 @@
     <% end %>
   <% end %>
 
-  <% if current_user.admin? %>
+  <% if current_user and current_user.admin? %>
     <%= menu.nav_link(hyrax.my_collections_path,
                     also_active_for: hyrax.dashboard_collections_path) do %>
     <span class="fa fa-folder-open"></span> <span class="sidebar-action-text"><%= t('hyrax.admin.sidebar.collections') %></span>
