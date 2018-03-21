@@ -1,4 +1,4 @@
-<% 
+<%
   @data_journals = []
   @combined_journals = []
   @other_journals = []
@@ -19,7 +19,7 @@
     end
   end
 
-  @journal_group = {'Data journals' => @data_journals, 'Journals accepting data papers' => @combined_journals, 'Other destinations' => @other_journals}
+  @journal_group = {'Data journals' => @data_journals, 'Journals accepting data papers' => @combined_journals, 'Other destinations' => @other_journals}.delete_if { |k, v| v.blank? }
 %>
 <%= f.input :journal_id, as: :grouped_select,
       include_blank: false,
