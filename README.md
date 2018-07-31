@@ -65,6 +65,7 @@
     POSTGRES_PASSWORD=password_d2p
     
     SECRET_KEY_BASE=ac3847e644d0ba45d01d84eeadb411659290340003771d939c523c9a2bf7775b9265f9801c12b11bbeb8e672cc258a50ca39c5b634b0b4bb2b1ededfd542fcd1
+    HOST=data2paper.org
     ```
 
 6. Build the containers (can take 10~30 mins if never built before)
