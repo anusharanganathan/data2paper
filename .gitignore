@@ -31,3 +31,10 @@ fits.log
 data2paper/log/*
 postgres/.env.postgres
 data2paper/tmp/
+deploy/terraform.tfvars
+deploy/*.plan
+deploy/.terraform
+deploy/data2paper_tf
+deploy/data2paper_tf.pub
+deploy/*.tfstate
+deploy/*.tfstate.backup
