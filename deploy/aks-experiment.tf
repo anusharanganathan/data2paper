@@ -55,3 +55,77 @@ output "kube_config" {
 output "host" {
   value = "${azurerm_kubernetes_cluster.k8s.kube_config.0.host}"
 }
+
+provider "kubernetes" {
+  host                   = "${azurerm_kubernetes_cluster.k8s.kube_config.0.host}"
+  # username               = "${azurerm_kubernetes_cluster.k8s.kube_config.0.username}"
+  # password               = "${azurerm_kubernetes_cluster.k8s.kube_config.0.password}"
+  client_certificate     = "${base64decode(azurerm_kubernetes_cluster.k8s.kube_config.0.client_certificate)}"
+  client_key             = "${base64decode(azurerm_kubernetes_cluster.k8s.kube_config.0.client_key)}"
+  cluster_ca_certificate = "${base64decode(azurerm_kubernetes_cluster.k8s.kube_config.0.cluster_ca_certificate)}"
+}
+
+resource "kubernetes_pod" "test_pod" {
+  metadata {
+    name = "terraform-test-pod"
+    labels {
+      app = "MyApp"
+    }
+  }
+
+  spec {
+    container {
+      image = "nginx:1.7.9"
+      name  = "test-container"
+    }
+  }
+}
+
+resource "kubernetes_service" "test_service" {
+  metadata {
+    name = "terraform-test-service"
+  }
+  spec {
+    selector {
+      app = "${kubernetes_pod.test_pod.metadata.0.labels.app}"
+    }
+    session_affinity = "ClientIP"
+    port {
+      port = 80
+      target_port = 80
+    }
+
+    type = "LoadBalancer"
+  }
+}
+
+resource "kubernetes_pod" "redis_pod" {
+  metadata {
+    name = "terraform-redis-pod"
+    labels {
+      app = "Redis"
+    }
+  }
+
+  spec {
+    container {
+      image = "redis:4.0-alpine"
+      name  = "redis-container"
+    }
+  }
+}
+
+resource "kubernetes_service" "redis_service" {
+  metadata {
+    name = "terraform-redis-service"
+  }
+  spec {
+    selector {
+      app = "${kubernetes_pod.redis_pod.metadata.0.labels.app}"
+    }
+    port {
+      port = 6379
+      target_port = 6379
+    }
+  }
+}
