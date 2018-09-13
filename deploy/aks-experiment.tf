@@ -126,6 +126,10 @@ resource "kubernetes_pod" "redis_pod" {
     container {
       image = "redis:4.0-alpine"
       name  = "redis-container"
+      volume_mount {
+        mount_path = "/data"
+        name = "redis-volume"
+      }
     }
     volume {
       name = "redis-volume"
