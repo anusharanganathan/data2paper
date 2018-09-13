@@ -48,12 +48,36 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   }
 }
 
+resource "azurerm_container_registry" "data2paperACRlive" {
+  name                = "data2paperACRlive"
+  resource_group_name = "${azurerm_resource_group.k8s.name}"
+  location            = "${azurerm_resource_group.k8s.location}"
+  admin_enabled       = true
+  sku                 = "Basic"
+}
+
 output "kube_config" {
   value = "${azurerm_kubernetes_cluster.k8s.kube_config_raw}"
 }
 
 output "host" {
   value = "${azurerm_kubernetes_cluster.k8s.kube_config.0.host}"
+}
+
+output "acr_login_server" {
+  value = "${azurerm_container_registry.data2paperACRlive.login_server}"
+}
+
+output "acr_username" {
+  value = "${azurerm_container_registry.data2paperACRlive.admin_username}"
+}
+
+output "acr_password" {
+  value = "${azurerm_container_registry.data2paperACRlive.admin_password}"
+}
+
+output "acr_info" {
+  value = "export ACR_LOGIN_SERVER=\"${azurerm_container_registry.data2paperACRlive.login_server}\"\nexport ACR_USER=\"${azurerm_container_registry.data2paperACRlive.admin_username}\"\nexport ACR_PASS=\"${azurerm_container_registry.data2paperACRlive.admin_password}\""
 }
 
 provider "kubernetes" {
