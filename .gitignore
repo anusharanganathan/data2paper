@@ -38,3 +38,4 @@ deploy/data2paper_tf
 deploy/data2paper_tf.pub
 deploy/*.tfstate
 deploy/*.tfstate.backup
+deploy/acr.sh
