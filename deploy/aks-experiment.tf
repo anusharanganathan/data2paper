@@ -65,6 +65,21 @@ provider "kubernetes" {
   cluster_ca_certificate = "${base64decode(azurerm_kubernetes_cluster.k8s.kube_config.0.cluster_ca_certificate)}"
 }
 
+resource "kubernetes_persistent_volume_claim" "redis_pvc" {
+  metadata {
+    name = "terraform-redis-pvc"
+  }
+  spec {
+    access_modes = ["ReadWriteOnce"]
+    resources {
+      requests {
+        storage = "5Gi"
+      }
+    }
+    storage_class_name = "managed-premium"
+  }
+}
+
 resource "kubernetes_pod" "test_pod" {
   metadata {
     name = "terraform-test-pod"
@@ -112,6 +127,12 @@ resource "kubernetes_pod" "redis_pod" {
       image = "redis:4.0-alpine"
       name  = "redis-container"
     }
+    volume {
+      name = "redis-volume"
+      persistent_volume_claim {
+        claim_name = "${kubernetes_persistent_volume_claim.redis_pvc.metadata.0.name}"
+      }
+    }
   }
 }
 
@@ -129,20 +150,4 @@ resource "kubernetes_service" "redis_service" {
     }
   }
 }
-
-resource "kubernetes_persistent_volume_claim" "redis_pvc" {
-  metadata {
-    name = "terraform-redis-pvc"
-  }
-  spec {
-    access_modes = ["ReadWriteOnce"]
-    resources {
-      requests {
-        storage = "5Gi"
-      }
-    }
-    storage_class_name = "managed-premium"
-  }
-}
-
 
