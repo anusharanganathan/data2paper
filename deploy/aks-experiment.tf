@@ -129,3 +129,20 @@ resource "kubernetes_service" "redis_service" {
     }
   }
 }
+
+resource "kubernetes_persistent_volume_claim" "redis_pvc" {
+  metadata {
+    name = "terraform-redis-pvc"
+  }
+  spec {
+    access_modes = ["ReadWriteOnce"]
+    resources {
+      requests {
+        storage = "5Gi"
+      }
+    }
+    storage_class_name = "managed-premium"
+  }
+}
+
+
