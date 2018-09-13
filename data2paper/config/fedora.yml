@@ -1,15 +1,15 @@
 development:
   user: fedoraAdmin
   password: fedoraAdmin
-  url: <%= ENV['FEDORA_DEVELOPMENT_URL'] || 'http://localhost:8080/rest' %>
+  url: <%= ENV['FEDORA_DEVELOPMENT_URL'] || 'http://localhost:8080/fcrepo/rest' %>
   base_path: <%=ENV['FEDORA_DEVELOPMENT_PATH'] || '/data2paper' %>
 test:
   user: fedoraAdmin
   password: fedoraAdmin
-  url: <%= ENV['FEDORA_TEST_URL'] || 'http://localhost:8080/rest' %>
+  url: <%= ENV['FEDORA_TEST_URL'] || 'http://localhost:8080/fcrepo/rest' %>
   base_path: <%=ENV['FEDORA_TEST_PATH'] || '/data2paper-test' %>
 production:
   user: fedoraAdmin
   password: fedoraAdmin
-  url: <%= ENV['FEDORA_PRODUCTION_URL'] || 'http://localhost:8080/rest' %>
+  url: <%= ENV['FEDORA_PRODUCTION_URL'] || 'http://localhost:8080/fcrepo/rest' %>
   base_path: <%=ENV['FEDORA_PRODUCTION_PATH'] || '/data2paper' %>

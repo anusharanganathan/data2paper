@@ -54,12 +54,12 @@ services:
 
 
   postgres:
-    image: postgres:10.2-alpine
+    build:
+      context: postgres/
     env_file:
       - postgres/.env
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     restart: on-failure
     ports:
       # temporarily allow access to database for development
@@ -83,26 +83,20 @@ services:
 
 
   fedora:
-    image: data2paper/fedora_commons
-    build: fedora_commons/
-    env_file: fedora_commons/.env
+    image: cbeer/fcrepo4:4.7
+    expose:
+      - 8080
     volumes:
-       - fedora_home:/fedora_commons/home
-       - fedora_data:/fedora_commons/data
-    depends_on:
-      - postgres
-    restart: on-failure
-    deploy:
-      resources:
-        reservations:
-          memory: 500M
-
+      - fedora_data:/data
+    environment:
+      - JAVA_OPTS=${JAVA_OPTS} -Dfcrepo.modeshape.configuration="classpath:/config/file-simple/repository.json" -Dfcrepo.object.directory="/data/objects" -Dfcrepo.binary.directory="/data/binaries"
+    ports:
+      - "8080:8080"
 
 volumes:
   postgres_data: {}
   redis_data: {}
   solr_data: {}
-  fedora_home: {}
   fedora_data: {}
   data2paper_uploads: {}
   data2paper_derivatives: {}

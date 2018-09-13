@@ -1,9 +1,9 @@
 #!/bin/bash
 
 if [ "$RAILS_ENV" = "production" ]; then
-    FEDORA_BASE_URL=$(echo "$FEDORA_PRODUCTION_URL" | cut -d'/' -f1,2,3)
+    FEDORA_BASE_URL=$(echo "$FEDORA_PRODUCTION_URL" | cut -d'/' -f1,2,3,4)
 else
-    FEDORA_BASE_URL=$(echo "$FEDORA_DEVELOPMENT_URL" | cut -d'/' -f1,2,3)
+    FEDORA_BASE_URL=$(echo "$FEDORA_DEVELOPMENT_URL" | cut -d'/' -f1,2,3,4)
 fi
 
 
