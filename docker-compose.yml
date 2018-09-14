@@ -88,8 +88,8 @@ services:
       - 8080
     volumes:
       - fedora_data:/data
-    environment:
-      - JAVA_OPTS=${JAVA_OPTS} -Dfcrepo.modeshape.configuration="classpath:/config/file-simple/repository.json" -Dfcrepo.object.directory="/data/objects" -Dfcrepo.binary.directory="/data/binaries"
+    env_file:
+      - fedora.env
     ports:
       - "8080:8080"
 

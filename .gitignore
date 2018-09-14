@@ -28,10 +28,11 @@
 fits.log
 .idea/
 .env
+fedora.env
 data2paper/log/*
 postgres/.env.postgres
 data2paper/tmp/
-deploy/terraform.tfvars
+*.tfvars
 deploy/*.plan
 deploy/.terraform
 deploy/data2paper_tf

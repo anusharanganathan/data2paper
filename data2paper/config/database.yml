@@ -4,8 +4,8 @@ default: &default
   timeout: 5000
   encoding: unicode
   host: <%= ENV['POSTGRES_HOST'] %>
-  username: <%= ENV['POSTGRES_USER'] %>
-  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  username: <%= ENV['POSTGRES_D2P_USER'] %>
+  password: <%= ENV['POSTGRES_D2P_PASSWORD'] %>
 
 
 development:
