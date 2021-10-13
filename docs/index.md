@@ -1,4 +1,7 @@
-# ![data2paper logo](/images/logo_150.png)     Data2paper
+| ![data2paper logo](/images/logo_150.png) | Data2paper |
+| ---------------------------------------- | ---------: |
+
+----
 
 
 
