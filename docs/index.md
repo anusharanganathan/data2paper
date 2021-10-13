@@ -26,5 +26,5 @@ Part of Jisc’s Research Data Spring initiative, data2Paper completed  Phase 4 
 
 If you are interested in learning about the work we did, email us.        
 
-[contact us](mailto:contact@example.com?subject=[data2paper])
+[contact us](mailto:anusha@cottagelabs.com?subject=[data2paper])
 
